@@ -4,7 +4,10 @@ import Home from "./views/Home.vue";
 import Leaderboard from "./views/Leaderboard.vue";
 import Explore from "./views/Explore.vue";
 import Settings from "./views/Settings.vue";
+import Login from "./views/Login.vue";
+import Meta from "vue-meta";
 
+Vue.use(Meta);
 Vue.use(Router);
 
 export default new Router({
@@ -30,6 +33,11 @@ export default new Router({
       path: "/settings",
       name: "Settings",
       component: Settings
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: Login
     },
     {
       path: "/about",
