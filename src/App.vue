@@ -92,17 +92,27 @@
       <v-btn icon>
         <v-icon>apps</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>notifications</v-icon>
-      </v-btn>
-      <v-btn icon large>
+      <v-menu bottom left>
+        <v-btn slot="activator" icon>
+          <v-icon>more_vert</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.path">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+      <!-- <v-btn icon large>
         <v-avatar size="32px" tile>
           <img
             src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
             alt="Vuetify"
           />
         </v-avatar>
-      </v-btn>
+      </v-btn> -->
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -185,7 +195,7 @@ export default {
       { icon: "search", text: "Explore", path: "/r/memes" },
       { icon: "list", text: "Leaderboard", path: "/leaderboard" },
       { icon: "exit_to_app", text: "Login", path: "/login" },
-      { icon: "person_add", text: "Sign Up", path: "/signup" },
+      { icon: "person_add", text: "Sign Up", path: "/signup" }
 
       // {
       //   icon: 'keyboard_arrow_up',
@@ -209,6 +219,8 @@ export default {
       //     { text: 'Other contacts' }
       //   ]
       // },
+    ],
+    menu: [
       { icon: "settings", text: "Settings", path: "/settings" },
       { icon: "chat_bubble", text: "Send feedback", path: "/feedback" },
       { icon: "help", text: "Help", path: "/help" }

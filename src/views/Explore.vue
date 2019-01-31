@@ -4,7 +4,7 @@
       <v-flex v-for="meme in memes" :key="meme.id" xs12 md4 d-flex>
         <v-card flat tile>
           <v-img
-            :src="meme.thumbnail"
+            :src="meme.url"
             :lazy-src="meme.thumbnail"
             aspect-ratio="1"
             class="grey lighten-2"
@@ -25,11 +25,14 @@
           </v-img>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>favorite</v-icon>
+            <!-- <v-btn icon>
+              <v-icon>add</v-icon>
             </v-btn>
             <v-btn icon>
-              <v-icon>bookmark</v-icon>
+              <v-icon>remove</v-icon>
+            </v-btn> -->
+            <v-btn icon>
+              <v-icon>favorite</v-icon>
             </v-btn>
             <v-btn icon>
               <v-icon>share</v-icon>
