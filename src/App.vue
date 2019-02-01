@@ -20,7 +20,21 @@
       fixed
       app
     >
-      <v-list>
+      <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img :src="this.user.avatar" />
+            </v-list-tile-avatar>
+            <span>coins: {{ this.user.coins }}</span>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ this.user.username }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-list class="pt-0">
+        <v-divider></v-divider>
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" row align-center>
             <v-flex xs6>
@@ -105,18 +119,11 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <!-- <v-btn icon large>
-        <v-avatar size="32px" tile>
-          <img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Vuetify"
-          />
-        </v-avatar>
-      </v-btn> -->
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
+          <p>is logged in: {{ this.isLoggedIn }}</p>
           <router-view />
         </v-layout>
       </v-container>
@@ -185,7 +192,27 @@
 </template>
 
 <script>
+import { AUTHENTICATE } from "@/store/auth.module";
+
 export default {
+  mounted() {
+    if (!this.isLoggedIn) {
+      this.authenticate();
+    }
+  },
+  methods: {
+    authenticate() {
+      this.$store.dispatch(AUTHENTICATE);
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+    user() {
+      return this.$store.getters.currentUser;
+    }
+  },
   data: () => ({
     title: "Meme Exchange",
     dialog: false,
@@ -196,36 +223,11 @@ export default {
       { icon: "list", text: "Leaderboard", path: "/leaderboard" },
       { icon: "exit_to_app", text: "Login", path: "/login" },
       { icon: "person_add", text: "Sign Up", path: "/signup" }
-
-      // {
-      //   icon: 'keyboard_arrow_up',
-      //   'icon-alt': 'keyboard_arrow_down',
-      //   text: 'Labels',
-      //   model: true,
-      //   children: [
-      //     { icon: 'add', text: 'Create label' }
-      //   ]
-      // },
-      // {
-      //   icon: 'keyboard_arrow_up',
-      //   'icon-alt': 'keyboard_arrow_down',
-      //   text: 'More',
-      //   model: false,
-      //   children: [
-      //     { text: 'Import' },
-      //     { text: 'Export' },
-      //     { text: 'Print' },
-      //     { text: 'Undo changes' },
-      //     { text: 'Other contacts' }
-      //   ]
-      // },
     ],
     menu: [
       { icon: "settings", text: "Settings", path: "/settings" },
       { icon: "chat_bubble", text: "Send feedback", path: "/feedback" },
       { icon: "help", text: "Help", path: "/help" }
-      // { icon: 'phonelink', text: 'App downloads' },
-      // { icon: 'keyboard', text: 'Go to the old version' }
     ]
   }),
   props: {
