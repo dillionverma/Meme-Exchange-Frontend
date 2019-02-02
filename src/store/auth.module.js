@@ -7,6 +7,8 @@ import JwtService from "@/lib/jwt.service";
 
 // Actions
 export const LOGIN = "user/login";
+export const LOGOUT = "user/logout";
+
 export const AUTHENTICATE = "USER/AUTHENTICATE";
 
 // Mutations
@@ -85,10 +87,10 @@ const actions = {
       console.log(err.message);
       commit(PURGE_AUTH, err.message);
     }
+  },
+  [LOGOUT](context) {
+    context.commit(PURGE_AUTH);
   }
-  //   [LOGOUT](context) {
-  //     context.commit(PURGE_AUTH);
-  //   },
   //   [REGISTER](context, credentials) {
   //     return new Promise((resolve, reject) => {
   //       ApiService.post("users", { user: credentials })

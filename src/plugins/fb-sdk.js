@@ -1,3 +1,4 @@
+/* global FB */
 import Vue from "vue";
 
 var FBPlugin = {};

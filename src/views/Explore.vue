@@ -61,12 +61,22 @@ export default {
   },
   mounted() {
     this.scroll();
+    this.subreddit = this.$route.params.subreddit;
   },
   data: () => ({
     memes: [],
     after: "",
-    loading: false
+    loading: false,
+    subreddit: ""
   }),
+  watch: {
+    "$route.params.subreddit": function(subreddit) {
+      this.memes = [];
+      this.subreddit = subreddit;
+      this.after = "";
+      this.getMemes();
+    }
+  },
   methods: {
     scroll() {
       window.onscroll = () => {
