@@ -10,9 +10,13 @@
     min-height: auto;
   }
 }
-#footer div div a {
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.87);
+
+#footer {
+  background: white;
+  div div a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.87);
+  }
 }
 </style>
 
@@ -106,10 +110,10 @@
           </v-list-tile>
         </v-list>
         <v-divider></v-divider>
-        <v-list>
-          <v-list-tile>
+        <v-footer id="footer" height="auto">
+          <v-layout justify-center row wrap>
             <v-list-tile-content>
-              <v-container text-xs-center id="footer">
+              <v-container text-xs-center py-3>
                 <v-layout align-center justify-space-between row wrap>
                   <v-flex>
                     <router-link class="caption" to="/about">
@@ -144,22 +148,15 @@
                 </v-layout>
               </v-container>
             </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-content>
-              <v-container text-xs-center id="footer">
-                <v-layout align-center justify-space-between row wrap>
-                  <v-flex>
-                    <router-link class="caption" to="/about">
-                      Copyright Memesx 2019
-                    </router-link>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-
+            <v-layout justify-center row wrap>
+              <v-flex xs12 text-xs-center py-3>
+                <router-link to="/about">
+                  &copy;2019 — <strong>Memesx</strong>
+                </router-link>
+              </v-flex>
+            </v-layout>
+          </v-layout>
+        </v-footer>
         <!-- <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" row align-center>
             <v-flex xs6>
@@ -392,6 +389,14 @@ export default {
         path: "/r/imgoingtohellforthis",
         icon: ""
       }
+    ],
+    footer: [
+      { text: "About", path: "/about" },
+      { text: "Press", path: "/press" },
+      { text: "Copyright", path: "/copyright" },
+      { text: "Contact Us", path: "/contact-us" },
+      { text: "Terms", path: "/terms" },
+      { text: "Privacy Policy", path: "/privacy-policy" }
     ]
   }),
   components: {

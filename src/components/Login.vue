@@ -162,7 +162,6 @@
                     label="Password"
                     hint="Don't use 'password'."
                     placeholder="iamaweeb123"
-                    type="password"
                     :rules="[rules.required]"
                     :append-icon="visible ? 'visibility' : 'visibility_off'"
                     :type="visible ? 'text' : 'password'"
