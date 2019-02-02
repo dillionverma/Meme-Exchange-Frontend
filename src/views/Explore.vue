@@ -107,9 +107,8 @@ export default {
       let memes = [];
       json.data.data.children.forEach(meme => {
         meme = meme.data;
-        console.log(meme);
-        if (!meme.is_self && !meme.over_18) {
-          memes.push({
+        if (!meme.is_self) {
+          let obj = {
             id: meme.id,
             title: meme.title,
             url: meme.url,
@@ -119,7 +118,16 @@ export default {
             permalink: meme.permalink,
             subreddit: meme.subreddit,
             thumbnail: meme.thumbnail
-          });
+          };
+          if (meme.domain == "youtu.be") {
+            obj.url = "";
+          } else if (
+            (meme.domain == "gfycat.com" || meme.domain == "imgur.com") &&
+            meme.media
+          ) {
+            obj.url = meme.media.oembed.thumbnail_url;
+          }
+          memes.push(obj);
         }
       });
       return memes;

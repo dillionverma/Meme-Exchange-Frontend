@@ -20,6 +20,11 @@ export default new Router({
       component: () => import("./views/Leaderboard.vue")
     },
     {
+      path: "/user",
+      name: "User",
+      component: () => import("./views/User.vue")
+    },
+    {
       path: "/r/:subreddit?",
       name: "explore",
       component: () => import("./views/Explore.vue")

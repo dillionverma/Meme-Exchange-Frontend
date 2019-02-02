@@ -21,7 +21,7 @@
 </style>
 
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
@@ -75,10 +75,14 @@
           </v-list-tile>
           <v-divider></v-divider>
           <v-subheader class="">SUBREDDITS</v-subheader>
-          <v-list-tile v-for="(item, i) in subreddits" :key="i" :to="item.path">
+          <v-list-tile
+            v-for="(item, subreddit, i) in subreddits"
+            :key="i"
+            :to="item.path"
+          >
             <v-list-tile-action>
               <v-avatar color="grey lighten-4" size="36px">
-                <img :src="item.icon" :alt="item.text + ' icon'" />
+                <img :src="item.icon" />
               </v-avatar>
             </v-list-tile-action>
             <v-list-tile-title>{{ item.text }}</v-list-tile-title>
@@ -87,7 +91,7 @@
         <v-divider></v-divider>
         <v-subheader class="">MORE</v-subheader>
         <v-list>
-          <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.path">
+          <v-list-tile v-for="(item, i) in extraItems" :key="i" :to="item.path">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -208,10 +212,11 @@
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="blue darken-3"
+      :color="appbarColor"
       dark
       app
       fixed
+      :scroll-off-screen="!$vuetify.breakpoint.lgAndUp"
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title id="title">
@@ -225,38 +230,74 @@
         label="Search"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-toolbar-title>Coins: {{ user.coins }}</v-toolbar-title>
+      <!-- <v-toolbar-title>Coins: {{ user.coins }}</v-toolbar-title> -->
       <!-- <v-btn icon>
         <v-icon>apps</v-icon>
       </v-btn> -->
-      <v-menu bottom left v-if="isLoggedIn">
+      <v-menu
+        v-model="menu"
+        bottom
+        left
+        v-if="isLoggedIn"
+        :close-on-content-click="false"
+      >
         <!-- <v-btn slot="activator" icon>
           <v-icon>more_vert</v-icon>
         </v-btn> -->
-        <v-btn slot="activator" icon>
-          <v-avatar size="32px">
+        <v-btn slot="activator" flat>
+          <v-avatar left size="32px">
             <img :src="user.avatar" :alt="user.username" />
           </v-avatar>
+          <span class="body-2 ml-2">{{ user.username }}</span>
         </v-btn>
 
-        <v-list>
-          <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.path">
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="handleAuthClick">
-            <v-list-tile-action>
-              <v-icon>exit_to_app</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ authText }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        <v-card>
+          <v-list>
+            <v-list-tile avatar to="/user" @click="menu = false">
+              <v-list-tile-avatar>
+                <img :src="user.avatar" :alt="user.username" />
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ user.username }}</v-list-tile-title>
+                <v-list-tile-sub-title
+                  >+ {{ user.coins }}</v-list-tile-sub-title
+                >
+              </v-list-tile-content>
+
+              <!-- <v-list-tile-action>
+                <v-btn :class="fav ? 'red--text' : ''" icon @click="fav = !fav">
+                  <v-icon>favorite</v-icon>
+                </v-btn>
+              </v-list-tile-action> -->
+            </v-list-tile>
+          </v-list>
+
+          <v-divider></v-divider>
+
+          <v-list>
+            <v-list-tile
+              v-for="(item, i) in extraItems"
+              :key="i"
+              :to="item.path"
+              @click="menu = false"
+            >
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile @click="handleAuthClick">
+              <v-list-tile-action>
+                <v-icon>exit_to_app</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ authText }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-card>
       </v-menu>
       <v-btn v-else flat @click="handleAuthClick">
         {{ authText }}
@@ -288,9 +329,7 @@ export default {
     if (!this.isLoggedIn) {
       this.authenticate();
     }
-    this.subreddits.map((subreddit, i) =>
-      this.fetchThumbnail(subreddit.text, i)
-    );
+    for (var subreddit in this.subreddits) this.fetchThumbnail(subreddit);
   },
   methods: {
     authenticate() {
@@ -306,18 +345,18 @@ export default {
     logout() {
       this.$store.dispatch(LOGOUT);
       this.dialog = false;
-      this.drawer = false;
       this.authText = "Sign In";
     },
     login() {
       this.dialog = true;
-      this.drawer = false;
+      this.menu = false;
     },
-    fetchThumbnail(subreddit, i) {
+    fetchThumbnail(subreddit) {
       this.axios
         .get(`/reddit/r/${subreddit}/about.json`)
         .then(res => {
-          this.subreddits[i].icon = res.data.data.icon_img;
+          this.subreddits[subreddit].icon = res.data.data.icon_img;
+          this.subreddits[subreddit].color = res.data.data.key_color;
         })
         .catch(e => {
           console.log(e.message);
@@ -341,12 +380,18 @@ export default {
         this.authText = "Sign In";
       }
     }
+    // "$route.params.subreddit": function(subreddit) {
+    // Change color of AppBar based on subreddit color
+    // this.appbarColor = this.subreddits[subreddit].color;
+    // }
   },
   data: () => ({
     title: "Meme Exchange",
     authText: "Sign In",
     dialog: false,
     drawer: null,
+    menu: null,
+    appbarColor: "primary",
     items: [
       { icon: "home", text: "Home", path: "/" },
       { icon: "search", text: "Explore", path: "/r/memes" },
@@ -354,42 +399,67 @@ export default {
       { icon: "exit_to_app", text: "Login", path: "/login" },
       { icon: "person_add", text: "Sign Up", path: "/signup" }
     ],
-    menu: [
+    extraItems: [
       { icon: "settings", text: "Settings", path: "/settings" },
       { icon: "chat_bubble", text: "Send feedback", path: "/feedback" },
       { icon: "help", text: "Help", path: "/help" }
     ],
-    subreddits: [
-      { text: "memes", path: "/r/memes", icon: "" },
-      { text: "dankmemes", path: "/r/dankmemes", icon: "" },
-      { text: "memeeconomy", path: "/r/memeeconomy", icon: "" },
-      { text: "blackpeopletwitter", path: "/r/blackpeopletwitter", icon: "" },
-      {
+    subreddits: {
+      memes: {
+        text: "memes",
+        path: "/r/memes",
+        icon: "",
+        color: ""
+      },
+      dankmemes: {
+        text: "dankmemes",
+        path: "/r/dankmemes",
+        icon: "",
+        color: ""
+      },
+      memeeconomy: {
+        text: "memeeconomy",
+        path: "/r/memeeconomy",
+        icon: "",
+        color: ""
+      },
+      blackpeopletwitter: {
+        text: "blackpeopletwitter",
+        path: "/r/blackpeopletwitter",
+        icon: "",
+        color: ""
+      },
+      wholesomememes: {
         text: "wholesomememes",
         path: "/r/wholesomememes",
-        icon: ""
+        icon: "",
+        color: ""
       },
-      {
+      Me_irl: {
         text: "Me_irl",
         path: "/r/Me_irl",
-        icon: ""
+        icon: "",
+        color: ""
       },
-      {
+      surrealmemes: {
         text: "surrealmemes",
         path: "/r/surrealmemes",
-        icon: ""
+        icon: "",
+        color: ""
       },
-      {
+      deepfriedmemes: {
         text: "deepfriedmemes",
         path: "/r/deepfriedmemes",
-        icon: ""
+        icon: "",
+        color: ""
       },
-      {
+      imgoingtohellforthis: {
         text: "imgoingtohellforthis",
         path: "/r/imgoingtohellforthis",
-        icon: ""
+        icon: "",
+        color: ""
       }
-    ],
+    },
     footer: [
       { text: "About", path: "/about" },
       { text: "Press", path: "/press" },

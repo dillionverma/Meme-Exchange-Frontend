@@ -27,11 +27,9 @@
                   onlogin="onFBReady();"
                 ></div>
               </v-flex>
-              <v-flex xs12 id="or">
-                <div white>or</div>
-              </v-flex>
             </v-layout>
           </v-container>
+          <v-flex id="or">or</v-flex>
           <!-- <v-divider /> -->
           <v-container grid-list-md pb-0>
             <v-form v-model="valid" ref="form">
@@ -118,12 +116,9 @@
                   onlogin="onFBReady();"
                 ></div>
               </v-flex>
-              <v-flex xs12 id="or">
-                <span white>or</span>
-              </v-flex>
             </v-layout>
           </v-container>
-          <v-divider />
+          <v-flex id="or">or</v-flex>
           <v-container grid-list-md pb-0>
             <v-form v-model="valid" ref="form">
               <v-layout wrap>
@@ -313,19 +308,18 @@ export default {
 }
 
 #or {
-  position: relative;
-  margin-bottom: -25px;
-  & > * {
-    background-color: white;
-    padding: 8px;
-  }
-  &::before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.87);
+  &:after,
+  &:before {
     content: "";
     display: block;
-    height: 1;
-    background: black;
-    position: absolute;
+    background: rgba(0, 0, 0, 0.12);
     width: 50%;
+    height: 1px;
+    margin: 0 10px;
   }
 }
 </style>
