@@ -307,6 +307,7 @@
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
           <router-view />
+          <Notification />
         </v-layout>
       </v-container>
     </v-content>
@@ -321,6 +322,7 @@
 
 <script>
 import Login from "@/components/Login";
+import Notification from "@/components/Notification";
 
 import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
 
@@ -470,7 +472,8 @@ export default {
     ]
   }),
   components: {
-    Login
+    Login,
+    Notification
   }
 };
 </script>

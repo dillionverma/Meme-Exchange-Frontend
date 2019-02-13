@@ -2,43 +2,7 @@
   <v-container grid-list-xl fluid>
     <v-layout col wrap>
       <v-flex v-for="meme in memes" :key="meme.id" xs12 md4 d-flex>
-        <v-card flat tile>
-          <v-img
-            :src="meme.url"
-            :lazy-src="meme.thumbnail"
-            aspect-ratio="1"
-            class="grey lighten-2"
-            contain
-          >
-            <v-layout
-              slot="placeholder"
-              fill-height
-              align-center
-              justify-center
-              ma-0
-            >
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              ></v-progress-circular>
-            </v-layout>
-          </v-img>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <!-- <v-btn icon>
-              <v-icon>add</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>remove</v-icon>
-            </v-btn> -->
-            <v-btn icon>
-              <v-icon>favorite</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>share</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <Meme :meme="meme" />
       </v-flex>
     </v-layout>
     <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
@@ -55,7 +19,12 @@
 </template>
 
 <script>
+import Meme from "@/components/Meme";
+
 export default {
+  components: {
+    Meme
+  },
   beforeMount() {
     this.getMemes();
   },
@@ -117,7 +86,8 @@ export default {
             created: meme.created,
             permalink: meme.permalink,
             subreddit: meme.subreddit,
-            thumbnail: meme.thumbnail
+            thumbnail: meme.thumbnail,
+            copied: false
           };
           if (meme.domain == "youtu.be") {
             obj.url = "";

@@ -1,5 +1,5 @@
 // import ApiService from "@/common/api.service";
-import axios from "axios";
+import api from "@/lib/api.service";
 import JwtService from "@/lib/jwt.service";
 
 // import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actions";
@@ -60,11 +60,7 @@ const actions = {
   async [AUTHENTICATE]({ commit }) {
     commit(SET_LOADING, true);
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/user/", {
-        headers: {
-          Authorization: "Token token=" + JwtService.getToken()
-        }
-      });
+      const res = await api.get("/v1/user/", {});
       console.log(res);
       commit(SET_USER, res.data);
       commit(SET_LOADING, false);
@@ -76,10 +72,7 @@ const actions = {
   async [LOGIN]({ commit }, request) {
     commit(SET_LOADING, true);
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/v1/user/third-party-login",
-        request
-      );
+      const res = await api.post("/v1/user/third-party-login", request);
       console.log(res);
       commit(SET_USER, res.data);
       commit(SET_LOADING, false);
