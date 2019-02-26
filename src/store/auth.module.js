@@ -13,7 +13,7 @@ export const AUTHENTICATE = "USER/AUTHENTICATE";
 
 // Mutations
 export const SET_USER = "SET_USER";
-export const SET_LOADING = "SET_LOADING";
+export const SET_LOADING = "auth/loading";
 export const PURGE_AUTH = "PURGE_AUTH";
 
 // State

@@ -7,7 +7,7 @@ export const SELL_MEME = "MEME_SELL";
 
 // Mutations
 export const SET_STATUS = "SET_STATUS";
-export const SET_LOADING = "SET_LOADING";
+export const SET_LOADING = "meme/loading";
 
 // State
 const state = {
