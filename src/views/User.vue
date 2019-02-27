@@ -4,11 +4,7 @@
       <v-flex xs12>
         <v-card class="v-card-profile">
           <v-avatar class="mx-auto d-block grey lighten-4" size="100">
-            <img
-              v-if="user.avatar"
-              :src="user.avatar"
-              alt="Avatar"
-            />
+            <img v-if="user.avatar" :src="user.avatar" alt="Avatar" />
             <v-icon v-else>
               person
             </v-icon>
@@ -17,7 +13,7 @@
             <!-- <h6 class="category text-gray font-weight-thin mb-3">
               CEO / CO-FOUNDER
             </h6> -->
-            <h4 class="card-title font-weight-light">{{user.username}}</h4>
+            <h4 class="card-title font-weight-light">{{ user.username }}</h4>
             <p class="card-description font-weight-light">
               <!-- {{ user }} -->
             </p>

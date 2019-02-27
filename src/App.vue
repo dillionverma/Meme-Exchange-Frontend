@@ -370,7 +370,7 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     profile() {
-      return "/user/" + this.user.username
+      return "/user/" + this.user.username;
     },
     user() {
       return this.$store.getters.currentUser;
