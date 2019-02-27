@@ -6,15 +6,15 @@ import JwtService from "@/lib/jwt.service";
 // import { SET_TOKEN, REMOVE_TOKEN } from "./mutations";
 
 // Actions
-export const LOGIN = "user/login";
-export const LOGOUT = "user/logout";
+export const LOGIN = "auth/login";
+export const LOGOUT = "auth/logout";
 
-export const AUTHENTICATE = "USER/AUTHENTICATE";
+export const AUTHENTICATE = "auth/AUTHENTICATE";
 
 // Mutations
-export const SET_USER = "SET_USER";
+export const SET_USER = "auth/SET_USER";
 export const SET_LOADING = "auth/loading";
-export const PURGE_AUTH = "PURGE_AUTH";
+export const PURGE_AUTH = "auth/PURGE_AUTH";
 
 // State
 const state = {
@@ -38,14 +38,9 @@ const mutations = {
   [SET_LOADING](state, loading) {
     state.loading = loading;
   },
-  [SET_USER](state, data) {
+  [SET_USER](state, user) {
     state.isLoggedIn = true;
-    state.user = data.user;
-    // state.token = data.token;
-    // state.errors = {};
-    if (data.token) {
-      JwtService.saveToken(data.token);
-    }
+    state.user = user;
   },
   [PURGE_AUTH](state) {
     console.log("purge");
@@ -62,7 +57,7 @@ const actions = {
     try {
       const res = await api.get("/v1/user/", {});
       console.log(res);
-      commit(SET_USER, res.data);
+      commit(SET_USER, res.data.user);
       commit(SET_LOADING, false);
     } catch (err) {
       console.log(err.message);
@@ -74,8 +69,11 @@ const actions = {
     try {
       const res = await api.post("/v1/user/third-party-login", request);
       console.log(res);
-      commit(SET_USER, res.data);
+      commit(SET_USER, res.data.user);
       commit(SET_LOADING, false);
+      if (res.data.token) {
+        JwtService.saveToken(res.data.token);
+      }
     } catch (err) {
       console.log(err.message);
       commit(PURGE_AUTH, err.message);

@@ -1,5 +1,6 @@
 import api from "@/lib/api.service";
 import { ERROR, SUCCESS } from "./notification.module";
+import { SET_USER } from "./auth.module";
 
 // Actions
 export const BUY_MEME = "MEME_BUY";
@@ -51,6 +52,7 @@ const actions = {
         } successfully purchased`,
         link: "/me" // TODO: Change snack link
       });
+      commit(SET_USER, res.data.transaction.user);
     } catch (err) {
       console.log(err);
       if (err.response) {
@@ -80,6 +82,13 @@ const actions = {
         statusText: res.statusText,
         data: res.data
       });
+      commit(SUCCESS, {
+        message: `${res.data.transaction.quantity} meme${
+          res.data.transaction.quantity == 1 ? "" : "s"
+        } successfully sold`,
+        link: "/me" // TODO: Change snack link
+      });
+      commit(SET_USER, res.data.transaction.user);
     } catch (err) {
       console.log(err);
       if (err.response) {

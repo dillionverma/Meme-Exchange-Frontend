@@ -253,7 +253,7 @@
 
         <v-card>
           <v-list>
-            <v-list-tile avatar to="/user" @click="menu = false">
+            <v-list-tile avatar :to="profile" @click="menu = false">
               <v-list-tile-avatar>
                 <img :src="user.avatar" :alt="user.username" />
               </v-list-tile-avatar>
@@ -368,6 +368,9 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    profile() {
+      return "/user/" + this.user.username
     },
     user() {
       return this.$store.getters.currentUser;

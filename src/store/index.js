@@ -4,9 +4,10 @@ import auth from "./auth.module";
 import meme from "./meme.module";
 import notification from "./notification.module";
 import leaderboard from "./leaderboard.module";
+import user from "./user.module";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { auth, meme, notification, leaderboard }
+  modules: { auth, meme, notification, leaderboard, user }
 });

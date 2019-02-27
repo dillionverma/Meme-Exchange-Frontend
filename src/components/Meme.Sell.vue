@@ -83,8 +83,8 @@
     </v-list>
     <v-divider></v-divider>
     <v-card-actions class="pa-3">
-      <v-btn color="success" block @click="buy">
-        Buy
+      <v-btn color="success" block @click="sell">
+        Sell
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -133,7 +133,7 @@
 </template>
 
 <script>
-import { BUY_MEME } from "@/store/meme.module";
+import { SELL_MEME } from "@/store/meme.module";
 export default {
   data: () => ({
     min: 0,
@@ -147,22 +147,22 @@ export default {
       return this.$store.getters.currentUser;
     },
     subtotal() {
-      return this.meme.score * this.quantity;
+      return this.meme.price * this.quantity;
     },
     total() {
       return this.subtotal;
     },
     max() {
-      return Math.floor(this.user.coins / this.meme.score);
+      return this.meme.quantity;
     },
     rules() {
       return [v => v <= this.max || "You do not have enough for this purchase"];
     }
   },
   methods: {
-    buy() {
-      this.$store.dispatch(BUY_MEME, {
-        id: this.meme.id,
+    sell() {
+      this.$store.dispatch(SELL_MEME, {
+        id: this.meme.reddit_id,
         quantity: this.quantity
       });
     }

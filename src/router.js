@@ -20,7 +20,7 @@ export default new Router({
       component: () => import("./views/Leaderboard.vue")
     },
     {
-      path: "/user",
+      path: "/user/:username",
       name: "User",
       component: () => import("./views/User.vue")
     },

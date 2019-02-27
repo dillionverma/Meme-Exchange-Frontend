@@ -36,9 +36,9 @@
         <v-btn slot="activator" color="success" small>Buy</v-btn>
         <Buy :meme="meme" />
       </v-dialog>
-      <v-dialog v-model="sell" width="600">
+      <!-- <v-dialog v-model="sell" width="600">
         <v-btn slot="activator" color="error" small>Sell</v-btn>
-      </v-dialog>
+      </v-dialog> -->
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>favorite</v-icon>
@@ -104,8 +104,8 @@ export default {
   },
   data: () => ({
     share: false,
-    buy: false,
-    sell: false
+    buy: false
+    // sell: false
   }),
   methods: {
     copy() {
