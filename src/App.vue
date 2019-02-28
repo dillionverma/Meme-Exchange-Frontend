@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="dark">
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
@@ -28,6 +28,16 @@
             <v-list-tile-content>
               <v-list-tile-title>
                 Home
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+           <v-list-tile v-if="isLoggedIn" :to="`/user/${currentUser.username}`">
+            <v-list-tile-action>
+              <v-icon>person</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                Profile
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -191,7 +201,7 @@
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       :color="appbarColor"
-      dark
+      :dark="!dark"
       app
       fixed
       :scroll-off-screen="!$vuetify.breakpoint.lgAndUp"
@@ -386,7 +396,8 @@ export default {
       "items",
       "extraItems",
       "subreddits",
-      "footer"
+      "footer",
+      "dark"
     ]),
     menu: {
       get() {
@@ -456,10 +467,10 @@ export default {
 }
 
 #footer {
-  background: white;
+  // background: white;
   div div a {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.87);
+    // color: rgba(0, 0, 0, 0.87);
   }
 }
 </style>

@@ -6,7 +6,7 @@
 </style>
 
 <template>
-  <v-card flat class="meme-card">
+  <v-card class="meme-card">
     <v-img
       :src="meme.url"
       :lazy-src="meme.thumbnail"

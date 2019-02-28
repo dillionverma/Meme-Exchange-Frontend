@@ -9,6 +9,7 @@ export const HOME = "app/HOME";
 export const DIALOG = "app/DIALOG";
 export const MENU = "app/MENU";
 export const DRAWER = "app/DRAWER";
+export const DARK = "app/DARK";
 
 // State
 const state = {
@@ -16,6 +17,7 @@ const state = {
   dialog: false,
   drawer: null,
   menu: false,
+  dark: false,
   appbarColor: "primary",
   items: [
     { icon: "home", text: "Home", path: "/" },
@@ -123,6 +125,9 @@ const getters = {
   },
   footer(state) {
     return state.footer;
+  },
+  dark(state) {
+    return state.dark;
   }
 };
 
@@ -144,6 +149,14 @@ const mutations = {
       state.drawer = !state.drawer; // if no arg passed, toggle drawer
     } else {
       state.drawer = drawer;
+    }
+  },
+  [DARK](state) {
+    state.dark = !state.dark;
+    if (state.dark) {
+      state.appbarColor = "grey darken-4";
+    } else {
+      state.appbarColor = "primary";
     }
   }
 };

@@ -18,7 +18,7 @@
       :rows-per-page-items="rowsPerPageItems"
     >
       <template slot="items" slot-scope="props">
-        <router-link :to="userRoute(props.item.username)" tag="tr">
+        <router-link :to="`/user/${props.item.username}`" tag="tr">
           <td>{{ props.item.rank }}</td>
           <td>
             <v-avatar size="32px" color="grey lighten-4">
@@ -83,11 +83,6 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    userRoute(username) {
-      return "/user/" + username;
-    }
   }
 };
 </script>
