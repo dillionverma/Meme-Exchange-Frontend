@@ -83,7 +83,7 @@
     </v-list>
     <v-divider></v-divider>
     <v-card-actions class="pa-3">
-      <v-btn color="success" block @click="buy">
+      <v-btn :loading="loading" :disabled="loading" color="success" block @click="buy">
         Buy
       </v-btn>
     </v-card-actions>
@@ -140,6 +140,9 @@ export default {
     quantity: 0
   }),
   computed: {
+    loading() {
+      return this.$store.getters.memeLoading;
+    },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },

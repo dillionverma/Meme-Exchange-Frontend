@@ -23,7 +23,7 @@ export const PURGE_AUTH = "auth/PURGE_AUTH";
 const state = {
   user: {},
   isLoggedIn: false,
-  isLoading: false
+  loading: false
 };
 
 // Getters
@@ -33,6 +33,9 @@ const getters = {
   },
   isLoggedIn(state) {
     return state.isLoggedIn;
+  },
+  authLoading(state) {
+    return state.loading;
   }
 };
 
@@ -65,6 +68,7 @@ const actions = {
     } catch (err) {
       handleError(commit, err);
       commit(PURGE_AUTH, err.message);
+      commit(SET_LOADING, false);
     }
   },
   async [LOGIN]({ commit }, request) {
@@ -83,12 +87,13 @@ const actions = {
     } catch (err) {
       handleError(commit, err);
       commit(PURGE_AUTH, err.message);
+      commit(SET_LOADING, false);
     }
   },
   [LOGOUT]({ commit }) {
     commit(PURGE_AUTH);
     commit(SUCCESS, {
-      message: "Successfully logged out"
+      message: "Successfully signed out"
     });
   },
   async [SIGNUP]({ commit }, credentials) {
@@ -109,6 +114,7 @@ const actions = {
     } catch (err) {
       handleError(commit, err);
       commit(PURGE_AUTH, err.message);
+      commit(SET_LOADING, false);
     }
   }
 };

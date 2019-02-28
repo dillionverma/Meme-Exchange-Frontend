@@ -91,6 +91,8 @@
             <v-btn
               block
               depressed
+              :loading="loading" 
+              :disabled="loading"
               @click="submitSignUp"
               :color="valid ? 'success' : 'disabled'"
               >Sign Up</v-btn
@@ -182,6 +184,8 @@
             <v-btn
               block
               depressed
+              :loading="loading" 
+              :disabled="loading"
               @click="submitLogin"
               :color="valid ? 'success' : 'disabled'"
               >Login</v-btn
@@ -232,6 +236,11 @@ export default {
   },
   beforeDestroy: function() {
     // window.removeEventListener("fb-sdk-ready", this.onFBReady);
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.authLoading
+    },
   },
   methods: {
     submitLogin() {

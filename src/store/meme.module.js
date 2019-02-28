@@ -19,7 +19,11 @@ const state = {
 };
 
 // Getters
-const getters = {};
+const getters = {
+  memeLoading(state) {
+    return state.loading;
+  }
+};
 
 // Mutations
 const mutations = {
@@ -55,6 +59,7 @@ const actions = {
         linkText: "view"
       });
       commit(SET_USER, res.data.transaction.user);
+      commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
       commit(SET_LOADING, false);
@@ -80,6 +85,7 @@ const actions = {
         linkText: "view"
       });
       commit(SET_USER, res.data.transaction.user);
+      commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
       commit(SET_LOADING, false);
