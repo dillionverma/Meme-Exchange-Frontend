@@ -201,11 +201,13 @@
         <span class="hidden-sm-and-down">{{ this.title }}</span>
       </v-toolbar-title>
       <v-text-field
+        v-model="searchText"
+        @keyup.enter="search"
         flat
         solo-inverted
         hide-details
         prepend-inner-icon="search"
-        label="Search"
+        label="Search for subreddits"
       ></v-text-field>
       <v-spacer></v-spacer>
       <!-- <v-toolbar-title>Coins: {{ user.coins }}</v-toolbar-title> -->
@@ -366,6 +368,13 @@ export default {
         .catch(e => {
           console.log(e.message);
         });
+    },
+    search() {
+      console.log(this.searchText)
+      if (this.searchText) {
+        console.log(this.searchText)
+        this.$router.push("/r/" + this.searchText)
+      }
     }
   },
   computed: {
@@ -415,14 +424,16 @@ export default {
       } else {
         this.authText = "Sign In";
       }
+    },
+    "$route.params.subreddit": function(subreddit) {
+      // Change color of AppBar based on subreddit color
+      this.searchText = ""
+      // this.appbarColor = this.subreddits[subreddit].color;
     }
-    // "$route.params.subreddit": function(subreddit) {
-    // Change color of AppBar based on subreddit color
-    // this.appbarColor = this.subreddits[subreddit].color;
-    // }
   },
   data: () => ({
-    authText: "Sign In"
+    authText: "Sign In",
+    searchText: null,
   }),
   components: {
     Login,
