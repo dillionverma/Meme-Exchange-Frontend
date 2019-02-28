@@ -39,7 +39,7 @@ export default {
       console.log(this.message);
       if (this.message !== "") {
         this.notification = true;
-        setTimeout(() => this.$store.commit(CLEAR), 6500);
+        setTimeout(() => this.$store.commit(CLEAR), 6500); // This is to reset the data in notification
       }
     }
   }

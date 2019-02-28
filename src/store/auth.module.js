@@ -77,8 +77,7 @@ const actions = {
         JwtService.saveToken(res.data.token);
       }
       commit(SUCCESS, {
-        message: "Successfully logged in",
-        link: null
+        message: "Successfully signed in"
       });
       commit(SET_LOADING, false);
     } catch (err) {
@@ -89,8 +88,7 @@ const actions = {
   [LOGOUT]({ commit }) {
     commit(PURGE_AUTH);
     commit(SUCCESS, {
-      message: "Successfully logged out",
-      link: null
+      message: "Successfully logged out"
     });
   },
   async [SIGNUP]({ commit }, credentials) {
@@ -104,7 +102,8 @@ const actions = {
       }
       commit(SUCCESS, {
         message: "Successfully signed up",
-        link: null
+        link: "/user/" + res.data.user.username,
+        linkText: "View Profile"
       });
       commit(SET_LOADING, false);
     } catch (err) {

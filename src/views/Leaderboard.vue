@@ -11,7 +11,12 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table :headers="headers" :items="leaderboard" :search="search">
+    <v-data-table
+      :headers="headers"
+      :items="leaderboard"
+      :search="search"
+      :rows-per-page-items="rowsPerPageItems"
+    >
       <template slot="items" slot-scope="props">
         <router-link :to="userRoute(props.item.username)" tag="tr">
           <td>{{ props.item.rank }}</td>
@@ -54,6 +59,10 @@ export default {
   data() {
     return {
       search: "",
+      rowsPerPageItems: [
+        25,
+        { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }
+      ],
       headers: [
         {
           text: "Rank",

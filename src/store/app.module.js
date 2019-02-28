@@ -14,7 +14,7 @@ export const DRAWER = "app/DRAWER";
 const state = {
   title: "Meme Exchange",
   dialog: false,
-  drawer: false,
+  drawer: null,
   menu: false,
   appbarColor: "primary",
   items: [

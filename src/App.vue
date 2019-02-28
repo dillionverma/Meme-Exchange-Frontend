@@ -354,7 +354,7 @@ export default {
       this.$store.commit(MENU, false);
     },
     toggleDrawer() {
-      this.$store.commit(DRAWER)
+      this.$store.commit(DRAWER);
     },
     fetchThumbnail(subreddit) {
       this.axios
@@ -373,7 +373,6 @@ export default {
       "isLoggedIn",
       "currentUser",
       "title",
-      "dialog",
       "appbarColor",
       "items",
       "extraItems",
@@ -386,6 +385,14 @@ export default {
       },
       set(menu) {
         this.$store.commit(MENU, menu);
+      }
+    },
+    dialog: {
+      get() {
+        return this.$store.getters.dialog;
+      },
+      set(dialog) {
+        this.$store.commit(DIALOG, dialog);
       }
     },
     drawer: {
