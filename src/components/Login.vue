@@ -197,7 +197,6 @@
 /* global gapi FB */
 import { LOGIN, SIGNUP } from "@/store/auth.module";
 
-
 export default {
   data: () => ({
     dialog: "",
@@ -239,15 +238,13 @@ export default {
       if (this.$refs.form.validate()) {
         console.log("valid");
         console.log(this.valid);
-
-
       }
     },
     submitSignUp() {
       if (this.$refs.form.validate()) {
         console.log("valid");
         console.log(this.valid);
-        console.log(this)
+        console.log(this);
         this.$store.dispatch(SIGNUP, {
           username: this.username,
           email: this.email,

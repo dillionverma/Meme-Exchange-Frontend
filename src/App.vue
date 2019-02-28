@@ -1,25 +1,3 @@
-<style lang="scss">
-#title {
-  @media (max-width: 960px) {
-    width: 0 !important;
-  }
-  width: 300px;
-}
-.v-text-field.v-text-field--solo .v-input__control {
-  @media (max-width: 960px) {
-    min-height: auto;
-  }
-}
-
-#footer {
-  background: white;
-  div div a {
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.87);
-  }
-}
-</style>
-
 <template>
   <v-app>
     <v-navigation-drawer
@@ -218,7 +196,7 @@
       fixed
       :scroll-off-screen="!$vuetify.breakpoint.lgAndUp"
     >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="toggleDrawer"></v-toolbar-side-icon>
       <v-toolbar-title id="title">
         <span class="hidden-sm-and-down">{{ this.title }}</span>
       </v-toolbar-title>
@@ -246,27 +224,37 @@
         </v-btn> -->
         <v-btn slot="activator" flat>
           <v-avatar color="grey lighten-4" left size="32px">
-            <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
+            <img
+              v-if="currentUser.avatar"
+              :src="currentUser.avatar"
+              alt="avatar"
+            />
             <v-icon v-else>
               person
             </v-icon>
           </v-avatar>
-          <span class="body-2 ml-2">{{ user.username }}</span>
+          <span class="body-2 ml-2">{{ currentUser.username }}</span>
         </v-btn>
 
         <v-card>
           <v-list>
-            <v-list-tile avatar :to="profile" @click="menu = false">
+            <v-list-tile avatar :to="profile" @click="closeMenu">
               <v-list-tile-avatar>
-                <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
+                <img
+                  v-if="currentUser.avatar"
+                  :src="currentUser.avatar"
+                  alt="avatar"
+                />
                 <v-icon v-else>
                   person
                 </v-icon>
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title>{{ user.username }}</v-list-tile-title>
+                <v-list-tile-title>{{
+                  currentUser.username
+                }}</v-list-tile-title>
                 <v-list-tile-sub-title
-                  >+ {{ user.coins }}</v-list-tile-sub-title
+                  >+ {{ currentUser.coins }}</v-list-tile-sub-title
                 >
               </v-list-tile-content>
 
@@ -285,7 +273,7 @@
               v-for="(item, i) in extraItems"
               :key="i"
               :to="item.path"
-              @click="menu = false"
+              @click="closeMenu"
             >
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -327,11 +315,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import JwtService from "@/lib/jwt.service";
 import Login from "@/components/Login";
 import Notification from "@/components/Notification";
 
 import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
+import { DIALOG, MENU, DRAWER } from "@/store/app.module";
 
 export default {
   mounted() {
@@ -353,12 +343,18 @@ export default {
     },
     logout() {
       this.$store.dispatch(LOGOUT);
-      this.dialog = false;
+      this.$store.commit(DIALOG, false);
       this.authText = "Sign In";
     },
     login() {
-      this.dialog = true;
-      this.menu = false;
+      this.$store.commit(DIALOG, true);
+      this.$store.commit(MENU, false);
+    },
+    closeMenu() {
+      this.$store.commit(MENU, false);
+    },
+    toggleDrawer() {
+      this.$store.commit(DRAWER)
     },
     fetchThumbnail(subreddit) {
       this.axios
@@ -373,20 +369,41 @@ export default {
     }
   },
   computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
+    ...mapGetters([
+      "isLoggedIn",
+      "currentUser",
+      "title",
+      "dialog",
+      "appbarColor",
+      "items",
+      "extraItems",
+      "subreddits",
+      "footer"
+    ]),
+    menu: {
+      get() {
+        return this.$store.getters.menu;
+      },
+      set(menu) {
+        this.$store.commit(MENU, menu);
+      }
+    },
+    drawer: {
+      get() {
+        return this.$store.getters.drawer;
+      },
+      set(drawer) {
+        this.$store.commit(DRAWER, drawer);
+      }
     },
     profile() {
-      return "/user/" + this.user.username;
-    },
-    user() {
-      return this.$store.getters.currentUser;
+      return "/user/" + this.currentUser.username;
     }
   },
   watch: {
     isLoggedIn: function() {
       if (this.isLoggedIn) {
-        this.dialog = false; // once isLoggedIn, close login dialog
+        this.$store.commit(DIALOG, false);
         this.authText = "Sign Out";
       } else {
         this.authText = "Sign In";
@@ -398,88 +415,7 @@ export default {
     // }
   },
   data: () => ({
-    title: "Meme Exchange",
-    authText: "Sign In",
-    dialog: false,
-    drawer: null,
-    menu: null,
-    appbarColor: "primary",
-    items: [
-      { icon: "home", text: "Home", path: "/" },
-      { icon: "search", text: "Explore", path: "/r/memes" },
-      { icon: "list", text: "Leaderboard", path: "/leaderboard" },
-      { icon: "exit_to_app", text: "Login", path: "/login" },
-      { icon: "person_add", text: "Sign Up", path: "/signup" }
-    ],
-    extraItems: [
-      { icon: "settings", text: "Settings", path: "/settings" },
-      { icon: "chat_bubble", text: "Send feedback", path: "/feedback" },
-      { icon: "help", text: "Help", path: "/help" }
-    ],
-    subreddits: {
-      memes: {
-        text: "memes",
-        path: "/r/memes",
-        icon: "",
-        color: ""
-      },
-      dankmemes: {
-        text: "dankmemes",
-        path: "/r/dankmemes",
-        icon: "",
-        color: ""
-      },
-      memeeconomy: {
-        text: "memeeconomy",
-        path: "/r/memeeconomy",
-        icon: "",
-        color: ""
-      },
-      blackpeopletwitter: {
-        text: "blackpeopletwitter",
-        path: "/r/blackpeopletwitter",
-        icon: "",
-        color: ""
-      },
-      wholesomememes: {
-        text: "wholesomememes",
-        path: "/r/wholesomememes",
-        icon: "",
-        color: ""
-      },
-      Me_irl: {
-        text: "Me_irl",
-        path: "/r/Me_irl",
-        icon: "",
-        color: ""
-      },
-      surrealmemes: {
-        text: "surrealmemes",
-        path: "/r/surrealmemes",
-        icon: "",
-        color: ""
-      },
-      deepfriedmemes: {
-        text: "deepfriedmemes",
-        path: "/r/deepfriedmemes",
-        icon: "",
-        color: ""
-      },
-      imgoingtohellforthis: {
-        text: "imgoingtohellforthis",
-        path: "/r/imgoingtohellforthis",
-        icon: "",
-        color: ""
-      }
-    },
-    footer: [
-      { text: "About", path: "/about" },
-      { text: "Press", path: "/press" },
-      { text: "Copyright", path: "/copyright" },
-      { text: "Contact Us", path: "/contact-us" },
-      { text: "Terms", path: "/terms" },
-      { text: "Privacy Policy", path: "/privacy-policy" }
-    ]
+    authText: "Sign In"
   }),
   components: {
     Login,
@@ -487,3 +423,25 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+#title {
+  @media (max-width: 960px) {
+    width: 0 !important;
+  }
+  width: 300px;
+}
+.v-text-field.v-text-field--solo .v-input__control {
+  @media (max-width: 960px) {
+    min-height: auto;
+  }
+}
+
+#footer {
+  background: white;
+  div div a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+</style>
