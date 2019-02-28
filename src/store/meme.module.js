@@ -51,7 +51,8 @@ const actions = {
         message: `${res.data.transaction.quantity} meme${
           res.data.transaction.quantity == 1 ? "" : "s"
         } successfully purchased`,
-        link: "/me" // TODO: Change snack link
+        link: "/user/" + res.data.transaction.user.username,
+        linkText: "view"
       });
       commit(SET_USER, res.data.transaction.user);
     } catch (err) {
@@ -75,7 +76,8 @@ const actions = {
         message: `${res.data.transaction.quantity} meme${
           res.data.transaction.quantity == 1 ? "" : "s"
         } successfully sold`,
-        link: "/me" // TODO: Change snack link
+        link: "/user/" + res.data.transaction.user.username,
+        linkText: "view"
       });
       commit(SET_USER, res.data.transaction.user);
     } catch (err) {

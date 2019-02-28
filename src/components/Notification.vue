@@ -1,7 +1,7 @@
 <template>
   <v-snackbar :color="status" v-model="notification">
     {{ message }}
-    <v-btn dark flat :to="link" @click="close">Close</v-btn>
+    <v-btn dark flat :to="link" @click="close">{{ linkText }}</v-btn>
   </v-snackbar>
 </template>
 
@@ -26,6 +26,9 @@ export default {
     },
     link() {
       return this.$store.getters.link;
+    },
+    linkText() {
+      return this.$store.getters.linkText;
     },
     status() {
       return this.$store.getters.status;

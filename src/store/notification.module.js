@@ -3,6 +3,7 @@
 // {
 //   message: "Successfully purchased!",
 //   link: "/meme/1234/"
+//   linkText: "view"
 // }
 
 // Actions
@@ -17,7 +18,8 @@ export const CLEAR = "CLEAR_NOTIFICATION";
 const state = {
   message: "",
   status: "", // one of [success, info, error], responsible for Snackbar color
-  link: "" // route to go to
+  link: "", // route to go to
+  linkText: "" // route to go to
 };
 
 // Getters
@@ -30,6 +32,9 @@ const getters = {
   },
   link(state) {
     return state.link;
+  },
+  linkText(state) {
+    return state.linkText;
   }
 };
 
@@ -38,21 +43,26 @@ const mutations = {
   [SUCCESS](state, payload) {
     state.message = payload.message;
     state.link = payload.link;
+    state.linkText = payload.linkText;
     state.status = "success";
   },
   [INFO](state, payload) {
     state.message = payload.message;
     state.link = payload.link;
+    state.linkText = payload.linkText;
     state.status = "info";
   },
   [ERROR](state, payload) {
     state.message = payload.message;
     state.link = payload.link;
+    state.linkText = payload.linkText;
+
     state.status = "error";
   },
   [CLEAR](state) {
     state.message = "";
     state.link = "";
+    state.linkText = "close";
     state.status = "";
   }
 };
