@@ -1,10 +1,9 @@
 <template>
   <v-layout row fill-height>
     <v-flex xs12>
+      <v-subheader>General</v-subheader>
       <v-card>
-        <v-list two-line subheader>
-          <v-subheader>General</v-subheader>
-
+        <v-list three-line subheader>
           <v-list-tile disabled>
             <v-list-tile-content>
               <v-list-tile-title>Username</v-list-tile-title>
@@ -13,7 +12,7 @@
               >
             </v-list-tile-content>
           </v-list-tile>
-
+          <v-divider></v-divider>
           <v-list-tile disabled>
             <v-list-tile-content>
               <v-list-tile-title>Profile photo</v-list-tile-title>
@@ -23,12 +22,12 @@
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
+      </v-card>
 
-        <v-divider></v-divider>
+      <v-subheader>Options</v-subheader>
 
+      <v-card>
         <v-list three-line subheader>
-          <v-subheader>Options</v-subheader>
-
           <v-list-tile @click="true">
             <v-list-tile-action>
               <v-switch v-model="status"></v-switch>
@@ -40,7 +39,7 @@
               >
             </v-list-tile-content>
           </v-list-tile>
-
+          <v-divider></v-divider>
           <v-list-tile @click="true">
             <v-list-tile-action>
               <v-switch v-model="notifications"></v-switch>
@@ -50,7 +49,7 @@
               <v-list-tile-sub-title>Allow notifications</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
-
+          <v-divider></v-divider>
           <v-list-tile @click="true">
             <v-list-tile-action>
               <v-switch v-model="theme"></v-switch>
