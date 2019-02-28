@@ -1,6 +1,8 @@
 // import ApiService from "@/common/api.service";
 import api from "@/lib/api.service";
 import JwtService from "@/lib/jwt.service";
+import { handleError } from "@/lib/helpers";
+import { SUCCESS } from "./notification.module";
 
 // import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actions";
 // import { SET_TOKEN, REMOVE_TOKEN } from "./mutations";
@@ -8,6 +10,7 @@ import JwtService from "@/lib/jwt.service";
 // Actions
 export const LOGIN = "auth/login";
 export const LOGOUT = "auth/logout";
+export const SIGNUP = "auth/signup";
 
 export const AUTHENTICATE = "auth/AUTHENTICATE";
 
@@ -60,7 +63,7 @@ const actions = {
       commit(SET_USER, res.data.user);
       commit(SET_LOADING, false);
     } catch (err) {
-      console.log(err.message);
+      handleError(commit, err);
       commit(PURGE_AUTH, err.message);
     }
   },
@@ -70,32 +73,45 @@ const actions = {
       const res = await api.post("/v1/user/third-party-login", request);
       console.log(res);
       commit(SET_USER, res.data.user);
-      commit(SET_LOADING, false);
       if (res.data.token) {
         JwtService.saveToken(res.data.token);
       }
+      commit(SUCCESS, {
+        message: "Successfully logged in",
+        link: null
+      });
+      commit(SET_LOADING, false);
     } catch (err) {
-      console.log(err.message);
+      handleError(commit, err);
       commit(PURGE_AUTH, err.message);
     }
   },
-  [LOGOUT](context) {
-    context.commit(PURGE_AUTH);
+  [LOGOUT]({ commit }) {
+    commit(PURGE_AUTH);
+    commit(SUCCESS, {
+      message: "Successfully logged out",
+      link: null
+    });
+  },
+  async [SIGNUP]({ commit }, credentials) {
+    commit(SET_LOADING, true);
+    try {
+      const res = await api.post("/v1/user/signup", credentials);
+      console.log(res);
+      commit(SET_USER, res.data.user);
+      if (res.data.token) {
+        JwtService.saveToken(res.data.token);
+      }
+      commit(SUCCESS, {
+        message: "Successfully signed up",
+        link: null
+      });
+      commit(SET_LOADING, false);
+    } catch (err) {
+      handleError(commit, err);
+      commit(PURGE_AUTH, err.message);
+    }
   }
-  //   [REGISTER](context, credentials) {
-  //     return new Promise((resolve, reject) => {
-  //       ApiService.post("users", { user: credentials })
-  //         .then(({ data }) => {
-  //           context.commit(SET_AUTH, data.user);
-  //           resolve(data);
-  //         })
-  //         .catch(({ response }) => {
-  //           context.commit(SET_ERROR, response.data.errors);
-  //           reject(response);
-  //         });
-  //     });
-  //   },
-  //   }
 };
 
 export default {

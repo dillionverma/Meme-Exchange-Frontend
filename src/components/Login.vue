@@ -91,7 +91,7 @@
             <v-btn
               block
               depressed
-              @click="submit"
+              @click="submitSignUp"
               :color="valid ? 'success' : 'disabled'"
               >Sign Up</v-btn
             >
@@ -182,7 +182,7 @@
             <v-btn
               block
               depressed
-              @click="submit"
+              @click="submitLogin"
               :color="valid ? 'success' : 'disabled'"
               >Login</v-btn
             >
@@ -195,7 +195,8 @@
 
 <script>
 /* global gapi FB */
-import { LOGIN } from "@/store/auth.module";
+import { LOGIN, SIGNUP } from "@/store/auth.module";
+
 
 export default {
   data: () => ({
@@ -234,10 +235,24 @@ export default {
     // window.removeEventListener("fb-sdk-ready", this.onFBReady);
   },
   methods: {
-    submit() {
+    submitLogin() {
       if (this.$refs.form.validate()) {
         console.log("valid");
         console.log(this.valid);
+
+
+      }
+    },
+    submitSignUp() {
+      if (this.$refs.form.validate()) {
+        console.log("valid");
+        console.log(this.valid);
+        console.log(this)
+        this.$store.dispatch(SIGNUP, {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        });
       }
     },
     onFBReady() {

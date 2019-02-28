@@ -245,8 +245,11 @@
           <v-icon>more_vert</v-icon>
         </v-btn> -->
         <v-btn slot="activator" flat>
-          <v-avatar left size="32px">
-            <img :src="user.avatar" :alt="user.username" />
+          <v-avatar color="grey lighten-4" left size="32px">
+            <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
+            <v-icon v-else>
+              person
+            </v-icon>
           </v-avatar>
           <span class="body-2 ml-2">{{ user.username }}</span>
         </v-btn>
@@ -255,7 +258,10 @@
           <v-list>
             <v-list-tile avatar :to="profile" @click="menu = false">
               <v-list-tile-avatar>
-                <img :src="user.avatar" :alt="user.username" />
+                <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
+                <v-icon v-else>
+                  person
+                </v-icon>
               </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title>{{ user.username }}</v-list-tile-title>
@@ -321,6 +327,7 @@
 </template>
 
 <script>
+import JwtService from "@/lib/jwt.service";
 import Login from "@/components/Login";
 import Notification from "@/components/Notification";
 
@@ -328,7 +335,7 @@ import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
 
 export default {
   mounted() {
-    if (!this.isLoggedIn) {
+    if (!this.isLoggedIn && JwtService.getToken()) {
       this.authenticate();
     }
     for (var subreddit in this.subreddits) this.fetchThumbnail(subreddit);

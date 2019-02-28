@@ -1,10 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import auth from "./auth.module";
-import meme from "./meme.module";
-import notification from "./notification.module";
-import leaderboard from "./leaderboard.module";
-import user from "./user.module";
+import auth from "@/store/auth.module";
+import meme from "@/store/meme.module";
+import notification from "@/store/notification.module";
+import leaderboard from "@/store/leaderboard.module";
+import user from "@/store/user.module";
 
 Vue.use(Vuex);
 

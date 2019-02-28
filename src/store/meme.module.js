@@ -1,5 +1,6 @@
 import api from "@/lib/api.service";
-import { ERROR, SUCCESS } from "./notification.module";
+import { handleError } from "@/lib/helpers";
+import { SUCCESS } from "./notification.module";
 import { SET_USER } from "./auth.module";
 
 // Actions
@@ -54,19 +55,7 @@ const actions = {
       });
       commit(SET_USER, res.data.transaction.user);
     } catch (err) {
-      console.log(err);
-      if (err.response) {
-        console.log(err.response);
-        commit(ERROR, {
-          message: err.response.data.errors[0].detail
-        });
-      } else if (err.request) {
-        console.log(err.request);
-        commit(ERROR, err.request);
-      } else {
-        console.log(err.message);
-        commit(ERROR, err.message);
-      }
+      handleError(commit, err);
       commit(SET_LOADING, false);
     }
   },
@@ -90,17 +79,7 @@ const actions = {
       });
       commit(SET_USER, res.data.transaction.user);
     } catch (err) {
-      console.log(err);
-      if (err.response) {
-        console.log(err.response);
-        commit(ERROR, err.response.data.errors[0].detail);
-      } else if (err.request) {
-        console.log(err.request);
-        commit(ERROR, err.request);
-      } else {
-        console.log(err.message);
-        commit(ERROR, err.message);
-      }
+      handleError(commit, err);
       commit(SET_LOADING, false);
     }
   }

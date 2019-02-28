@@ -13,22 +13,24 @@
     </v-card-title>
     <v-data-table :headers="headers" :items="leaderboard" :search="search">
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.rank }}</td>
-        <td>
-          <v-avatar size="32px" color="grey lighten-4">
-            <img
-              v-if="props.item.avatar"
-              :src="props.item.avatar"
-              alt="Avatar"
-            />
-            <v-icon v-else>
-              person
-            </v-icon>
-          </v-avatar>
+        <router-link :to="userRoute(props.item.username)" tag="tr">
+          <td>{{ props.item.rank }}</td>
+          <td>
+            <v-avatar size="32px" color="grey lighten-4">
+              <img
+                v-if="props.item.avatar"
+                :src="props.item.avatar"
+                alt="Avatar"
+              />
+              <v-icon v-else>
+                person
+              </v-icon>
+            </v-avatar>
 
-          {{ props.item.username }}
-        </td>
-        <td class="text-xs-right">{{ props.item.coins }}</td>
+            {{ props.item.username }}
+          </td>
+          <td class="text-xs-right">{{ props.item.coins }}</td>
+        </router-link>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">
         Your search for "{{ search }}" found no results.
@@ -72,6 +74,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    userRoute(username) {
+      return "/user/" + username;
+    }
   }
 };
 </script>
