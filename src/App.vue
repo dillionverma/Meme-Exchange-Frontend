@@ -31,7 +31,7 @@
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-           <v-list-tile v-if="isLoggedIn" :to="`/user/${currentUser.username}`">
+          <v-list-tile v-if="isLoggedIn" :to="`/user/${currentUser.username}`">
             <v-list-tile-action>
               <v-icon>person</v-icon>
             </v-list-tile-action>
@@ -380,10 +380,10 @@ export default {
         });
     },
     search() {
-      console.log(this.searchText)
+      console.log(this.searchText);
       if (this.searchText) {
-        console.log(this.searchText)
-        this.$router.push("/r/" + this.searchText)
+        console.log(this.searchText);
+        this.$router.push("/r/" + this.searchText);
       }
     }
   },
@@ -436,15 +436,15 @@ export default {
         this.authText = "Sign In";
       }
     },
-    "$route.params.subreddit": function(subreddit) {
+    "$route.params.subreddit": function() {
       // Change color of AppBar based on subreddit color
-      this.searchText = ""
+      this.searchText = "";
       // this.appbarColor = this.subreddits[subreddit].color;
     }
   },
   data: () => ({
     authText: "Sign In",
-    searchText: null,
+    searchText: null
   }),
   components: {
     Login,

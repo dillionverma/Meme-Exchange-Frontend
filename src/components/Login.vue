@@ -91,7 +91,7 @@
             <v-btn
               block
               depressed
-              :loading="loading" 
+              :loading="loading"
               :disabled="loading"
               @click="submitSignUp"
               :color="valid ? 'success' : 'disabled'"
@@ -184,7 +184,7 @@
             <v-btn
               block
               depressed
-              :loading="loading" 
+              :loading="loading"
               :disabled="loading"
               @click="submitLogin"
               :color="valid ? 'success' : 'disabled'"
@@ -239,8 +239,8 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.getters.authLoading
-    },
+      return this.$store.getters.authLoading;
+    }
   },
   methods: {
     submitLogin() {

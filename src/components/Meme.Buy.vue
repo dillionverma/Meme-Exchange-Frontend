@@ -83,7 +83,13 @@
     </v-list>
     <v-divider></v-divider>
     <v-card-actions class="pa-3">
-      <v-btn :loading="loading" :disabled="loading" color="success" block @click="buy">
+      <v-btn
+        :loading="loading"
+        :disabled="loading"
+        color="success"
+        block
+        @click="buy"
+      >
         Buy
       </v-btn>
     </v-card-actions>
