@@ -170,16 +170,19 @@ export default {
     }
   },
   methods: {
-    buy() {
-      this.$store.dispatch(BUY_MEME, {
+    async buy() {
+      await this.$store.dispatch(BUY_MEME, {
         id: this.meme.id,
         quantity: this.quantity,
         username: this.user.username
       });
+      this.onSuccess()
+      this.quantity = 0
     }
   },
   props: {
-    meme: Object
+    meme: Object,
+    onSuccess: Function
   }
 };
 </script>

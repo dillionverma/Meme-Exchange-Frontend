@@ -15,7 +15,7 @@ export const SIGNUP = "auth/signup";
 export const AUTHENTICATE = "auth/AUTHENTICATE";
 
 // Mutations
-export const SET_USER = "auth/SET_USER";
+export const SET_CURRENT_USER = "auth/SET_CURRENT_USER";
 export const SET_LOADING = "auth/loading";
 export const PURGE_AUTH = "auth/PURGE_AUTH";
 
@@ -44,7 +44,7 @@ const mutations = {
   [SET_LOADING](state, loading) {
     state.loading = loading;
   },
-  [SET_USER](state, user) {
+  [SET_CURRENT_USER](state, user) {
     state.isLoggedIn = true;
     state.user = user;
   },
@@ -63,7 +63,7 @@ const actions = {
     try {
       const res = await api.get("/v1/user/", {});
       console.log(res);
-      commit(SET_USER, res.data.user);
+      commit(SET_CURRENT_USER, res.data.user);
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
@@ -76,7 +76,7 @@ const actions = {
     try {
       const res = await api.post("/v1/user/third-party-login", request);
       console.log(res);
-      commit(SET_USER, res.data.user);
+      commit(SET_CURRENT_USER, res.data.user);
       if (res.data.token) {
         JwtService.saveToken(res.data.token);
       }
@@ -101,7 +101,7 @@ const actions = {
     try {
       const res = await api.post("/v1/user/signup", credentials);
       console.log(res);
-      commit(SET_USER, res.data.user);
+      commit(SET_CURRENT_USER, res.data.user);
       if (res.data.token) {
         JwtService.saveToken(res.data.token);
       }

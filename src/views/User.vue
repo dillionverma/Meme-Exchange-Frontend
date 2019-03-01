@@ -47,7 +47,7 @@
                     </v-card-title>
                     <v-data-table
                       :headers="headers"
-                      :items="user.memes"
+                      :items="user.portfolio"
                       :search="search"
                       disable-initial-sort
                     >
@@ -64,14 +64,14 @@
                           </td>
                           <td class="text-xs-right">{{ props.item.author }}</td>
                           <td class="text-xs-right">
-                            {{ props.item.quantity }}
+                            {{ props.item.quantity.toLocaleString() }}
                           </td>
                           <td class="justify-center layout px-0">
                             <v-dialog v-model="props.item.sell" width="700">
                               <v-btn slot="activator" color="success" small
                                 >Sell</v-btn
                               >
-                              <Sell :meme="props.item" />
+                              <Sell :meme="props.item" :onSuccess="sold"/>
                             </v-dialog>
                           </td>
                         </router-link>
@@ -128,9 +128,9 @@
                           <td class="text-xs-right">
                             {{ props.item.meme.title }}
                           </td>
-                          <td class="text-xs-right">{{ props.item.price }}</td>
+                          <td class="text-xs-right">{{ props.item.price.toLocaleString() }}</td>
                           <td class="text-xs-right">
-                            {{ props.item.quantity }}
+                            {{ props.item.quantity.toLocaleString() }}
                           </td>
                         </router-link>
                       </template>
@@ -160,8 +160,8 @@
                       ></v-text-field>
                     </v-card-title>
                     <v-data-table
-                      :headers="headers"
-                      :items="user.memes"
+                      :headers="historyHeaders"
+                      :items="user.portfolio_history"
                       :search="search"
                       disable-initial-sort
                     >
@@ -173,21 +173,17 @@
                           tag="tr"
                         >
                           <td>{{ props.item.title }}</td>
-                          <td class="text-xs-right">
-                            {{ props.item.subreddit }}
-                          </td>
+                          <td class="text-xs-right">{{ props.item.subreddit }}</td>
                           <td class="text-xs-right">{{ props.item.author }}</td>
-                          <td class="text-xs-right">
-                            {{ props.item.quantity }}
-                          </td>
-                          <td class="justify-center layout px-0">
+                          <!-- <td class="text-xs-right">{{ props.item.quantity }}</td> -->
+                          <!-- <td class="justify-center layout px-0">
                             <v-dialog v-model="props.item.sell" width="700">
                               <v-btn slot="activator" color="success" small
                                 >Sell</v-btn
                               >
                               <Sell :meme="props.item" />
                             </v-dialog>
-                          </td>
+                          </td> -->
                         </router-link>
                       </template>
                       <v-alert
@@ -219,7 +215,7 @@ export default {
     Sell
   },
   props: {
-    meme: Object
+    meme: Object,
   },
   mounted() {
     this.$store.dispatch(GET_USER, { username: this.$route.params.username });
@@ -235,10 +231,15 @@ export default {
       return this.$store.getters.transactions;
     }
   },
+  methods: {
+    sold() {
+      this.sell = false
+    },
+  },
   data() {
     return {
       search: "",
-      sell: {},
+      sell: false,
       items: ["profile", "transactions", "portfolio history"],
       tabs: "profile",
       headers: [
@@ -297,7 +298,35 @@ export default {
           align: "center",
           value: "quantity"
         }
-      ]
+      ],
+       historyHeaders: [
+        {
+          text: "Title",
+          align: "left",
+          // sortable: false,
+          value: "title"
+          // width: "10"
+        },
+        {
+          text: "Subreddit",
+          value: "subreddit",
+          align: "right"
+        },
+        {
+          text: "Author",
+          align: "right",
+          value: "author"
+        },
+        // {
+        //   text: "Quantity",
+        //   align: "right",
+        //   value: "quantity"
+        // },
+        // {
+        //   text: "Actions",
+        //   align: "center"
+        // }
+      ],
     };
   }
 };

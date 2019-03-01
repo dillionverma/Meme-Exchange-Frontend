@@ -1,4 +1,5 @@
 import api from "@/lib/api.service";
+import { SET_CURRENT_USER } from "./auth.module";
 
 // Actions
 export const GET_USER = "user/get";
@@ -41,15 +42,20 @@ const mutations = {
 
 // Actions
 const actions = {
-  async [GET_USER]({ commit }, params) {
+  async [GET_USER]({ commit, getters }, params) {
     commit(SET_LOADING, true);
     try {
       const res = await api.get(`/v1/user/${params.username}`);
       console.log(res);
       commit(SET_USER, res.data.user);
+      // TODO: kind of sketchy but works for now
+      if (getters.currentUser.username == res.data.user.username) {
+        commit(SET_CURRENT_USER, res.data.user);
+      }
       commit(SET_LOADING, false);
     } catch (err) {
       console.log(err.message);
+      commit(SET_LOADING, false);
     }
   },
   async [GET_TRANSACTIONS]({ commit }, params) {
@@ -61,6 +67,7 @@ const actions = {
       commit(SET_LOADING, false);
     } catch (err) {
       console.log(err.message);
+      commit(SET_LOADING, false);
     }
   }
 };
