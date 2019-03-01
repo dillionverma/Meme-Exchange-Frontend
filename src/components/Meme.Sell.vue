@@ -23,7 +23,7 @@
                     <div>{{ meme.author }}</div>
                     <div>
                       {{
-                        new Date(meme.created).toLocaleString()
+                        new Date(meme.created*1000).toLocaleString()
                           | moment("from", "now")
                       }}
                     </div>
