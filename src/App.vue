@@ -224,93 +224,95 @@
       <!-- <v-btn icon>
         <v-icon>apps</v-icon>
       </v-btn> -->
-      <v-menu
-        v-model="menu"
-        bottom
-        left
-        v-if="isLoggedIn"
-        :close-on-content-click="false"
-      >
-        <!-- <v-btn slot="activator" icon>
-          <v-icon>more_vert</v-icon>
-        </v-btn> -->
-        <v-btn slot="activator" flat>
-          <v-avatar color="grey lighten-4" left size="32px">
-            <img
-              v-if="currentUser.avatar"
-              :src="currentUser.avatar"
-              alt="avatar"
-            />
-            <v-icon v-else>
-              person
-            </v-icon>
-          </v-avatar>
-          <span class="body-2 ml-2">{{ currentUser.username }}</span>
+      <v-toolbar-items>
+        <v-menu
+          v-model="menu"
+          bottom
+          left
+          v-if="isLoggedIn"
+          :close-on-content-click="false"
+        >
+          <!-- <v-btn slot="activator" icon>
+            <v-icon>more_vert</v-icon>
+          </v-btn> -->
+          <v-btn slot="activator" flat>
+            <v-avatar color="grey lighten-4" left size="32px">
+              <img
+                v-if="currentUser.avatar"
+                :src="currentUser.avatar"
+                alt="avatar"
+              />
+              <v-icon v-else>
+                person
+              </v-icon>
+            </v-avatar>
+            <span class="body-2 ml-2">{{ currentUser.username }}</span>
+          </v-btn>
+
+          <v-card>
+            <v-list>
+              <v-list-tile avatar :to="profile" @click="closeMenu">
+                <v-list-tile-avatar>
+                  <img
+                    v-if="currentUser.avatar"
+                    :src="currentUser.avatar"
+                    alt="avatar"
+                  />
+                  <v-icon v-else>
+                    person
+                  </v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{
+                    currentUser.username
+                  }}</v-list-tile-title>
+                  <v-list-tile-sub-title
+                    >+
+                    {{
+                      currentUser.coins.toLocaleString()
+                    }}</v-list-tile-sub-title
+                  >
+                </v-list-tile-content>
+
+                <!-- <v-list-tile-action>
+                  <v-btn :class="fav ? 'red--text' : ''" icon @click="fav = !fav">
+                    <v-icon>favorite</v-icon>
+                  </v-btn>
+                </v-list-tile-action> -->
+              </v-list-tile>
+            </v-list>
+
+            <v-divider></v-divider>
+
+            <v-list>
+              <v-list-tile
+                v-for="(item, i) in extraItems"
+                :key="i"
+                :to="item.path"
+                @click="closeMenu"
+              >
+                <v-list-tile-action>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile @click="handleAuthClick">
+                <v-list-tile-action>
+                  <v-icon>exit_to_app</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    {{ authText }}
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+        </v-menu>
+        <v-btn v-else flat @click="handleAuthClick">
+          {{ authText }}
         </v-btn>
-
-        <v-card>
-          <v-list>
-            <v-list-tile avatar :to="profile" @click="closeMenu">
-              <v-list-tile-avatar>
-                <img
-                  v-if="currentUser.avatar"
-                  :src="currentUser.avatar"
-                  alt="avatar"
-                />
-                <v-icon v-else>
-                  person
-                </v-icon>
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>{{
-                  currentUser.username
-                }}</v-list-tile-title>
-                <v-list-tile-sub-title
-                  >+
-                  {{
-                    currentUser.coins.toLocaleString()
-                  }}</v-list-tile-sub-title
-                >
-              </v-list-tile-content>
-
-              <!-- <v-list-tile-action>
-                <v-btn :class="fav ? 'red--text' : ''" icon @click="fav = !fav">
-                  <v-icon>favorite</v-icon>
-                </v-btn>
-              </v-list-tile-action> -->
-            </v-list-tile>
-          </v-list>
-
-          <v-divider></v-divider>
-
-          <v-list>
-            <v-list-tile
-              v-for="(item, i) in extraItems"
-              :key="i"
-              :to="item.path"
-              @click="closeMenu"
-            >
-              <v-list-tile-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile @click="handleAuthClick">
-              <v-list-tile-action>
-                <v-icon>exit_to_app</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ authText }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-card>
-      </v-menu>
-      <v-btn v-else flat @click="handleAuthClick">
-        {{ authText }}
-      </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
