@@ -266,7 +266,7 @@
                   currentUser.username
                 }}</v-list-tile-title>
                 <v-list-tile-sub-title
-                  >+ {{ currentUser.coins }}</v-list-tile-sub-title
+                  >+ {{ currentUser.coins.toLocaleString() }}</v-list-tile-sub-title
                 >
               </v-list-tile-content>
 
@@ -312,7 +312,9 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-          <router-view />
+          <transition name="slide" mode="out-in">
+            <router-view />
+          </transition>
           <Notification />
         </v-layout>
       </v-container>
@@ -472,5 +474,17 @@ export default {
     text-decoration: none;
     // color: rgba(0, 0, 0, 0.87);
   }
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.2s ease;
+}
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
 }
 </style>
