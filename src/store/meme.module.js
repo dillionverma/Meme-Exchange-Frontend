@@ -1,7 +1,7 @@
 import api from "@/lib/api.service";
 import { handleError } from "@/lib/helpers";
 import { SUCCESS } from "./notification.module";
-import { SET_USER } from "./auth.module";
+import { GET_USER, GET_TRANSACTIONS } from "./user.module";
 
 // Actions
 export const BUY_MEME = "MEME_BUY";
@@ -39,7 +39,7 @@ const mutations = {
 
 // Actions
 const actions = {
-  async [BUY_MEME]({ commit }, payload) {
+  async [BUY_MEME]({ commit, dispatch }, payload) {
     commit(SET_LOADING, true);
     try {
       const res = await api.post(`/v1/meme/${payload.id}/buy`, {
@@ -55,17 +55,18 @@ const actions = {
         message: `${res.data.transaction.quantity} meme${
           res.data.transaction.quantity == 1 ? "" : "s"
         } successfully purchased`,
-        link: "/user/" + res.data.transaction.user.username,
+        link: "/user/" + payload.username,
         linkText: "view"
       });
-      commit(SET_USER, res.data.transaction.user);
+      dispatch(GET_USER, { username: payload.username });
+      dispatch(GET_TRANSACTIONS, { username: payload.username });
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
       commit(SET_LOADING, false);
     }
   },
-  async [SELL_MEME]({ commit }, payload) {
+  async [SELL_MEME]({ commit, dispatch }, payload) {
     commit(SET_LOADING, true);
     try {
       const res = await api.post(`/v1/meme/${payload.id}/sell`, {
@@ -81,10 +82,11 @@ const actions = {
         message: `${res.data.transaction.quantity} meme${
           res.data.transaction.quantity == 1 ? "" : "s"
         } successfully sold`,
-        link: "/user/" + res.data.transaction.user.username,
+        link: "/user/" + payload.username,
         linkText: "view"
       });
-      commit(SET_USER, res.data.transaction.user);
+      dispatch(GET_USER, { username: payload.username });
+      dispatch(GET_TRANSACTIONS, { username: payload.username });
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);

@@ -266,7 +266,10 @@
                   currentUser.username
                 }}</v-list-tile-title>
                 <v-list-tile-sub-title
-                  >+ {{ currentUser.coins.toLocaleString() }}</v-list-tile-sub-title
+                  >+
+                  {{
+                    currentUser.coins.toLocaleString()
+                  }}</v-list-tile-sub-title
                 >
               </v-list-tile-content>
 
@@ -311,12 +314,10 @@
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <transition name="slide" mode="out-in">
-            <router-view />
-          </transition>
-          <Notification />
-        </v-layout>
+        <transition name="slide" mode="out-in">
+          <router-view />
+        </transition>
+        <Notification />
       </v-container>
     </v-content>
     <!-- <v-btn fab bottom right color="pink" dark fixed @click="dialog = !dialog">

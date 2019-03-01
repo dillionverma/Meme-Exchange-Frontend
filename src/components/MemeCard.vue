@@ -6,7 +6,7 @@
 </style>
 
 <template>
-  <v-card class="meme-card">
+  <v-card class="meme-card" @click="goToMeme">
     <v-img
       :src="meme.url"
       :lazy-src="meme.thumbnail"
@@ -21,7 +21,7 @@
         ></v-progress-circular>
       </v-layout>
     </v-img>
-    <v-card-title primary-title class="align-start">
+    <v-card-title>
       <div>
         <span class="headline">{{ meme.title }}</span>
         <div class="grey--text font-weight-light">
@@ -113,6 +113,9 @@ export default {
       markup.focus();
       document.execCommand("selectAll", false, null);
       this.meme.copied = document.execCommand("copy");
+    },
+    goToMeme() {
+      this.$router.push(`/r/${this.$route.params.subreddit}/${this.meme.id}`);
     }
   },
   watch: {

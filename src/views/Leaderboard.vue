@@ -1,47 +1,51 @@
 <template>
-  <v-card id="leaderboard-card">
-    <v-card-title>
-      Nutrition
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="search"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="leaderboard"
-      :search="search"
-      :rows-per-page-items="rowsPerPageItems"
-    >
-      <template slot="items" slot-scope="props">
-        <router-link :to="`/user/${props.item.username}`" tag="tr">
-          <td>{{ props.item.rank }}</td>
-          <td>
-            <v-avatar size="32px" color="grey lighten-4">
-              <img
-                v-if="props.item.avatar"
-                :src="props.item.avatar"
-                alt="Avatar"
-              />
-              <v-icon v-else>
-                person
-              </v-icon>
-            </v-avatar>
+  <v-layout justify-center fill-height>
+    <v-flex xs12>
+      <v-card id="leaderboard-card">
+        <v-card-title>
+          Nutrition
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="leaderboard"
+          :search="search"
+          :rows-per-page-items="rowsPerPageItems"
+        >
+          <template slot="items" slot-scope="props">
+            <router-link :to="`/user/${props.item.username}`" tag="tr">
+              <td>{{ props.item.rank }}</td>
+              <td>
+                <v-avatar size="32px" color="grey lighten-4">
+                  <img
+                    v-if="props.item.avatar"
+                    :src="props.item.avatar"
+                    alt="Avatar"
+                  />
+                  <v-icon v-else>
+                    person
+                  </v-icon>
+                </v-avatar>
 
-            {{ props.item.username }}
-          </td>
-          <td class="text-xs-right">{{ props.item.coins }}</td>
-        </router-link>
-      </template>
-      <v-alert slot="no-results" :value="true" color="error" icon="warning">
-        Your search for "{{ search }}" found no results.
-      </v-alert>
-    </v-data-table>
-  </v-card>
+                {{ props.item.username }}
+              </td>
+              <td class="text-xs-right">{{ props.item.coins }}</td>
+            </router-link>
+          </template>
+          <v-alert slot="no-results" :value="true" color="error" icon="warning">
+            Your search for "{{ search }}" found no results.
+          </v-alert>
+        </v-data-table>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -88,8 +92,8 @@ export default {
 </script>
 
 <style lang="scss">
-#leaderboard-card {
-  width: 80%;
-  height: 100%;
-}
+// #leaderboard-card {
+//   width: 80%;
+//   height: 100%;
+// }
 </style>

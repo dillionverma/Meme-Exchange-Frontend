@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-layout justify-center fill-height align-center>
     <p>This is where you see stats, news, top memes etc</p>
-  </div>
+  </v-layout>
 </template>
 
 <script>

@@ -30,6 +30,11 @@ export default new Router({
       component: () => import("./views/Explore.vue")
     },
     {
+      path: "/r/:subreddit/:reddit_id",
+      name: "Meme",
+      component: () => import("./views/Meme.vue")
+    },
+    {
       path: "/settings",
       name: "Settings",
       component: () => import("./views/Settings.vue")

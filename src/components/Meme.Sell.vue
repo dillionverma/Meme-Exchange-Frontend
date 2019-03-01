@@ -23,7 +23,8 @@
                     <div>{{ meme.author }}</div>
                     <div>
                       {{
-                        new Date(meme.created).toLocaleString() | moment("from", "now")
+                        new Date(meme.created).toLocaleString()
+                          | moment("from", "now")
                       }}
                     </div>
                   </div>
@@ -172,7 +173,8 @@ export default {
     sell() {
       this.$store.dispatch(SELL_MEME, {
         id: this.meme.reddit_id,
-        quantity: this.quantity
+        quantity: this.quantity,
+        username: this.user.username
       });
     }
   },

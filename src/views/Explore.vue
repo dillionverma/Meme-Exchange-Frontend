@@ -2,7 +2,7 @@
   <v-container grid-list-xl fluid>
     <v-layout col wrap>
       <v-flex v-for="meme in memes" :key="meme.id" xs12 md4 d-flex>
-        <Meme :meme="meme" />
+        <MemeCard :meme="meme" />
       </v-flex>
     </v-layout>
     <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import Meme from "@/components/Meme";
+import MemeCard from "@/components/MemeCard";
 
 export default {
   components: {
-    Meme
+    MemeCard
   },
   beforeMount() {
     this.getMemes();
