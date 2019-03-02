@@ -35,7 +35,7 @@
         <v-card-actions>
           <v-dialog v-model="buy" width="700">
             <v-btn slot="activator" color="success" small>Buy</v-btn>
-            <Buy :meme="meme" :onSuccess="bought"/>
+            <Buy :meme="meme" :onSuccess="bought" />
           </v-dialog>
           <!-- <v-dialog v-model="sell" width="600">
             <v-btn slot="activator" color="error" small>Sell</v-btn>
@@ -114,7 +114,7 @@ export default {
   }),
   methods: {
     bought() {
-      this.buy = false
+      this.buy = false;
     },
     copy() {
       const markup = this.$refs.link;

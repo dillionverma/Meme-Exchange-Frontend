@@ -8,6 +8,7 @@ import store from "./store";
 import "./registerServiceWorker";
 import moment from "vue-moment";
 
+moment.suppressDeprecationWarnings = true;
 Vue.use(moment);
 
 Vue.config.productionTip = false;

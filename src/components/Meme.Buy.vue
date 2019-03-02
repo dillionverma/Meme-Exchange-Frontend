@@ -23,8 +23,7 @@
                     <div>{{ meme.author }}</div>
                     <div>
                       {{
-                        new Date(meme.created*1000).toLocaleString()
-                          | moment("from", "now")
+                        new Date(meme.created * 1000) | moment("from", "now")
                       }}
                     </div>
                   </div>
@@ -176,8 +175,8 @@ export default {
         quantity: this.quantity,
         username: this.user.username
       });
-      this.onSuccess()
-      this.quantity = 0
+      this.onSuccess();
+      this.quantity = 0;
     }
   },
   props: {

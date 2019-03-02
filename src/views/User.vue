@@ -71,7 +71,7 @@
                               <v-btn slot="activator" color="success" small
                                 >Sell</v-btn
                               >
-                              <Sell :meme="props.item" :onSuccess="sold"/>
+                              <Sell :meme="props.item" :onSuccess="sold" />
                             </v-dialog>
                           </td>
                         </router-link>
@@ -128,7 +128,9 @@
                           <td class="text-xs-right">
                             {{ props.item.meme.title }}
                           </td>
-                          <td class="text-xs-right">{{ props.item.price.toLocaleString() }}</td>
+                          <td class="text-xs-right">
+                            {{ props.item.price.toLocaleString() }}
+                          </td>
                           <td class="text-xs-right">
                             {{ props.item.quantity.toLocaleString() }}
                           </td>
@@ -173,7 +175,9 @@
                           tag="tr"
                         >
                           <td>{{ props.item.title }}</td>
-                          <td class="text-xs-right">{{ props.item.subreddit }}</td>
+                          <td class="text-xs-right">
+                            {{ props.item.subreddit }}
+                          </td>
                           <td class="text-xs-right">{{ props.item.author }}</td>
                           <!-- <td class="text-xs-right">{{ props.item.quantity }}</td> -->
                           <!-- <td class="justify-center layout px-0">
@@ -215,7 +219,7 @@ export default {
     Sell
   },
   props: {
-    meme: Object,
+    meme: Object
   },
   mounted() {
     this.$store.dispatch(GET_USER, { username: this.$route.params.username });
@@ -233,8 +237,8 @@ export default {
   },
   methods: {
     sold() {
-      this.sell = false
-    },
+      this.sell = false;
+    }
   },
   data() {
     return {
@@ -299,7 +303,7 @@ export default {
           value: "quantity"
         }
       ],
-       historyHeaders: [
+      historyHeaders: [
         {
           text: "Title",
           align: "left",
@@ -316,7 +320,7 @@ export default {
           text: "Author",
           align: "right",
           value: "author"
-        },
+        }
         // {
         //   text: "Quantity",
         //   align: "right",
@@ -326,7 +330,7 @@ export default {
         //   text: "Actions",
         //   align: "center"
         // }
-      ],
+      ]
     };
   }
 };

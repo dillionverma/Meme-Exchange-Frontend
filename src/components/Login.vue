@@ -69,7 +69,7 @@
                     :rules="[rules.required]"
                     :append-icon="visible ? 'visibility' : 'visibility_off'"
                     :type="visible ? 'text' : 'password'"
-                    :append-icon-cb="() => (visible = !visible)"
+                    @click:append="() => (visible = !visible)"
                     required
                     min="8"
                     counter
@@ -162,7 +162,7 @@
                     :rules="[rules.required]"
                     :append-icon="visible ? 'visibility' : 'visibility_off'"
                     :type="visible ? 'text' : 'password'"
-                    :append-icon-cb="() => (visible = !visible)"
+                    @click:append="() => (visible = !visible)"
                     required
                     min="8"
                     counter

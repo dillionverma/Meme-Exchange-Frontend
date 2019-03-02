@@ -109,7 +109,7 @@ export default {
   }),
   methods: {
     bought() {
-      this.buy = false
+      this.buy = false;
     },
     copy() {
       const markup = this.$refs.link;
