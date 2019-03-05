@@ -8,6 +8,15 @@ function headers() {
 }
 
 const api = {
+  async get(path, params = {}) {
+    return await Vue.axios({
+      baseURL: API_URL,
+      headers: headers(),
+      url: path,
+      method: "GET",
+      params: params
+    });
+  },
   async post(path, body = {}) {
     return await Vue.axios({
       baseURL: API_URL,
@@ -17,13 +26,13 @@ const api = {
       data: body
     });
   },
-  async get(path, params = {}) {
+  async put(path, body = {}) {
     return await Vue.axios({
       baseURL: API_URL,
       headers: headers(),
       url: path,
-      method: "GET",
-      params: params
+      method: "PUT",
+      data: body
     });
   },
   async delete(path, params = {}) {

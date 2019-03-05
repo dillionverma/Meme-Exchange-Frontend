@@ -4,7 +4,7 @@
       <v-subheader>General</v-subheader>
       <v-card>
         <v-list three-line subheader>
-          <v-list-tile disabled>
+          <v-list-tile @click="usernameDialog = !usernameDialog">
             <v-list-tile-content>
               <v-list-tile-title>Username</v-list-tile-title>
               <v-list-tile-sub-title
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { DARK } from "@/store/app.module";
+import { DARK, USERNAME_DIALOG } from "@/store/app.module";
 
 export default {
   data() {
@@ -84,6 +84,14 @@ export default {
       },
       set() {
         this.$store.commit(DARK);
+      }
+    },
+    usernameDialog: {
+      get() {
+        return this.$store.getters.usernameDialog;
+      },
+      set(dialog) {
+        this.$store.commit(USERNAME_DIALOG, dialog);
       }
     }
   }

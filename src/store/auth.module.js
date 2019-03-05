@@ -3,6 +3,7 @@ import api from "@/lib/api.service";
 import JwtService from "@/lib/jwt.service";
 import { handleError } from "@/lib/helpers";
 import { SUCCESS } from "./notification.module";
+import { USERNAME_DIALOG } from "./app.module";
 
 // import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actions";
 // import { SET_TOKEN, REMOVE_TOKEN } from "./mutations";
@@ -11,6 +12,7 @@ import { SUCCESS } from "./notification.module";
 export const LOGIN = "auth/login";
 export const LOGOUT = "auth/logout";
 export const SIGNUP = "auth/signup";
+export const UPDATE_USERNAME = "auth/UPDATE_USERNAME";
 
 export const AUTHENTICATE = "auth/AUTHENTICATE";
 
@@ -83,6 +85,9 @@ const actions = {
       commit(SUCCESS, {
         message: "Successfully signed in"
       });
+      if (res.data.new) {
+        commit(USERNAME_DIALOG, true);
+      }
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
@@ -95,6 +100,25 @@ const actions = {
     commit(SUCCESS, {
       message: "Successfully signed out"
     });
+  },
+  async [UPDATE_USERNAME]({ commit }, params) {
+    commit(SET_LOADING, true);
+    try {
+      const res = await api.put(`/v1/user/username`, params);
+      console.log(res);
+      commit(SET_CURRENT_USER, res.data.user);
+      commit(SUCCESS, {
+        message: "Successfully changed username",
+        link: "/user/" + res.data.user.username,
+        linkText: "View Profile"
+      });
+      commit(USERNAME_DIALOG, false);
+      commit(SET_LOADING, false);
+    } catch (err) {
+      handleError(commit, err);
+      console.log(err.message);
+      commit(SET_LOADING, false);
+    }
   },
   async [SIGNUP]({ commit }, credentials) {
     commit(SET_LOADING, true);
@@ -110,6 +134,7 @@ const actions = {
         link: "/user/" + res.data.user.username,
         linkText: "View Profile"
       });
+      commit(USERNAME_DIALOG, true);
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);

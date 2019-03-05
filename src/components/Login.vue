@@ -167,7 +167,6 @@ import { LOGIN, SIGNUP } from "@/store/auth.module";
 
 export default {
   data: () => ({
-    dialog: "",
     username: "",
     email: "",
     password: "",

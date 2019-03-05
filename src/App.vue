@@ -325,8 +325,11 @@
     <!-- <v-btn fab bottom right color="pink" dark fixed @click="dialog = !dialog">
       <v-icon>add</v-icon>
     </v-btn> -->
-    <v-dialog v-model="dialog" width="400px">
+    <v-dialog v-model="loginDialog" width="400px">
       <Login />
+    </v-dialog>
+    <v-dialog v-model="usernameDialog" width="400px">
+      <Username />
     </v-dialog>
   </v-app>
 </template>
@@ -336,10 +339,17 @@
 import { mapGetters } from "vuex";
 import JwtService from "@/lib/jwt.service";
 import Login from "@/components/Login";
+import Username from "@/components/Username";
+
 import Notification from "@/components/Notification";
 
 import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
-import { LOGIN_DIALOG, MENU, DRAWER } from "@/store/app.module";
+import {
+  LOGIN_DIALOG,
+  MENU,
+  DRAWER,
+  USERNAME_DIALOG
+} from "@/store/app.module";
 
 export default {
   mounted() {
@@ -420,12 +430,20 @@ export default {
         this.$store.commit(MENU, menu);
       }
     },
-    dialog: {
+    loginDialog: {
       get() {
-        return this.$store.getters.dialog;
+        return this.$store.getters.loginDialog;
       },
       set(dialog) {
         this.$store.commit(LOGIN_DIALOG, dialog);
+      }
+    },
+    usernameDialog: {
+      get() {
+        return this.$store.getters.usernameDialog;
+      },
+      set(dialog) {
+        this.$store.commit(USERNAME_DIALOG, dialog);
       }
     },
     drawer: {
@@ -461,7 +479,8 @@ export default {
   }),
   components: {
     Login,
-    Notification
+    Notification,
+    Username
   }
 };
 </script>

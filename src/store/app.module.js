@@ -7,6 +7,8 @@
 // export const SET_LOADING = "leaderboard/loading";
 export const HOME = "app/HOME";
 export const LOGIN_DIALOG = "app/LOGIN_DIALOG";
+export const USERNAME_DIALOG = "app/USERNAME_DIALOG";
+
 export const MENU = "app/MENU";
 export const DRAWER = "app/DRAWER";
 export const DARK = "app/DARK";
@@ -14,7 +16,8 @@ export const DARK = "app/DARK";
 // State
 const state = {
   title: "Meme Exchange",
-  dialog: false,
+  loginDialog: false,
+  usernameDialog: false,
   drawer: null,
   menu: false,
   dark: false,
@@ -102,8 +105,11 @@ const getters = {
   title(state) {
     return state.title;
   },
-  dialog(state) {
-    return state.dialog;
+  loginDialog(state) {
+    return state.loginDialog;
+  },
+  usernameDialog(state) {
+    return state.usernameDialog;
   },
   drawer(state) {
     return state.drawer;
@@ -134,12 +140,15 @@ const getters = {
 // Mutations
 const mutations = {
   [HOME](state) {
-    state.dialog = false;
+    state.loginDialog = false;
     state.drawer = false;
     state.menu = false;
   },
-  [LOGIN_DIALOG](state, dialog) {
-    state.dialog = dialog;
+  [LOGIN_DIALOG](state, loginDialog) {
+    state.loginDialog = loginDialog;
+  },
+  [USERNAME_DIALOG](state, usernameDialog) {
+    state.usernameDialog = usernameDialog;
   },
   [MENU](state, menu) {
     state.menu = menu;
