@@ -134,7 +134,6 @@ const actions = {
         link: "/user/" + res.data.user.username,
         linkText: "View Profile"
       });
-      commit(USERNAME_DIALOG, true);
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
