@@ -332,13 +332,14 @@
 </template>
 
 <script>
+/* global gapi */
 import { mapGetters } from "vuex";
 import JwtService from "@/lib/jwt.service";
 import Login from "@/components/Login";
 import Notification from "@/components/Notification";
 
 import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
-import { DIALOG, MENU, DRAWER } from "@/store/app.module";
+import { LOGIN_DIALOG, MENU, DRAWER } from "@/store/app.module";
 
 export default {
   mounted() {
@@ -360,11 +361,18 @@ export default {
     },
     logout() {
       this.$store.dispatch(LOGOUT);
-      this.$store.commit(DIALOG, false);
+      this.$store.commit(LOGIN_DIALOG, false);
       this.authText = "Sign In";
+      this.signOutGoogle();
+    },
+    signOutGoogle() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        console.log("Google user signed out.");
+      });
     },
     login() {
-      this.$store.commit(DIALOG, true);
+      this.$store.commit(LOGIN_DIALOG, true);
       this.$store.commit(MENU, false);
     },
     closeMenu() {
@@ -417,7 +425,7 @@ export default {
         return this.$store.getters.dialog;
       },
       set(dialog) {
-        this.$store.commit(DIALOG, dialog);
+        this.$store.commit(LOGIN_DIALOG, dialog);
       }
     },
     drawer: {
@@ -435,7 +443,7 @@ export default {
   watch: {
     isLoggedIn: function() {
       if (this.isLoggedIn) {
-        this.$store.commit(DIALOG, false);
+        this.$store.commit(LOGIN_DIALOG, false);
         this.authText = "Sign Out";
       } else {
         this.authText = "Sign In";

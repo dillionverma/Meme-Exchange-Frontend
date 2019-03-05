@@ -8,29 +8,28 @@
         Sign In
       </v-tab>
     </v-tabs>
+    <v-container grid-list-md text-xs-center>
+      <v-layout wrap>
+        <v-flex xs12>
+          <div id="google-signin-btn"></div>
+        </v-flex>
+        <v-flex xs12>
+          <div
+            class="fb-login-button"
+            data-size="large"
+            data-button-type="login_with"
+            data-auto-logout-link="false"
+            data-use-continue-as="false"
+            scope="public_profile,email"
+            onlogin="onFBReady();"
+          ></div>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-flex id="or">or</v-flex>
     <v-tabs-items v-model="tabs">
       <v-tab-item value="sign-up">
         <v-card-text>
-          <v-container grid-list-md text-xs-center>
-            <v-layout wrap>
-              <v-flex xs12>
-                <div id="google-signin-btn"></div>
-              </v-flex>
-              <v-flex xs12>
-                <div
-                  class="fb-login-button"
-                  data-size="large"
-                  data-button-type="login_with"
-                  data-auto-logout-link="false"
-                  data-use-continue-as="false"
-                  scope="public_profile,email"
-                  onlogin="onFBReady();"
-                ></div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-          <v-flex id="or">or</v-flex>
-          <!-- <v-divider /> -->
           <v-container grid-list-md pb-0>
             <v-form v-model="valid" ref="form">
               <v-layout wrap>
@@ -102,44 +101,9 @@
       </v-tab-item>
       <v-tab-item value="sign-in">
         <v-card-text>
-          <v-container grid-list-md text-xs-center>
-            <v-layout wrap>
-              <v-flex xs12>
-                <div id="google-signin-btn"></div>
-              </v-flex>
-              <v-flex xs12>
-                <div
-                  class="fb-login-button"
-                  data-size="large"
-                  data-button-type="login_with"
-                  data-auto-logout-link="false"
-                  data-use-continue-as="false"
-                  scope="public_profile,email"
-                  onlogin="onFBReady();"
-                ></div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-          <v-flex id="or">or</v-flex>
           <v-container grid-list-md pb-0>
             <v-form v-model="valid" ref="form">
               <v-layout wrap>
-                <!-- <v-flex xs12>
-                    <v-text-field 
-                      ref="username"
-                      v-model="username"
-                      label="Username" 
-                      hint="Choose wisely"
-                      placeholder="xX_MeMeLoRd_Xx"
-                      required
-                      :rules="[
-                        rules.required,
-                        rules.counter
-                      ]"
-                      counter="20"
-                    >
-                    </v-text-field>
-                  </v-flex> -->
                 <v-flex xs12>
                   <v-text-field
                     ref="email"
@@ -300,12 +264,7 @@ export default {
         auth_expires_at: authResponse.expires_at
       };
       console.log("google", request);
-    },
-    signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function() {
-        console.log("User signed out.");
-      });
+      this.signInMemesx(request);
     }
   },
   metaInfo: {

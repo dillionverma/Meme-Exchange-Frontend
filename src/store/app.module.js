@@ -6,7 +6,7 @@
 // Mutations
 // export const SET_LOADING = "leaderboard/loading";
 export const HOME = "app/HOME";
-export const DIALOG = "app/DIALOG";
+export const LOGIN_DIALOG = "app/LOGIN_DIALOG";
 export const MENU = "app/MENU";
 export const DRAWER = "app/DRAWER";
 export const DARK = "app/DARK";
@@ -138,7 +138,7 @@ const mutations = {
     state.drawer = false;
     state.menu = false;
   },
-  [DIALOG](state, dialog) {
+  [LOGIN_DIALOG](state, dialog) {
     state.dialog = dialog;
   },
   [MENU](state, menu) {
