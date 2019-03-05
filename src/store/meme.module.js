@@ -39,6 +39,12 @@ const mutations = {
 
 // Actions
 const actions = {
+  // {
+  //   id: "JF3J5",
+  //   quantity: 4,
+  //   username: 'meme_lord',
+  //   onSuccess: onSuccess
+  // }
   async [BUY_MEME]({ commit, dispatch }, payload) {
     commit(SET_LOADING, true);
     try {
@@ -60,6 +66,7 @@ const actions = {
       });
       dispatch(GET_USER, { username: payload.username });
       dispatch(GET_TRANSACTIONS, { username: payload.username });
+      payload.onSuccess();
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);

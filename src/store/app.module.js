@@ -83,9 +83,33 @@ const state = {
       icon: "",
       color: ""
     },
+    nukedmemes: {
+      text: "nukedmemes",
+      path: "/r/nukedmemes",
+      icon: "",
+      color: ""
+    },
     imgoingtohellforthis: {
       text: "imgoingtohellforthis",
       path: "/r/imgoingtohellforthis",
+      icon: "",
+      color: ""
+    },
+    AdviceAnimals: {
+      text: "AdviceAnimals",
+      path: "/r/AdviceAnimals",
+      icon: "",
+      color: ""
+    },
+    ComedyCemetery: {
+      text: "ComedyCemetery",
+      path: "/r/ComedyCemetery",
+      icon: "",
+      color: ""
+    },
+    PrequelMemes: {
+      text: "PrequelMemes",
+      path: "/r/PrequelMemes",
       icon: "",
       color: ""
     }

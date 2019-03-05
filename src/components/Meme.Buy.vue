@@ -1,7 +1,13 @@
 <template>
   <v-card>
     <v-container>
-      <v-layout>
+      <v-layout wrap justify-center fill-height>
+        <v-flex xs12 v-if="(meme.score - user.coins) * quantity > user.coins">
+          <v-alert outline :value="true" type="warning" icon="priority_high">
+            Insufficient funds. You require
+            {{ (meme.score - user.coins) * quantity }} more coins
+          </v-alert>
+        </v-flex>
         <v-flex xs6>
           <v-img
             :src="meme.url"
@@ -140,10 +146,11 @@
 
 <script>
 import { BUY_MEME } from "@/store/meme.module";
+import { LOGIN_DIALOG } from "@/store/app.module";
 export default {
   data: () => ({
     min: 0,
-    quantity: 0
+    quantity: 1
   }),
   computed: {
     loading() {
@@ -162,7 +169,7 @@ export default {
       return this.subtotal;
     },
     max() {
-      return Math.floor(this.user.coins / this.meme.score);
+      return Math.floor(this.user.coins / this.meme.score) || 1;
     },
     rules() {
       return [v => v <= this.max || "You do not have enough for this purchase"];
@@ -170,13 +177,16 @@ export default {
   },
   methods: {
     async buy() {
-      await this.$store.dispatch(BUY_MEME, {
-        id: this.meme.id,
-        quantity: this.quantity,
-        username: this.user.username
-      });
-      this.onSuccess();
-      this.quantity = 0;
+      if (this.isLoggedIn) {
+        await this.$store.dispatch(BUY_MEME, {
+          id: this.meme.id,
+          quantity: this.quantity,
+          username: this.user.username,
+          onSuccess: this.onSuccess
+        });
+      } else {
+        this.$store.commit(LOGIN_DIALOG, true);
+      }
     }
   },
   props: {

@@ -1,9 +1,9 @@
 <template>
   <v-card flat>
-    <v-card-title>Select Username</v-card-title>
+    <v-card-title>Change Username</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
-      <v-container grid-list-md pb-0>
+      <v-container grid-list-md>
         <v-form v-model="valid" ref="form" @submit.prevent="update">
           <v-layout wrap>
             <v-flex xs12>

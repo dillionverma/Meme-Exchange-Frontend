@@ -235,6 +235,14 @@ export default {
       return this.$store.getters.transactions;
     }
   },
+  watch: {
+    "$route.params.username": function() {
+      this.$store.dispatch(GET_USER, { username: this.$route.params.username });
+      this.$store.dispatch(GET_TRANSACTIONS, {
+        username: this.$route.params.username
+      });
+    }
+  },
   methods: {
     sold() {
       this.sell = false;

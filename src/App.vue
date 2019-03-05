@@ -340,9 +340,7 @@ import { mapGetters } from "vuex";
 import JwtService from "@/lib/jwt.service";
 import Login from "@/components/Login";
 import Username from "@/components/Username";
-
 import Notification from "@/components/Notification";
-
 import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
 import {
   LOGIN_DIALOG,

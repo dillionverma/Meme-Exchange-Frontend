@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center fill-height>
-    <v-flex xs6 offset-xs-3>
+    <v-flex xs12 md6 offset-md-3>
       <v-card>
         <v-img
           :src="meme.url"
