@@ -354,7 +354,7 @@ export default {
     if (!this.isLoggedIn && JwtService.getToken()) {
       this.authenticate();
     }
-    for (var subreddit in this.subreddits) this.fetchThumbnail(subreddit);
+    this.fetchThumbnails();
   },
   methods: {
     authenticate() {
@@ -389,11 +389,16 @@ export default {
     toggleDrawer() {
       this.$store.commit(DRAWER);
     },
-    async fetchThumbnail(subreddit) {
+    async fetchThumbnails() {
       try {
-        const res = await this.reddit.get(`/r/${subreddit}/about.json`);
-        this.subreddits[subreddit].icon = res.data.icon_img;
-        this.subreddits[subreddit].color = res.data.key_color;
+        const res = await this.reddit.get(`/api/info.json`, {
+          id: Object.values(this.subreddits).map(s=>s.id).join()
+        });
+
+        for (let subreddit of res.data.children) {
+          this.subreddits[subreddit.data.display_name].icon = subreddit.data.icon_img
+          this.subreddits[subreddit.data.display_name].color = subreddit.data.key_color;
+        }
       } catch (e) {
         console.log(Object.getOwnPropertyNames(e));
         console.log(e);

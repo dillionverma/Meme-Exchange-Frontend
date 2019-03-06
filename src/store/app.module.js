@@ -38,78 +38,91 @@ const state = {
     memes: {
       text: "memes",
       path: "/r/memes",
+      id: "t5_2qjpg",
       icon: "",
       color: ""
     },
     dankmemes: {
       text: "dankmemes",
       path: "/r/dankmemes",
+      id: "t5_2zmfe",
       icon: "",
       color: ""
     },
-    memeeconomy: {
-      text: "memeeconomy",
-      path: "/r/memeeconomy",
+    MemeEconomy: {
+      text: "MemeEconomy",
+      path: "/r/MemeEconomy",
+      id: "t5_3gl3k",
       icon: "",
       color: ""
     },
-    blackpeopletwitter: {
-      text: "blackpeopletwitter",
-      path: "/r/blackpeopletwitter",
+    BlackPeopleTwitter: {
+      text: "BlackPeopleTwitter",
+      path: "/r/BlackPeopleTwitter",
+      id: "t5_33x33",
       icon: "",
       color: ""
     },
     wholesomememes: {
       text: "wholesomememes",
       path: "/r/wholesomememes",
+      id: "t5_3gcwj",
       icon: "",
       color: ""
     },
-    Me_irl: {
-      text: "Me_irl",
-      path: "/r/Me_irl",
+    me_irl: {
+      text: "me_irl",
+      path: "/r/me_irl",
+      id: "t5_2vegg",
       icon: "",
       color: ""
     },
     surrealmemes: {
       text: "surrealmemes",
       path: "/r/surrealmemes",
+      id: "t5_3bz2s",
       icon: "",
       color: ""
     },
-    deepfriedmemes: {
-      text: "deepfriedmemes",
-      path: "/r/deepfriedmemes",
+    DeepFriedMemes: {
+      text: "DeepFriedMemes",
+      path: "/r/DeepFriedMemes",
+      id: "t5_3a7zb",
       icon: "",
       color: ""
     },
     nukedmemes: {
       text: "nukedmemes",
       path: "/r/nukedmemes",
+      id: "t5_3iiap",
       icon: "",
       color: ""
     },
-    imgoingtohellforthis: {
-      text: "imgoingtohellforthis",
-      path: "/r/imgoingtohellforthis",
+    ImGoingToHellForThis: {
+      text: "ImGoingToHellForThis",
+      path: "/r/ImGoingToHellForThis",
+      id: "t5_2s7yq",
       icon: "",
       color: ""
     },
     AdviceAnimals: {
       text: "AdviceAnimals",
       path: "/r/AdviceAnimals",
+      id: "t5_2s7tt",
       icon: "",
       color: ""
     },
     ComedyCemetery: {
       text: "ComedyCemetery",
       path: "/r/ComedyCemetery",
+      id: "t5_2zzho",
       icon: "",
       color: ""
     },
     PrequelMemes: {
       text: "PrequelMemes",
       path: "/r/PrequelMemes",
+      id: "t5_3i60n",
       icon: "",
       color: ""
     }
