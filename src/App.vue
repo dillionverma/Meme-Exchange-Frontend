@@ -200,7 +200,7 @@
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
-      :color="appbarColor"
+      :color="appbarColor || 'primary'"
       :dark="!dark"
       app
       fixed
@@ -392,12 +392,16 @@ export default {
     async fetchThumbnails() {
       try {
         const res = await this.reddit.get(`/api/info.json`, {
-          id: Object.values(this.subreddits).map(s=>s.id).join()
+          id: Object.values(this.subreddits)
+            .map(s => s.id)
+            .join()
         });
 
         for (let subreddit of res.data.children) {
-          this.subreddits[subreddit.data.display_name].icon = subreddit.data.icon_img
-          this.subreddits[subreddit.data.display_name].color = subreddit.data.key_color;
+          this.subreddits[subreddit.data.display_name].icon =
+            subreddit.data.icon_img;
+          this.subreddits[subreddit.data.display_name].color =
+            subreddit.data.key_color;
         }
       } catch (e) {
         console.log(Object.getOwnPropertyNames(e));
