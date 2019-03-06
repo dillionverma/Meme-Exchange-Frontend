@@ -10,7 +10,9 @@
         </v-avatar>
         <v-toolbar-title>{{ user.username }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <h2 class="display-1">+ {{ user.coins.toLocaleString() }}</h2>
+        <h2 class="display-1">
+          + {{ user.coins ? user.coins.toLocaleString() : null }}
+        </h2>
         <!-- <v-btn icon>
           <v-icon>more_vert</v-icon>
         </v-btn> -->
@@ -279,7 +281,8 @@ export default {
         },
         {
           text: "Actions",
-          align: "center"
+          align: "center",
+          value: ""
         }
       ],
       transactionHeaders: [

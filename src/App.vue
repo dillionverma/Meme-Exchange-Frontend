@@ -389,16 +389,16 @@ export default {
     toggleDrawer() {
       this.$store.commit(DRAWER);
     },
-    fetchThumbnail(subreddit) {
-      this.axios
-        .get(`/reddit/r/${subreddit}/about.json`)
-        .then(res => {
-          this.subreddits[subreddit].icon = res.data.data.icon_img;
-          this.subreddits[subreddit].color = res.data.data.key_color;
-        })
-        .catch(e => {
-          console.log(e.message);
-        });
+    async fetchThumbnail(subreddit) {
+      try {
+        const res = await this.reddit.get(`/r/${subreddit}/about.json`);
+        this.subreddits[subreddit].icon = res.data.icon_img;
+        this.subreddits[subreddit].color = res.data.key_color;
+      } catch (e) {
+        console.log(Object.getOwnPropertyNames(e));
+        console.log(e);
+        console.log(e.message);
+      }
     },
     search() {
       console.log(this.searchText);

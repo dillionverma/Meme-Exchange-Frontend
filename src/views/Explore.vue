@@ -57,24 +57,22 @@ export default {
         }
       };
     },
-    getMemes() {
+    async getMemes() {
       this.loading = true;
-      this.axios
-        .get(
-          `/reddit/r/${this.$route.params.subreddit}.json?after=${this.after}`
-        )
-        .then(res => {
-          this.memes.push(...this.parse(res));
-          this.after = res.data.data.after;
-          this.loading = false;
-        })
-        .catch(e => {
-          console.log(e.message);
-        });
+      try {
+        const res = await this.reddit.get(
+          `/r/${this.$route.params.subreddit}.json?after=${this.after}`
+        );
+        this.memes.push(...this.parse(res));
+        this.after = res.data.after;
+        this.loading = false;
+      } catch (e) {
+        console.log(e.message);
+      }
     },
     parse(json) {
       let memes = [];
-      json.data.data.children.forEach(meme => {
+      json.data.children.forEach(meme => {
         meme = meme.data;
         if (!meme.is_self) {
           let obj = {
@@ -89,7 +87,7 @@ export default {
             thumbnail: meme.thumbnail,
             copied: false
           };
-          if (meme.domain == "youtu.be") {
+          if (meme.domain == "youtu.be" || meme.domain == "discord.gg" || meme.domain == "i.imgur.com") {
             obj.url = "";
           } else if (
             (meme.domain == "gfycat.com" || meme.domain == "imgur.com") &&

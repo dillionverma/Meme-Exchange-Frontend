@@ -26,7 +26,7 @@
           <div>
             <span class="headline">{{ meme.title }}</span>
             <div class="grey--text font-weight-light">
-              {{ meme.score.toLocaleString() }}
+              {{ meme.score ? meme.score.toLocaleString() : null }}
             </div>
           </div>
         </v-card-title>
@@ -109,7 +109,7 @@ export default {
     share: false,
     buy: false,
     loading: false,
-    meme: null
+    meme: {}
     // sell: false
   }),
   methods: {
@@ -122,18 +122,18 @@ export default {
       document.execCommand("selectAll", false, null);
       this.meme.copied = document.execCommand("copy");
     },
-    getMeme() {
+    async getMeme() {
       this.loading = true;
-      this.axios
-        .get(`/reddit/by_id/t3_${this.$route.params.reddit_id}.json`)
-        .then(res => {
-          this.meme = this.parse(res.data.data.children[0].data);
-          console.log(this.meme);
-          this.loading = false;
-        })
-        .catch(e => {
-          console.log(e.message);
-        });
+      try {
+        const res = await this.reddit.get(
+          `/by_id/t3_${this.$route.params.reddit_id}.json`
+        );
+        this.meme = this.parse(res.data.children[0].data);
+        console.log(this.meme);
+        this.loading = false;
+      } catch (e) {
+        console.log(e.message);
+      }
     },
     parse(meme) {
       let obj = {};
