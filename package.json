@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run build && aws s3 sync --delete ./dist s3://memesx.com && npm run invalidate",
+    "deploy": "npm run build && aws s3 sync --delete ./dist s3://meme.exchange && npm run invalidate",
     "invalidate": "aws cloudfront create-invalidation --distribution-id E2UMGIKIJKCL2T --paths '/*'"
   },
   "dependencies": {
