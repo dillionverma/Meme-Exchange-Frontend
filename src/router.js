@@ -12,32 +12,38 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: () => import("./views/Home.vue")
+      component: () =>
+        import(/* webpackChunkName: "home", webpackPreload: true */ "./views/Home.vue")
     },
     {
       path: "/leaderboard",
       name: "Leaderboard",
-      component: () => import("./views/Leaderboard.vue")
+      component: () =>
+        import(/* webpackChunkName: "leaderboard", webpackPreload: true */ "./views/Leaderboard.vue")
     },
     {
       path: "/user/:username",
       name: "User",
-      component: () => import("./views/User.vue")
+      component: () =>
+        import(/* webpackChunkName: "user", webpackPreload: true */ "./views/User.vue")
     },
     {
       path: "/r/:subreddit?",
       name: "explore",
-      component: () => import("./views/Explore.vue")
+      component: () =>
+        import(/* webpackChunkName: "explore", webpackPreload: true */ "./views/Explore.vue")
     },
     {
       path: "/r/:subreddit/:reddit_id",
       name: "Meme",
-      component: () => import("./views/Meme.vue")
+      component: () =>
+        import(/* webpackChunkName: "meme", webpackPreload: true */ "./views/Meme.vue")
     },
     {
       path: "/settings",
       name: "Settings",
-      component: () => import("./views/Settings.vue")
+      component: () =>
+        import(/* webpackChunkName: "settings", webpackPreload: true */ "./views/Settings.vue")
     },
     {
       path: "/about",
@@ -46,7 +52,7 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import(/* webpackChunkName: "about", webpackPreload: true */ "./views/About.vue")
     }
   ]
 });

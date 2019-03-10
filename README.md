@@ -1,4 +1,4 @@
-# memesx-frontend-vue
+# Meme Exchange
 
 ## Project setup
 ```

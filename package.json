@@ -1,12 +1,12 @@
 {
-  "name": "memesx-frontend-vue",
+  "name": "Meme.Exchange",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run build && aws s3 sync --delete ./dist s3://meme.exchange && npm run invalidate",
+    "deploy": "aws s3 sync ./dist s3://meme.exchange --delete --acl public-read",
     "invalidate": "aws cloudfront create-invalidation --distribution-id E2UMGIKIJKCL2T --paths '/*'"
   },
   "dependencies": {
