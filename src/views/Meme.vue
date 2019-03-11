@@ -57,19 +57,19 @@
                 </v-btn>
               </v-card-title>
               <v-list>
-                <v-list-tile @click="true">
+                <v-list-tile @click="() => {}">
                   <v-list-tile-action>
                     <v-icon color="indigo">fab fa-facebook</v-icon>
                   </v-list-tile-action>
                   <v-card-title>Facebook</v-card-title>
                 </v-list-tile>
-                <v-list-tile @click="true">
+                <v-list-tile @click="() => {}">
                   <v-list-tile-action>
                     <v-icon color="cyan">fab fa-twitter</v-icon>
                   </v-list-tile-action>
                   <v-card-title>Twitter</v-card-title>
                 </v-list-tile>
-                <v-list-tile @click="true">
+                <v-list-tile @click="() => {}">
                   <v-list-tile-action>
                     <v-icon>fa fa-envelope</v-icon>
                   </v-list-tile-action>

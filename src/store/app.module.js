@@ -13,6 +13,8 @@ export const MENU = "app/MENU";
 export const DRAWER = "app/DRAWER";
 export const DARK = "app/DARK";
 
+let dark = localStorage.getItem("dark") === "true";
+
 // State
 const state = {
   title: "Meme Exchange",
@@ -20,15 +22,15 @@ const state = {
   usernameDialog: false,
   drawer: null,
   menu: false,
-  dark: false,
-  appbarColor: "primary",
-  items: [
-    { icon: "home", text: "Home", path: "/" },
-    { icon: "search", text: "Explore", path: "/r/memes" },
-    { icon: "list", text: "Leaderboard", path: "/leaderboard" },
-    { icon: "exit_to_app", text: "Login", path: "/login" },
-    { icon: "person_add", text: "Sign Up", path: "/signup" }
-  ],
+  dark: dark,
+  appbarColor: dark ? "dark" : "primary",
+  // items: [
+  //   { icon: "dashboard", text: "Dashboard", path: "/" },
+  //   { icon: "search", text: "Explore", path: "/r/memes" },
+  //   { icon: "list", text: "Leaderboard", path: "/leaderboard" },
+  //   { icon: "exit_to_app", text: "Login", path: "/login" },
+  //   { icon: "person_add", text: "Sign Up", path: "/signup" }
+  // ],
   extraItems: [
     { icon: "settings", text: "Settings", path: "/settings" },
     { icon: "chat_bubble", text: "Send feedback", path: "/feedback" },
@@ -199,6 +201,7 @@ const mutations = {
   },
   [DARK](state) {
     state.dark = !state.dark;
+    localStorage.setItem("dark", state.dark);
     if (state.dark) {
       state.appbarColor = "grey darken-4";
     } else {

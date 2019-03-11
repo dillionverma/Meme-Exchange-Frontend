@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-xl fluid>
-    <v-layout col wrap>
+    <v-layout ref="memes" col wrap>
       <v-flex v-for="meme in memes" :key="meme.id" xs12 md4 d-flex>
         <MemeCard :meme="meme" />
       </v-flex>
@@ -20,29 +20,30 @@
 
 <script>
 import MemeCard from "@/components/MemeCard";
+import { GET_MEMES } from "@/store/meme.module";
 
 export default {
   components: {
     MemeCard
   },
-  beforeMount() {
-    this.getMemes();
+  created() {
+    if (this.$store.getters.memes.length == 0) {
+      this.getMemes();
+    }
   },
   mounted() {
     this.scroll();
-    this.subreddit = this.$route.params.subreddit;
   },
-  data: () => ({
-    memes: [],
-    after: "",
-    loading: false,
-    subreddit: ""
-  }),
+  computed: {
+    loading() {
+      return this.$store.getters.memeLoading;
+    },
+    memes() {
+      return this.$store.getters.memes;
+    }
+  },
   watch: {
-    "$route.params.subreddit": function(subreddit) {
-      this.memes = [];
-      this.subreddit = subreddit;
-      this.after = "";
+    "$route.params.subreddit": function() {
       this.getMemes();
     }
   },
@@ -51,58 +52,16 @@ export default {
       window.onscroll = () => {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
-        if (bottomOfWindow && !this.loading) {
+          document.documentElement.scrollHeight;
+        if (bottomOfWindow && !this.loading && !this._isBeingDestroyed) {
           this.getMemes();
         }
       };
     },
-    async getMemes() {
-      this.loading = true;
-      try {
-        const res = await this.reddit.get(
-          `/r/${this.$route.params.subreddit}.json?after=${this.after}`
-        );
-        this.memes.push(...this.parse(res));
-        this.after = res.data.after;
-        this.loading = false;
-      } catch (e) {
-        console.log(e.message);
-      }
-    },
-    parse(json) {
-      let memes = [];
-      json.data.children.forEach(meme => {
-        meme = meme.data;
-        if (!meme.is_self) {
-          let obj = {
-            id: meme.id,
-            title: meme.title,
-            url: meme.url,
-            author: meme.author,
-            score: meme.score,
-            created: meme.created,
-            permalink: meme.permalink,
-            subreddit: meme.subreddit,
-            thumbnail: meme.thumbnail,
-            copied: false
-          };
-          if (
-            meme.domain == "youtu.be" ||
-            meme.domain == "discord.gg" ||
-            meme.domain == "i.imgur.com"
-          ) {
-            obj.url = "";
-          } else if (
-            (meme.domain == "gfycat.com" || meme.domain == "imgur.com") &&
-            meme.media
-          ) {
-            obj.url = meme.media.oembed.thumbnail_url;
-          }
-          memes.push(obj);
-        }
+    getMemes() {
+      this.$store.dispatch(GET_MEMES, {
+        subreddit: this.$route.params.subreddit || "memes"
       });
-      return memes;
     }
   }
 };

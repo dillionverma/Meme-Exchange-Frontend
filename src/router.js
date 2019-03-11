@@ -8,12 +8,30 @@ Vue.use(Router);
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
+  scrollBehavior(to, from, savedPosition) {
+    // Used to set scroll behaviour when user clicks back on browser
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (savedPosition) {
+          resolve(savedPosition);
+        } else {
+          resolve({ x: 0, y: 0 });
+        }
+      }, 300);
+    });
+  },
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "explore",
       component: () =>
-        import(/* webpackChunkName: "home", webpackPreload: true */ "./views/Home.vue")
+        import(/* webpackChunkName: "home", webpackPreload: true */ "./views/Explore.vue")
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: () =>
+        import(/* webpackChunkName: "dashboard", webpackPreload: true */ "./views/Dashboard.vue")
     },
     {
       path: "/leaderboard",
@@ -48,11 +66,14 @@ export default new Router({
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about", webpackPreload: true */ "./views/About.vue")
+    },
+    {
+      path: "/help",
+      name: "help",
+      component: () =>
+        import(/* webpackChunkName: "about", webpackPreload: true */ "./views/Help.vue")
     }
   ]
 });

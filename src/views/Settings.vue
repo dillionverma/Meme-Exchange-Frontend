@@ -1,8 +1,8 @@
 <template>
   <v-layout row fill-height>
     <v-flex xs12>
-      <v-subheader>General</v-subheader>
-      <v-card>
+      <v-subheader v-if="isLoggedIn">General</v-subheader>
+      <v-card v-if="isLoggedIn">
         <v-list three-line subheader>
           <v-list-tile @click="usernameDialog = !usernameDialog">
             <v-list-tile-content>
@@ -28,7 +28,7 @@
 
       <v-card>
         <v-list three-line subheader>
-          <v-list-tile @click="true">
+          <v-list-tile v-if="isLoggedIn" @click="() => {}">
             <v-list-tile-action>
               <v-switch v-model="status"></v-switch>
             </v-list-tile-action>
@@ -40,7 +40,7 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile @click="true">
+          <v-list-tile @click="() => {}">
             <v-list-tile-action>
               <v-switch v-model="notifications"></v-switch>
             </v-list-tile-action>
@@ -50,7 +50,7 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile @click="true">
+          <v-list-tile @click="() => {}">
             <v-list-tile-action>
               <v-switch v-model="theme"></v-switch>
             </v-list-tile-action>
@@ -78,6 +78,9 @@ export default {
     };
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
     theme: {
       get() {
         return this.$store.getters.dark;
