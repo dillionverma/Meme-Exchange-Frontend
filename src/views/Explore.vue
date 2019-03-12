@@ -5,14 +5,15 @@
         <MemeCard :meme="meme" />
       </v-flex>
     </v-layout>
-    <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        indeterminate
-        color="primary"
-        v-if="loading"
-      >
+    <v-layout
+      slot="placeholder"
+      fill-height
+      align-center
+      justify-center
+      ma-0
+      mb-5
+    >
+      <v-progress-circular :size="70" :width="7" indeterminate color="primary">
       </v-progress-circular>
     </v-layout>
   </v-container>
@@ -51,7 +52,7 @@ export default {
     scroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.scrollTop + window.innerHeight + 2 >= // some devices dont have it exactly equal, hence +2
           document.documentElement.scrollHeight;
         if (bottomOfWindow && !this.loading && !this._isBeingDestroyed) {
           this.getMemes();

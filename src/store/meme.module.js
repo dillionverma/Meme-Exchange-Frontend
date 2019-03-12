@@ -78,10 +78,11 @@ const actions = {
 
     try {
       const res = await window.reddit.get(`/r/${payload.subreddit}.json`, {
-        after: state.after || null
+        after: state.after || null,
+        raw_json: 1 // response body encoding @ https://www.reddit.com/dev/api/
       });
 
-      console.log(parse(res));
+      console.log(res, parse(res));
 
       commit(SET_MEMES, parse(res));
       commit(SET_AFTER, res.data.after);
