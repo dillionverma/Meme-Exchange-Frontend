@@ -11,7 +11,6 @@
       align-center
       justify-center
       ma-0
-      mb-5
     >
       <v-progress-circular :size="70" :width="7" indeterminate color="primary">
       </v-progress-circular>

@@ -70,6 +70,12 @@ export default new Router({
         import(/* webpackChunkName: "about", webpackPreload: true */ "./views/About.vue")
     },
     {
+      path: "/feedback",
+      name: "feedback",
+      component: () =>
+        import(/* webpackChunkName: "feedback", webpackPreload: true */ "./views/Feedback.vue")
+    },
+    {
       path: "/help",
       name: "help",
       component: () =>

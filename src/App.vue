@@ -3,7 +3,7 @@
     <Drawer :handleAuthClick="handleAuthClick" :authText="authText" />
     <TopNav :handleAuthClick="handleAuthClick" :authText="authText" />
     <v-content>
-      <v-container fluid fill-height>
+      <v-container fluid fill-height pb-5>
         <transition name="slide" mode="out-in">
           <router-view />
         </transition>
