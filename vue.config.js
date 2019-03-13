@@ -4,7 +4,6 @@ module.exports = {
   integrity: true,
   devServer: {
     port: 8081,
-    https: true,
     hot: true,
     open: true,
     overlay: true

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import JwtService from "@/lib/jwt.service";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = process.env.VUE_APP_API_URL;
 
 function headers() {
   return { Authorization: `Token token=${JwtService.getToken()}` };
