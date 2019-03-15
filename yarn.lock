@@ -807,12 +807,13 @@
     eslint-plugin-vue "^4.7.1"
     globby "^8.0.1"
 
-"@vue/cli-plugin-pwa@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-pwa/-/cli-plugin-pwa-3.3.0.tgz#7818db99d96fb711014d7f5e35f24d3f909527b7"
-  integrity sha512-UnhKeWmPe0IeNFei0eIeRvXnsTRFNRGDuqHK0M1eEX9GgCQQ4iPFK+0/wneEbsqorgx+c0rqHUL1S/Q8S7DnJg==
+"@vue/cli-plugin-pwa@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-pwa/-/cli-plugin-pwa-3.5.1.tgz#5bba2e533867b7fc8d62d028b6bfdc5a1962c120"
+  integrity sha512-BTwYPp6OLLDxuwZmeP9BNNKao48y+lsFzPPdEmH7nqdeELOge2MAcEG/Wn9Xgb/AF3IA/ywjzGtJS+hlALTGlw==
   dependencies:
-    "@vue/cli-shared-utils" "^3.3.0"
+    "@vue/cli-shared-utils" "^3.5.1"
+    webpack ">=4 < 4.29"
     workbox-webpack-plugin "^3.6.3"
 
 "@vue/cli-service@^3.3.0":
@@ -886,6 +887,24 @@
     ora "^3.0.0"
     request "^2.87.0"
     request-promise-native "^1.0.5"
+    semver "^5.5.0"
+    string.prototype.padstart "^3.0.0"
+
+"@vue/cli-shared-utils@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@vue/cli-shared-utils/-/cli-shared-utils-3.5.1.tgz#71d66f06fc619ba28df279bd7d37ba1ba29c9066"
+  integrity sha512-hCB7UbKeeC41w2Q8+Q7jmw3gHdq+ltRqp80S3uDRRGxwiOhxrSmdBHMzKUjh01L8bXOBRgvLey+BERi1Nj9n6Q==
+  dependencies:
+    chalk "^2.4.1"
+    execa "^1.0.0"
+    joi "^14.3.0"
+    launch-editor "^2.2.1"
+    lru-cache "^5.1.1"
+    node-ipc "^9.1.1"
+    opn "^5.3.0"
+    ora "^3.1.0"
+    request "^2.87.0"
+    request-promise-native "^1.0.7"
     semver "^5.5.0"
     string.prototype.padstart "^3.0.0"
 
@@ -2041,6 +2060,11 @@ cli-spinners@^1.1.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/cli-spinners/-/cli-spinners-1.3.1.tgz#002c1990912d0d59580c93bd36c056de99e4259a"
   integrity sha512-1QL4544moEsDVH9T/l6Cemov/37iv1RtoKf7NJ04A60+4MREXNfx/QvavbH6QoGdsD4N4Mwy49cmaINR/o2mdg==
+
+cli-spinners@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/cli-spinners/-/cli-spinners-2.0.0.tgz#4b078756fc17a8f72043fdc9f1f14bf4fa87e2df"
+  integrity sha512-yiEBmhaKPPeBj7wWm4GEdtPZK940p9pl3EANIrnJ3JnvWyrPjcFcsEq6qRUuQ7fzB0+Y82ld3p6B34xo95foWw==
 
 cli-table3@^0.5.0:
   version "0.5.1"
@@ -5196,11 +5220,6 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-material-design-icons-iconfont@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/material-design-icons-iconfont/-/material-design-icons-iconfont-3.0.3.tgz#154a1084047d4e27237fa7f5a37e1075ceea6df2"
-  integrity sha1-FUoQhAR9Ticjf6f1o34Qdc7qbfI=
-
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
@@ -5877,6 +5896,18 @@ ora@^3.0.0:
     cli-spinners "^1.1.0"
     log-symbols "^2.2.0"
     strip-ansi "^4.0.0"
+    wcwidth "^1.0.1"
+
+ora@^3.1.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ora/-/ora-3.2.0.tgz#67e98a7e11f7f0ac95deaaaf11bb04de3d09e481"
+  integrity sha512-XHMZA5WieCbtg+tu0uPF8CjvwQdNzKCX6BVh3N6GFsEXH40mTk5dsw/ya1lBTUGJslcEFJFQ8cBhOgkkZXQtMA==
+  dependencies:
+    chalk "^2.4.2"
+    cli-cursor "^2.1.0"
+    cli-spinners "^2.0.0"
+    log-symbols "^2.2.0"
+    strip-ansi "^5.0.0"
     wcwidth "^1.0.1"
 
 original@^1.0.0:
@@ -6879,10 +6910,10 @@ regexpu-core@^4.1.3, regexpu-core@^4.2.0:
     unicode-match-property-ecmascript "^1.0.4"
     unicode-match-property-value-ecmascript "^1.0.2"
 
-register-service-worker@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/register-service-worker/-/register-service-worker-1.5.2.tgz#a4631896c38d6ec5597358f44988cc46a911912d"
-  integrity sha512-XNqSZHJsFGnvEGkg/2IrCp6G8Ya3qLj4mq0bSHil/dfdO82LOxGnMnJjAD9MYCvf/8cDCO8pL+1i65yzmP7rPQ==
+register-service-worker@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/register-service-worker/-/register-service-worker-1.6.2.tgz#9297e54c205c371c6e49bfa88f6997e8dd315f4c"
+  integrity sha512-I8L87fX2TK29LDx+wgyOUh2BJ3rDIRC1FtRZEHeP3rivzDv6p1DDZLGGtPucqjEkm45+2crtFIFssEWv56+9Wg==
 
 regjsgen@^0.2.0:
   version "0.2.0"
@@ -6953,6 +6984,13 @@ request-promise-core@1.1.1:
   dependencies:
     lodash "^4.13.1"
 
+request-promise-core@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/request-promise-core/-/request-promise-core-1.1.2.tgz#339f6aababcafdb31c799ff158700336301d3346"
+  integrity sha512-UHYyq1MO8GsefGEt7EprS8UrXsm1TxEvFUX1IMTuSLU2Rh7fTIdFtl8xD7JiEYiWU2dl+NYAjCTksTehQUxPag==
+  dependencies:
+    lodash "^4.17.11"
+
 request-promise-native@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/request-promise-native/-/request-promise-native-1.0.5.tgz#5281770f68e0c9719e5163fd3fab482215f4fda5"
@@ -6961,6 +6999,15 @@ request-promise-native@^1.0.5:
     request-promise-core "1.1.1"
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
+
+request-promise-native@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/request-promise-native/-/request-promise-native-1.0.7.tgz#a49868a624bdea5069f1251d0a836e0d89aa2c59"
+  integrity sha512-rIMnbBdgNViL37nZ1b3L/VfPOpSi0TqVDQPAvO6U14lMzOLrt5nilxCQqtDKhZeDiW0/hkCXGoQjhgJd/tCh6w==
+  dependencies:
+    request-promise-core "1.1.2"
+    stealthy-require "^1.1.1"
+    tough-cookie "^2.3.3"
 
 request@^2.87.0, request@^2.88.0:
   version "2.88.0"
@@ -7087,11 +7134,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
-
-roboto-fontface@*:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/roboto-fontface/-/roboto-fontface-0.10.0.tgz#7eee40cfa18b1f7e4e605eaf1a2740afb6fd71b0"
-  integrity sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g==
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -7614,7 +7656,7 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
-stealthy-require@^1.1.0:
+stealthy-require@^1.1.0, stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
@@ -8029,6 +8071,14 @@ tough-cookie@>=2.3.3:
   integrity sha512-LHMvg+RBP/mAVNqVbOX8t+iJ+tqhBA/t49DuI7+IDAWHrASnesqSu1vWbKB7UrE2yk+HMFUBMadRGMkB4VCfog==
   dependencies:
     ip-regex "^3.0.0"
+    psl "^1.1.28"
+    punycode "^2.1.1"
+
+tough-cookie@^2.3.3:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.5.0.tgz#cd9fb2a0aa1d5a12b473bd9fb96fa3dcff65ade2"
+  integrity sha512-nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g==
+  dependencies:
     psl "^1.1.28"
     punycode "^2.1.1"
 

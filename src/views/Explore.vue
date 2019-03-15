@@ -5,13 +5,7 @@
         <MemeCard :meme="meme" />
       </v-flex>
     </v-layout>
-    <v-layout
-      slot="placeholder"
-      fill-height
-      align-center
-      justify-center
-      ma-0
-    >
+    <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
       <v-progress-circular :size="70" :width="7" indeterminate color="primary">
       </v-progress-circular>
     </v-layout>

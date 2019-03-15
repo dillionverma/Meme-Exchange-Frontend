@@ -1,3 +1,5 @@
+const manifest = require("./public/manifest");
+
 module.exports = {
   publicPath: "/",
   productionSourceMap: false,
@@ -7,23 +9,16 @@ module.exports = {
     hot: true,
     open: true,
     overlay: true
+  },
+  pwa: {
+    name: manifest.name,
+    themeColor: manifest.theme_color,
+    msTileColor: manifest.background_color,
+    appleMobileWebAppCapable: "yes",
+    appleMobileWebAppStatusBarStyle: "black-translucent",
+    workboxPluginMode: "InjectManifest",
+    workboxOptions: {
+      swSrc: "src/service-worker.js"
+    }
   }
-  // chainWebpack: config => {
-  // config.plugins.delete("prefetch");
-  // config.plugin("preload").tap(args => {
-  //   args[0].include = "asyncChunks";
-  //   console.log(args);
-  //   return args;
-  // });
-  // plugins: [
-  //     new CompressionWebpackPlugin({
-  //       filename: "[path].gz[query]",
-  //       algorithm: "gzip",
-  //       test: /\.(js|css|html|svg|ttf|eot|woff|woff2|png)$/,
-  //       threshold: 0,
-  //       minRatio: 1
-  //     })
-  // ]
-  //}
-  // }
 };

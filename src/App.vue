@@ -8,6 +8,7 @@
           <router-view />
         </transition>
         <Notification />
+        <UpdateNotification />
       </v-container>
     </v-content>
     <BottomNav />
@@ -33,6 +34,7 @@ import Drawer from "@/components/Drawer";
 import BottomNav from "@/components/BottomNav";
 import TopNav from "@/components/TopNav";
 import Notification from "@/components/Notification";
+import UpdateNotification from "@/components/UpdateNotification";
 import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
 import { LOGIN_DIALOG, MENU, USERNAME_DIALOG } from "@/store/app.module";
 
@@ -110,6 +112,7 @@ export default {
   components: {
     Login,
     Notification,
+    UpdateNotification,
     Username,
     Drawer,
     BottomNav,

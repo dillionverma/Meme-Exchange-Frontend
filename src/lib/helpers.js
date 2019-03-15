@@ -15,9 +15,13 @@ export const handleError = (commit, err) => {
     }
   } else if (err.request) {
     console.log(err.request);
-    commit(ERROR, err.request);
+    commit(ERROR, {
+      message: "Network Error"
+    });
   } else {
     console.log(err.message);
-    commit(ERROR, err.message);
+    commit(ERROR, {
+      message: err.message
+    });
   }
 };
