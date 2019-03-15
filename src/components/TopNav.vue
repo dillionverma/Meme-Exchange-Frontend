@@ -8,8 +8,11 @@
     :scroll-off-screen="!$vuetify.breakpoint.lgAndUp"
   >
     <v-toolbar-side-icon @click="toggleDrawer"></v-toolbar-side-icon>
-    <v-toolbar-title id="title">
-      <span class="hidden-sm-and-down"
+    <v-avatar v-if="!$vuetify.breakpoint.lgAndUp" size="40px" >
+      <img src="/logo.svg" alt="logo" />
+    </v-avatar>
+    <v-toolbar-title id="title" >
+      <span v-if="$vuetify.breakpoint.lgAndUp"
         >{{ title }}<small color="grey lighten-2" id="beta">BETA</small></span
       >
     </v-toolbar-title>
@@ -163,7 +166,7 @@ export default {
 
 <style lang="scss">
 #title {
-  @media (max-width: 960px) {
+  @media (max-width: 1264px) {
     width: 0 !important;
   }
   width: 400px;
