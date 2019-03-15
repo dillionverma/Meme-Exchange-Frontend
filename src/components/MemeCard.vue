@@ -118,7 +118,7 @@ export default {
       this.meme.copied = document.execCommand("copy");
     },
     goToMeme() {
-      this.$router.push(`/r/${this.$route.params.subreddit}/${this.meme.id}`);
+      this.$router.push(`/r/${this.$route.params.subreddit || "memes"}/${this.meme.id}`);
     }
   },
   watch: {

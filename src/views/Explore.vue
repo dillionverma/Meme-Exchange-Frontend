@@ -20,11 +20,6 @@ export default {
   components: {
     MemeCard
   },
-  created() {
-    if (this.$store.getters.memes.length == 0) {
-      this.getMemes();
-    }
-  },
   mounted() {
     this.scroll();
   },
