@@ -8,9 +8,11 @@
     :scroll-off-screen="!$vuetify.breakpoint.lgAndUp"
   >
     <v-toolbar-side-icon @click="toggleDrawer"></v-toolbar-side-icon>
-    <v-avatar v-if="!$vuetify.breakpoint.lgAndUp" size="40px" >
-      <img src="/logo.svg" alt="logo" />
-    </v-avatar>
+    <v-btn to="/" icon @click="vibrate">
+      <v-avatar v-if="!$vuetify.breakpoint.lgAndUp" size="40px" >
+        <img  src="/logo.svg" alt="logo" />
+      </v-avatar>
+    </v-btn>
     <v-toolbar-title id="title" >
       <span v-if="$vuetify.breakpoint.lgAndUp"
         >{{ title }}<small color="grey lighten-2" id="beta">BETA</small></span

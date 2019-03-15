@@ -12,6 +12,9 @@ import moment from "vue-moment";
 moment.suppressDeprecationWarnings = true;
 Vue.use(moment);
 
+Vue.prototype.vibrate = () =>
+  "vibrate" in navigator ? navigator.vibrate(10) : null;
+
 Vue.config.productionTip = false;
 
 new Vue({

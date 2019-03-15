@@ -4,17 +4,17 @@
     :value="!$vuetify.breakpoint.lgAndUp"
     fixed
   >
-    <v-btn color="primary" flat value="explore" to="/">
+    <v-btn color="primary" flat value="explore" to="/" @click="vibrate">
       <span>Explore</span>
       <v-icon>search</v-icon>
     </v-btn>
 
-    <v-btn color="primary" flat value="dashboard" to="/dashboard">
+    <v-btn color="primary" flat value="dashboard" to="/dashboard" @click="vibrate">
       <span>Dashboard</span>
       <v-icon>dashboard</v-icon>
     </v-btn>
 
-    <v-btn color="primary" flat value="leaderboard" to="/leaderboard">
+    <v-btn color="primary" flat value="leaderboard" to="/leaderboard" @click="vibrate">
       <span>Leaderboard</span>
       <v-icon>list</v-icon>
     </v-btn>
@@ -25,6 +25,7 @@
       value="profile"
       v-if="isLoggedIn"
       :to="`/user/${user.username}`"
+      @click="vibrate"
     >
       <span>Profile</span>
       <v-icon>person</v-icon>
