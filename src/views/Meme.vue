@@ -41,53 +41,14 @@
             <v-btn slot="activator" color="error" small>Sell</v-btn>
           </v-dialog> -->
           <v-spacer></v-spacer>
-          <v-btn icon>
+          <!-- <v-btn icon>
             <v-icon>favorite</v-icon>
-          </v-btn>
+          </v-btn> -->
           <v-dialog v-model="share" width="700">
             <v-btn icon slot="activator">
-              <v-icon>share </v-icon>
+              <v-icon>share</v-icon>
             </v-btn>
-            <v-card>
-              <v-card-title>
-                <span class="title font-weight-bold">Share</span>
-                <v-spacer></v-spacer>
-                <v-btn class="mx-0" icon @click="share = false">
-                  <v-icon>fa fa-times</v-icon>
-                </v-btn>
-              </v-card-title>
-              <v-list>
-                <v-list-tile @click="() => {}">
-                  <v-list-tile-action>
-                    <v-icon color="indigo">fab fa-facebook</v-icon>
-                  </v-list-tile-action>
-                  <v-card-title>Facebook</v-card-title>
-                </v-list-tile>
-                <v-list-tile @click="() => {}">
-                  <v-list-tile-action>
-                    <v-icon color="cyan">fab fa-twitter</v-icon>
-                  </v-list-tile-action>
-                  <v-card-title>Twitter</v-card-title>
-                </v-list-tile>
-                <v-list-tile @click="() => {}">
-                  <v-list-tile-action>
-                    <v-icon>fa fa-envelope</v-icon>
-                  </v-list-tile-action>
-                  <v-card-title>Email</v-card-title>
-                </v-list-tile>
-              </v-list>
-              <v-text-field
-                ref="link"
-                :label="meme.copied ? 'Link copied!' : 'Click to copy link'"
-                color="success"
-                append-icon="far fa-copy"
-                @click:append="copy"
-                class="pa-3"
-                readonly
-                :value="meme.url"
-                @click="copy"
-              ></v-text-field>
-            </v-card>
+            <Share :meme="meme" :onClose="onClose" />
           </v-dialog>
         </v-card-actions>
       </v-card>
@@ -97,10 +58,12 @@
 
 <script>
 import Buy from "@/components/Meme.Buy";
+import Share from "@/components/Meme.Share";
 
 export default {
   components: {
-    Buy
+    Buy,
+    Share
   },
   beforeMount() {
     this.getMeme();
@@ -110,17 +73,13 @@ export default {
     buy: false,
     loading: false,
     meme: {}
-    // sell: false
   }),
   methods: {
     bought() {
       this.buy = false;
     },
-    copy() {
-      const markup = this.$refs.link;
-      markup.focus();
-      document.execCommand("selectAll", false, null);
-      this.meme.copied = document.execCommand("copy");
+    onClose() {
+      this.share = false;
     },
     async getMeme() {
       this.loading = true;

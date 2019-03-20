@@ -130,7 +130,7 @@
           <v-layout justify-center row wrap>
             <v-flex xs12 text-xs-center py-3>
               <router-link to="/about">
-                &copy;2019 — <strong>Memesx</strong>
+                &copy;2019 — <strong>Meme Exchange</strong>
               </router-link>
             </v-flex>
           </v-layout>

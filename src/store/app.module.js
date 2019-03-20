@@ -100,13 +100,13 @@ const state = {
       icon: "",
       color: ""
     },
-    ImGoingToHellForThis: {
-      text: "ImGoingToHellForThis",
-      path: "/r/ImGoingToHellForThis",
-      id: "t5_2s7yq",
-      icon: "",
-      color: ""
-    },
+    // ImGoingToHellForThis: {
+    //   text: "ImGoingToHellForThis",
+    //   path: "/r/ImGoingToHellForThis",
+    //   id: "t5_2s7yq",
+    //   icon: "",
+    //   color: ""
+    // },
     AdviceAnimals: {
       text: "AdviceAnimals",
       path: "/r/AdviceAnimals",

@@ -9,12 +9,24 @@
       <v-icon>search</v-icon>
     </v-btn>
 
-    <v-btn color="primary" flat value="dashboard" to="/dashboard" @click="vibrate">
+    <v-btn
+      color="primary"
+      flat
+      value="dashboard"
+      to="/dashboard"
+      @click="vibrate"
+    >
       <span>Dashboard</span>
       <v-icon>dashboard</v-icon>
     </v-btn>
 
-    <v-btn color="primary" flat value="leaderboard" to="/leaderboard" @click="vibrate">
+    <v-btn
+      color="primary"
+      flat
+      value="leaderboard"
+      to="/leaderboard"
+      @click="vibrate"
+    >
       <span>Leaderboard</span>
       <v-icon>list</v-icon>
     </v-btn>

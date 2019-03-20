@@ -267,7 +267,7 @@ export default {
     }
   },
   metaInfo: {
-    title: "Memesx",
+    // title: "Meme Exchange",
     // titleTemplate: '%s | My Awesome Webapp'
     meta: [
       {
