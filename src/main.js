@@ -13,7 +13,7 @@ moment.suppressDeprecationWarnings = true;
 Vue.use(moment);
 
 Vue.prototype.vibrate = () =>
-  "vibrate" in navigator ? navigator.vibrate(10) : null;
+  "vibrate" in navigator ? navigator.vibrate(50) : null;
 
 Vue.config.productionTip = false;
 

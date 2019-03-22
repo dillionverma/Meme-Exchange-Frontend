@@ -4,7 +4,7 @@
       <v-subheader v-if="isLoggedIn">General</v-subheader>
       <v-card v-if="isLoggedIn">
         <v-list three-line subheader>
-          <v-list-tile @click="usernameDialog = !usernameDialog" ripple>
+          <v-list-tile @click="usernameDialog = !usernameDialog; vibrate()" ripple>
             <v-list-tile-content>
               <v-list-tile-title>Username</v-list-tile-title>
               <v-list-tile-sub-title
@@ -28,11 +28,11 @@
 
       <v-card>
         <v-list three-line subheader>
-          <v-list-tile v-if="isLoggedIn" @click="() => {}" ripple>
+          <v-list-tile v-if="isLoggedIn" @click="status = !status; vibrate()" ripple>
             <v-list-tile-action>
               <v-switch v-model="status"></v-switch>
             </v-list-tile-action>
-            <v-list-tile-content @click="status = !status">
+            <v-list-tile-content>
               <v-list-tile-title>Show your status</v-list-tile-title>
               <v-list-tile-sub-title
                 >Your status is visible to everyone</v-list-tile-sub-title
@@ -40,21 +40,21 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile @click="() => {}" ripple>
+          <v-list-tile @click="notifications = !notifications; vibrate()" ripple>
             <v-list-tile-action>
               <v-switch v-model="notifications"></v-switch>
             </v-list-tile-action>
-            <v-list-tile-content @click="notifications = !notifications">
+            <v-list-tile-content>
               <v-list-tile-title>Notifications</v-list-tile-title>
               <v-list-tile-sub-title>Allow notifications</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile @click="() => {}" ripple>
+          <v-list-tile @click="theme = !theme; vibrate()" ripple>
             <v-list-tile-action>
               <v-switch v-model="theme"></v-switch>
             </v-list-tile-action>
-            <v-list-tile-content @click="theme = !theme">
+            <v-list-tile-content>
               <v-list-tile-title>Night Theme</v-list-tile-title>
               <v-list-tile-sub-title
                 >Switch between dark and light themes</v-list-tile-sub-title
@@ -68,13 +68,13 @@
 
       <v-card>
         <v-list three-line subheader>
-          <v-list-tile @click="() => {}" ripple >
+          <v-list-tile @click="checkForUpdates(); vibrate()" ripple >
             <v-list-tile-action style="padding-left: 8px">
-              <v-btn :loading="checking" icon :disabled="checking" @click="checkForUpdates">
+              <v-btn :loading="checking" icon :disabled="checking">
                 <v-icon>refresh</v-icon>
               </v-btn>
             </v-list-tile-action>
-            <v-list-tile-content @click="checkForUpdates">
+            <v-list-tile-content>
               <v-list-tile-title>Check For Updates</v-list-tile-title>
               <v-list-tile-sub-title>Forcefully refresh application and check for latest updates</v-list-tile-sub-title>
             </v-list-tile-content>
