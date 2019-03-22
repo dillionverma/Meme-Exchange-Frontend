@@ -11,6 +11,10 @@ if (process.env.NODE_ENV === "production") {
       );
     },
     registered(registration) {
+      // Dispatch event to be used by Settings.vue
+      document.dispatchEvent(
+        new CustomEvent("swRegistered", { detail: registration })
+      );
       console.log("Service worker has been registered.");
       // Routinely check for app updates by testing for a new service worker.
       setInterval(() => {
@@ -24,6 +28,7 @@ if (process.env.NODE_ENV === "production") {
       console.log("New content is downloading.");
     },
     updated(registration) {
+      // Dispatch event to be used by UpdateNotification.vue
       document.dispatchEvent(
         new CustomEvent("swUpdated", { detail: registration })
       );

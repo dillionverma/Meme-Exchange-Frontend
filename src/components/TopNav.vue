@@ -40,14 +40,14 @@
         <!-- <v-btn slot="activator" icon>
             <v-icon>more_vert</v-icon>
           </v-btn> -->
-        <v-btn slot="activator" flat>
+        <v-btn slot="activator" :flat="$vuetify.breakpoint.smAndUp" :icon="!$vuetify.breakpoint.smAndUp">
           <v-avatar color="grey lighten-4" left size="32px">
             <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
             <v-icon v-else>
               person
             </v-icon>
           </v-avatar>
-          <span class="body-2 ml-2">{{ user.username }}</span>
+          <span v-if="$vuetify.breakpoint.smAndUp" class="body-2 ml-2">{{ user.username }}</span>
         </v-btn>
 
         <v-card>

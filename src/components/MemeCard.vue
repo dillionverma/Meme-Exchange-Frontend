@@ -11,7 +11,6 @@
       :src="meme.url"
       :lazy-src="meme.thumbnail"
       aspect-ratio="1"
-      class="grey lighten-2"
       contain
       @click="goToMeme"
     >
@@ -22,6 +21,7 @@
         ></v-progress-circular>
       </v-layout>
     </v-img>
+    <v-spacer></v-spacer>
     <v-card-title @click="goToMeme">
       <div>
         <span class="headline">{{ meme.title }}</span>
@@ -30,7 +30,6 @@
         </div>
       </div>
     </v-card-title>
-    <v-spacer></v-spacer>
     <v-divider></v-divider>
     <v-card-actions>
       <v-dialog v-model="buy" width="700">
@@ -41,6 +40,9 @@
         <v-btn slot="activator" color="error" small>Sell</v-btn>
       </v-dialog> -->
       <v-spacer></v-spacer>
+      <v-btn icon :href="`https://reddit.com${meme.permalink}`" target="blank">
+        <v-icon>fab fa-reddit</v-icon>
+      </v-btn>
       <!-- <v-btn icon @click="() => {}">
         <v-icon>favorite</v-icon>
       </v-btn> -->
@@ -69,7 +71,6 @@ export default {
   data: () => ({
     share: false,
     buy: false
-    // sell: false
   }),
   methods: {
     bought() {
