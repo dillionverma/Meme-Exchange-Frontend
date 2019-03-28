@@ -63,6 +63,74 @@ export default {
       }
       return obj;
     }
+  },
+  metaInfo() {
+    return {
+      title: this.meme.title,
+      titleTemplate: "%s | Meme Exchange",
+      meta: [
+        {
+          name: "description",
+          content:
+            "Invest in the future of this meme today on the Meme Exchange!"
+        },
+
+        // ********* Twitter *********
+        {
+          name: "twitter:card",
+          content: this.meme.url
+        },
+        {
+          name: "twitter:site",
+          content: "" // TODO: Twitter publisher handle
+        },
+        {
+          name: "twitter:title",
+          content: `${this.meme.title} | Meme Exchange`
+        },
+        {
+          name: "twitter:description",
+          content: "Invest in this meme today on the Meme Exchange!"
+        },
+        {
+          name: "twitter:creator",
+          content: "" // TODO: Twitter creator handle
+        },
+        {
+          name: "twitter:image:src",
+          content: this.meme.url // large image url
+        },
+
+        // ********* OpenGraph / Facebook *********
+
+        {
+          vmid: "og:title",
+          name: "og:title",
+          content: `${this.meme.title} | Meme Exchange`
+        },
+        {
+          name: "og:type",
+          content: "website"
+        },
+        {
+          name: "og:url",
+          content: window.location.href
+        },
+        {
+          name: "og:image",
+          content: this.meme.url
+        },
+        {
+          name: "og:description",
+          content: "Invest in this meme today on the Meme Exchange!"
+        },
+        {
+          vmid: "og:site_name",
+          name: "og:site_name",
+          content: "Meme Exchange"
+        }
+      ]
+    };
   }
 };
 </script>

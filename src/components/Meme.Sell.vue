@@ -20,9 +20,7 @@
                   <div class="headline">{{ meme.title }}</div>
                   <div>{{ meme.author }}</div>
                   <div>
-                    {{
-                      new Date(meme.created * 1000) | moment("from", "now")
-                    }}
+                    {{ new Date(meme.created * 1000) | moment("from", "now") }}
                   </div>
                 </div>
               </v-flex>

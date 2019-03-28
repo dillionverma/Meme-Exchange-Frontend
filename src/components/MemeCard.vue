@@ -7,12 +7,7 @@
 
 <template>
   <v-card class="meme-card">
-    <v-img
-      :src="srcImage"
-      aspect-ratio="1"
-      contain
-      @click="goToMeme"
-    >
+    <v-img :src="srcImage" aspect-ratio="1" contain @click="goToMeme">
       <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
         <v-progress-circular
           indeterminate
@@ -75,7 +70,6 @@ export default {
     intersected: false
   }),
   mounted() {
-
     // Set up observer API for image
     this.observer = new IntersectionObserver(entries => {
       const image = entries[0];
@@ -92,8 +86,8 @@ export default {
     this.observer.disconnect();
   },
   computed: {
-     srcImage() {
-      return this.intersected ? this.meme.url : '';
+    srcImage() {
+      return this.intersected ? this.meme.url : "";
     }
   },
   methods: {

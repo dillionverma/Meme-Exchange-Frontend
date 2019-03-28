@@ -194,11 +194,7 @@ const parse = json => {
         thumbnail: meme.thumbnail,
         copied: false
       };
-      if (
-        meme.domain == "youtu.be" ||
-        meme.domain == "discord.gg" ||
-        meme.domain == "i.imgur.com"
-      ) {
+      if (meme.domain == "youtu.be" || meme.domain == "discord.gg") {
         obj.url = "";
       } else if (
         (meme.domain == "gfycat.com" || meme.domain == "imgur.com") &&

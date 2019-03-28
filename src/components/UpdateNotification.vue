@@ -40,11 +40,13 @@ export default {
     // Listen for swUpdated event and display refresh snackbar as required.
     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
     // Refresh all open app tabs when a new service worker is installed.
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (this.refreshing) return;
-      this.refreshing = true;
-      window.location.reload();
-    });
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (this.refreshing) return;
+        this.refreshing = true;
+        window.location.reload();
+      });
+    }
   },
   methods: {
     showRefreshUI(e) {
