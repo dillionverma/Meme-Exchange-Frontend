@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import MemeCard from "@/components/MemeCard"
+import MemeCard from "@/components/MemeCard";
 
 export default {
   components: {
@@ -29,7 +29,7 @@ export default {
         const res = await this.reddit.get(
           `/by_id/t3_${this.$route.params.reddit_id}.json`
         );
-        console.log(res.data.children[0].data)
+        console.log(res.data.children[0].data);
         this.meme = this.parse(res.data.children[0].data);
         console.log(this.meme);
         this.loading = false;

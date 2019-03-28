@@ -164,6 +164,19 @@ export default {
   actions
 };
 
+const url = meme => {
+  if (
+    meme.preview &&
+    meme.preview.images.length &&
+    meme.preview.images[0].resolutions.length &&
+    meme.preview.images[0].resolutions.length >= 2
+  ) {
+    return meme.preview.images[0].resolutions[1].url;
+  } else {
+    return meme.url;
+  }
+};
+
 const parse = json => {
   let memes = [];
   json.data.children.forEach(meme => {
@@ -172,7 +185,7 @@ const parse = json => {
       let obj = {
         id: meme.id,
         title: meme.title,
-        url: meme.url,
+        url: url(meme),
         author: meme.author,
         score: meme.score,
         created: meme.created,

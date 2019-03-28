@@ -4,4 +4,6 @@
   </v-layout>
 </template>
 
-<script></script>
+<script>
+export default {};
+</script>

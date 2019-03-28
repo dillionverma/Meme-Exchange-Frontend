@@ -50,7 +50,7 @@ export default {
         }
       };
     },
-    getMemes() {
+    async getMemes() {
       this.$store.dispatch(GET_MEMES, {
         subreddit: this.$route.params.subreddit || "memes"
       });

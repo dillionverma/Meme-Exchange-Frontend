@@ -2,7 +2,7 @@
   <v-card>
     <v-container>
       <v-layout>
-        <v-flex xs6>
+        <v-flex xs12m md6>
           <v-img
             :src="meme.url"
             :lazy-src="meme.thumbnail"
@@ -12,22 +12,19 @@
           >
           </v-img>
         </v-flex>
-
-        <v-flex xs6>
+        <v-flex xs12 md6>
           <v-container>
             <v-layout row wrap>
               <v-flex xs12>
-                <v-card-title primary-title>
+                <div style="padding-bottom: 24px">
+                  <div class="headline">{{ meme.title }}</div>
+                  <div>{{ meme.author }}</div>
                   <div>
-                    <div class="headline">{{ meme.title }}</div>
-                    <div>{{ meme.author }}</div>
-                    <div>
-                      {{
-                        new Date(meme.created * 1000) | moment("from", "now")
-                      }}
-                    </div>
+                    {{
+                      new Date(meme.created * 1000) | moment("from", "now")
+                    }}
                   </div>
-                </v-card-title>
+                </div>
               </v-flex>
               <v-flex xs10 class="pr-3">
                 <v-slider

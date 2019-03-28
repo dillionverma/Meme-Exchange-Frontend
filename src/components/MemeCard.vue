@@ -8,8 +8,7 @@
 <template>
   <v-card class="meme-card">
     <v-img
-      :src="meme.url"
-      :lazy-src="meme.thumbnail"
+      :src="srcImage"
       aspect-ratio="1"
       contain
       @click="goToMeme"
@@ -17,7 +16,8 @@
       <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
         <v-progress-circular
           indeterminate
-          color="grey lighten-5"
+          size="60"
+          color="primary"
         ></v-progress-circular>
       </v-layout>
     </v-img>
@@ -70,8 +70,32 @@ export default {
   },
   data: () => ({
     share: false,
-    buy: false
+    buy: false,
+    observer: null,
+    intersected: false
   }),
+  mounted() {
+
+    // Set up observer API for image
+    this.observer = new IntersectionObserver(entries => {
+      const image = entries[0];
+      if (image.isIntersecting) {
+        this.intersected = true;
+        this.observer.disconnect();
+      }
+    });
+    this.observer.observe(this.$el);
+  },
+
+  // Destroy observer API for image
+  destroyed() {
+    this.observer.disconnect();
+  },
+  computed: {
+     srcImage() {
+      return this.intersected ? this.meme.url : '';
+    }
+  },
   methods: {
     bought() {
       this.buy = false;
