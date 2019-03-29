@@ -43,7 +43,13 @@
             ripple
           >
             <v-list-tile-action>
-              <v-switch v-model="status"></v-switch>
+              <v-switch
+                @click="
+                  status = !status;
+                  vibrate();
+                "
+                v-model="status"
+              ></v-switch>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Show your status</v-list-tile-title>
@@ -61,7 +67,13 @@
             ripple
           >
             <v-list-tile-action>
-              <v-switch v-model="notifications"></v-switch>
+              <v-switch
+                @click="
+                  notifications = !notifications;
+                  vibrate();
+                "
+                v-model="notifications"
+              ></v-switch>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Notifications</v-list-tile-title>
@@ -77,7 +89,13 @@
             ripple
           >
             <v-list-tile-action>
-              <v-switch v-model="theme"></v-switch>
+              <v-switch
+                @click="
+                  theme = !theme;
+                  vibrate();
+                "
+                v-model="theme"
+              ></v-switch>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Night Theme</v-list-tile-title>
