@@ -8,19 +8,19 @@
       </v-btn>
     </v-card-title>
     <v-list>
-      <v-list-tile @click="() => {}">
+      <v-list-tile @click="shareFb">
         <v-list-tile-action>
           <v-icon color="indigo">fab fa-facebook</v-icon>
         </v-list-tile-action>
         <v-card-title>Facebook</v-card-title>
       </v-list-tile>
-      <v-list-tile @click="() => {}">
+      <v-list-tile :href="`https://twitter.com/intent/tweet?url=${shareUrl}&text=Invest+in+this+meme+on+the+Meme+Exchange!&via=memeexchange&hashtags=memes,memeexchange`" target="blank">
         <v-list-tile-action>
           <v-icon color="cyan">fab fa-twitter</v-icon>
         </v-list-tile-action>
         <v-card-title>Twitter</v-card-title>
       </v-list-tile>
-      <v-list-tile @click="() => {}">
+      <v-list-tile :href="`mailto:?subject=Invest in this Meme&body=Invest in this meme on the Meme Exchange ${shareUrl}`">
         <v-list-tile-action>
           <v-icon>fa fa-envelope</v-icon>
         </v-list-tile-action>
@@ -47,14 +47,6 @@ export default {
     meme: Object,
     onClose: Function
   },
-  methods: {
-    copy() {
-      const markup = this.$refs.link;
-      markup.focus();
-      document.execCommand("selectAll", false, null);
-      this.meme.copied = document.execCommand("copy");
-    }
-  },
   computed: {
     shareUrl() {
       return (
@@ -64,6 +56,37 @@ export default {
         "/" +
         this.meme.id
       );
+    }
+  },
+  methods: {
+    copy() {
+      const markup = this.$refs.link;
+      markup.focus();
+      document.execCommand("selectAll", false, null);
+      this.meme.copied = document.execCommand("copy");
+    },
+    shareFb() {
+      FB.ui({
+          method: 'share_open_graph',
+          action_type: 'og.shares',
+          action_properties: JSON.stringify({
+              object : {
+                'og:url': this.shareUrl, // your url to share
+                'og:title': `${this.meme.title} | Meme Exchange`,
+                'og:description': 'Invest in this meme today on the Meme Exchange!',
+                'og:image': this.meme.url
+              }
+          })
+          },
+          // callback
+          function(response) {
+          if (response && !response.error_message) {
+              // then get post content
+              alert('successfully posted. Status id : '+ response.post_id);
+          } else {
+              alert('Something went error.');
+          }
+      });
     }
   }
 };
