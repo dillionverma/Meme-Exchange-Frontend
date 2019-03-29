@@ -92,6 +92,9 @@ export default {
     }
   },
   watch: {
+    $route (to, from){
+      this.$ga.set("userId", localStorage.getItem('userId'))
+    },
     isLoggedIn: function() {
       if (this.isLoggedIn) {
         this.$store.commit(LOGIN_DIALOG, false);

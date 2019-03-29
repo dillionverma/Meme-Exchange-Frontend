@@ -49,12 +49,14 @@ const mutations = {
   [SET_CURRENT_USER](state, user) {
     state.isLoggedIn = true;
     state.user = user;
+    localStorage.setItem('userId', user.id);
   },
   [PURGE_AUTH](state) {
     console.log("purge");
     state.isLoggedIn = false;
     state.user = {};
     JwtService.destroyToken();
+    localStorage.removeItem('userId');
   }
 };
 

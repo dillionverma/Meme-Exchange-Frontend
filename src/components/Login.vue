@@ -232,7 +232,9 @@ export default {
       }
     },
     signInMemesx(request) {
-      this.$store.dispatch(LOGIN, request);
+      if (!this.$store.getters.isLoggedIn) {
+        this.$store.dispatch(LOGIN, request);
+      }
     },
     onFBLogin(response) {
       if (response.status === "connected") {
