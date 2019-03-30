@@ -1,9 +1,9 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12>
+  <v-layout column pb-5>
+    <v-flex d-flex align-self-start shrink>
       <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
     </v-flex>
-    <v-flex md6 offset-md3 xs12>
+    <v-flex d-flex align-self-center>
       <MemeCard :meme="meme" />
     </v-flex>
   </v-layout>

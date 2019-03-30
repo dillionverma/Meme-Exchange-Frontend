@@ -2,6 +2,7 @@
 .meme-card {
   display: flex;
   flex-direction: column;
+  width: 600px;
 }
 </style>
 
