@@ -134,8 +134,11 @@
 </template>
 
 <script>
-import { SELL_MEME } from "@/store/meme.module";
+import { SELL_MEME, SELL_MEME_PRICE } from "@/store/meme.module";
 export default {
+  mounted() {
+    this.getSellPrice();
+  },
   data: () => ({
     min: 0,
     quantity: 0
@@ -150,8 +153,11 @@ export default {
     user() {
       return this.$store.getters.currentUser;
     },
+    sellPrice() {
+      return this.$store.getters.sellPrice;
+    },
     subtotal() {
-      return this.meme.price * this.quantity;
+      return this.sellPrice * this.quantity;
     },
     total() {
       return this.subtotal;
@@ -164,6 +170,11 @@ export default {
     }
   },
   methods: {
+    async getSellPrice() {
+      await this.$store.dispatch(SELL_MEME_PRICE, {
+        id: this.meme.reddit_id
+      });
+    },
     async sell() {
       await this.$store.dispatch(SELL_MEME, {
         id: this.meme.reddit_id,

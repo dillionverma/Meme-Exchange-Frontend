@@ -3,7 +3,7 @@
     <Drawer :handleAuthClick="handleAuthClick" :authText="authText" />
     <TopNav :handleAuthClick="handleAuthClick" :authText="authText" />
     <v-content>
-      <v-container fluid fill-height pb-5>
+      <v-container fluid fill-height>
         <transition name="slide" mode="out-in">
           <router-view />
         </transition>
@@ -136,4 +136,7 @@ export default {
   transform: translateY(10px);
   opacity: 0;
 }
+// * {
+  // overscroll-behavior: none;
+// }
 </style>

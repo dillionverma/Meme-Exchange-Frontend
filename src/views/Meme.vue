@@ -1,6 +1,9 @@
 <template>
-  <v-layout justify-center fill-height>
-    <v-flex xs12 md6 offset-md-3>
+  <v-layout row wrap>
+    <v-flex xs12>
+      <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
+    </v-flex>
+    <v-flex md6 offset-md3 xs12>
       <MemeCard :meme="meme" />
     </v-flex>
   </v-layout>
@@ -19,9 +22,28 @@ export default {
   data: () => ({
     loading: false,
     meme: {
-      score: 0
+      score: 0,
+      subreddit: ""
     }
   }),
+  computed: {
+    items() {
+      return [
+        {
+          disabled: false,
+          text: `${this.$route.params.subreddit}`,
+          to: `/r/${this.$route.params.subreddit}/`,
+          exact: true
+        },
+        {
+          text: this.meme.title,
+          to: "",
+          disabled: true,
+          exact: true
+        }
+      ];
+    }
+  },
   methods: {
     async getMeme() {
       this.loading = true;

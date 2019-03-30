@@ -7,11 +7,13 @@ import { GET_USER, GET_TRANSACTIONS } from "./user.module";
 export const GET_MEMES = "MEME_GET";
 export const BUY_MEME = "MEME_BUY";
 export const SELL_MEME = "MEME_SELL";
+export const SELL_MEME_PRICE = "MEME_SELL_PRICE";
 
 // Mutations
 export const SET_STATUS = "SET_STATUS";
 export const SET_SUBREDDIT = "SET_SUBREDDIT";
 export const SET_AFTER = "SET_AFTER";
+export const SET_SELL_PRICE = "SET_SELL_PRICE";
 export const SET_MEMES = "SET_MEMES";
 export const CLEAR_MEMES = "CLEAR_MEMES";
 export const SET_LOADING = "meme/loading";
@@ -21,6 +23,7 @@ const state = {
   status: "",
   statusText: "",
   data: "",
+  sellPrice: "",
   loading: false,
   after: "",
   memes: []
@@ -33,6 +36,9 @@ const getters = {
   },
   memes(state) {
     return state.memes;
+  },
+  sellPrice(state) {
+    return state.sellPrice;
   }
 };
 
@@ -51,6 +57,9 @@ const mutations = {
   },
   [SET_AFTER](state, after) {
     state.after = after;
+  },
+  [SET_SELL_PRICE](state, price) {
+    state.sellPrice = price;
   },
   [SET_MEMES](state, memes) {
     state.memes.push(...memes);
@@ -149,6 +158,18 @@ const actions = {
       });
       dispatch(GET_USER, { username: payload.username });
       dispatch(GET_TRANSACTIONS, { username: payload.username });
+      commit(SET_LOADING, false);
+    } catch (err) {
+      handleError(commit, err);
+      commit(SET_LOADING, false);
+    }
+  },
+  async [SELL_MEME_PRICE]({ commit }, payload) {
+    commit(SET_LOADING, true);
+    try {
+      const res = await api.get(`/v1/meme/${payload.id}/sell`);
+      console.log(res);
+      commit(SET_SELL_PRICE, res.data.price);
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);

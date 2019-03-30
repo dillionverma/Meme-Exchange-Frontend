@@ -1,15 +1,25 @@
 <template>
-  <v-container grid-list-xl fluid>
-    <v-layout ref="memes" col wrap>
-      <v-flex v-for="meme in memes" :key="meme.id" xs12 md4 d-flex>
-        <MemeCard :meme="meme" />
-      </v-flex>
-    </v-layout>
-    <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-      <v-progress-circular :size="70" :width="7" indeterminate color="primary">
-      </v-progress-circular>
-    </v-layout>
-  </v-container>
+  <v-layout column>
+    <v-flex d-flex xs12 grow>
+      <v-container grid-list-xl fluid fill-height>
+        <v-layout ref="memes" row wrap pb-5>
+          <v-flex v-for="meme in memes" :key="meme.id" d-flex xs12 md4>
+            <MemeCard :meme="meme" />
+          </v-flex>
+          <v-flex slot="placeholder" d-flex xs12 align-center justify-center>
+            <div style="flex: none !important">
+              <v-progress-circular
+                :size="70"
+                :width="7"
+                indeterminate
+                color="primary"
+              ></v-progress-circular>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -32,6 +42,9 @@ export default {
     },
     memes() {
       return this.$store.getters.memes;
+    },
+    subreddit() {
+      return this.$route.params.subreddit || "memes";
     }
   },
   watch: {
@@ -52,7 +65,7 @@ export default {
     },
     async getMemes() {
       this.$store.dispatch(GET_MEMES, {
-        subreddit: this.$route.params.subreddit || "memes"
+        subreddit: this.subreddit
       });
     }
   }
