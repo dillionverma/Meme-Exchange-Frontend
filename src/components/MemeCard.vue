@@ -29,7 +29,9 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-dialog v-model="buy" width="700">
-        <v-btn slot="activator" color="success" small>Buy</v-btn>
+        <v-btn slot="activator" @click="vibrate" color="success" small
+          >Buy</v-btn
+        >
         <Buy :meme="meme" :onSuccess="bought" />
       </v-dialog>
       <!-- <v-dialog v-model="sell" width="600">

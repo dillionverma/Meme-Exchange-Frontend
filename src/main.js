@@ -21,7 +21,7 @@ Vue.use(VueAnalytics, {
 });
 
 Vue.prototype.vibrate = () =>
-  "vibrate" in navigator ? navigator.vibrate(50) : null;
+  "vibrate" in navigator ? navigator.vibrate(25) : null;
 
 Vue.config.productionTip = false;
 

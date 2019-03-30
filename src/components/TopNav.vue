@@ -7,7 +7,12 @@
     fixed
     :scroll-off-screen="!$vuetify.breakpoint.lgAndUp"
   >
-    <v-toolbar-side-icon @click="toggleDrawer"></v-toolbar-side-icon>
+    <v-toolbar-side-icon
+      @click="
+        toggleDrawer();
+        vibrate();
+      "
+    ></v-toolbar-side-icon>
     <v-btn to="/" icon @click="vibrate" v-if="!$vuetify.breakpoint.lgAndUp">
       <v-avatar size="40px">
         <img src="/logo.png" alt="logo" />
@@ -98,7 +103,12 @@
               </v-list-tile-action>
               <v-list-tile-title>{{ item.text }}</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click="handleAuthClick">
+            <v-list-tile
+              @click="
+                handleAuthClick();
+                vibrate();
+              "
+            >
               <v-list-tile-action>
                 <v-icon>exit_to_app</v-icon>
               </v-list-tile-action>
@@ -111,7 +121,14 @@
           </v-list>
         </v-card>
       </v-menu>
-      <v-btn v-else flat @click="handleAuthClick">
+      <v-btn
+        v-else
+        flat
+        @click="
+          handleAuthClick();
+          vibrate();
+        "
+      >
         {{ authText }}
       </v-btn>
     </v-toolbar-items>

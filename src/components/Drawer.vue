@@ -7,7 +7,7 @@
   >
     <v-layout column>
       <v-list>
-        <v-list-tile to="/">
+        <v-list-tile to="/" @click="vibrate">
           <v-list-tile-action>
             <v-icon>search</v-icon>
           </v-list-tile-action>
@@ -17,7 +17,7 @@
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile to="/dashboard">
+        <v-list-tile to="/dashboard" @click="vibrate">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
@@ -27,7 +27,11 @@
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile v-if="isLoggedIn" :to="`/user/${user.username}`">
+        <v-list-tile
+          v-if="isLoggedIn"
+          :to="`/user/${user.username}`"
+          @click="vibrate"
+        >
           <v-list-tile-action>
             <v-icon>person</v-icon>
           </v-list-tile-action>
@@ -38,7 +42,7 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile to="/leaderboard">
+        <v-list-tile to="/leaderboard" @click="vibrate">
           <v-list-tile-action>
             <v-icon>list</v-icon>
           </v-list-tile-action>
@@ -54,6 +58,7 @@
           v-for="(item, subreddit, i) in subreddits"
           :key="i"
           :to="item.path"
+          @click="vibrate"
         >
           <v-list-tile-action>
             <v-avatar color="grey lighten-4" size="36px">
@@ -66,7 +71,12 @@
       <v-divider></v-divider>
       <v-subheader class="">MORE</v-subheader>
       <v-list>
-        <v-list-tile v-for="(item, i) in extraItems" :key="i" :to="item.path">
+        <v-list-tile
+          v-for="(item, i) in extraItems"
+          :key="i"
+          :to="item.path"
+          @click="vibrate"
+        >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -77,7 +87,12 @@
 
       <v-spacer></v-spacer>
       <v-list>
-        <v-list-tile @click="handleAuthClick">
+        <v-list-tile
+          @click="
+            handleAuthClick();
+            vibrate();
+          "
+        >
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>

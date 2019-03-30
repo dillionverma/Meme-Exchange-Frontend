@@ -39,6 +39,8 @@
                   thumb-label="always"
                   hint="Slide to set quantity"
                   persistent-hint
+                  @input="vibrate"
+                  @start="vibrate"
                 ></v-slider>
               </v-flex>
 
