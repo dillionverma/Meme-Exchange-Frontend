@@ -11,6 +11,12 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
+
+// https://developers.google.com/web/tools/workbox/
+
+// Possibly migrate to this in future
+// https://stackoverflow.com/questions/51668779/how-to-cache-api-and-assets-in-service-worker-in-vue-cli3
+// https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#full_generatesw_config
 workbox.routing.registerRoute(
   new RegExp('https://oauth.reddit.com/(.*)'),
   new workbox.strategies.NetworkFirst({
