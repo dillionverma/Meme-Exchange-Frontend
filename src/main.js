@@ -16,7 +16,8 @@ Vue.use(VueAnalytics, {
   router,
   store,
   debug: {
-    enabled: !isProd
+    enabled: !isProd,
+    sendHitTask: isProd // don't track google analytics on development
   }
 });
 
