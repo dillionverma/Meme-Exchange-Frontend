@@ -20,7 +20,7 @@
                   <div class="headline">{{ meme.title }}</div>
                   <div>{{ meme.author }}</div>
                   <div>
-                    {{ new Date(meme.created * 1000) | moment("from", "now") }}
+                    {{ date }}
                   </div>
                 </div>
               </v-flex>
@@ -134,6 +134,7 @@
 </template>
 
 <script>
+import { formatDateMilli } from "@/lib/helpers.js";
 import { SELL_MEME, SELL_MEME_PRICE } from "@/store/meme.module";
 export default {
   mounted() {
@@ -167,6 +168,9 @@ export default {
     },
     rules() {
       return [v => v <= this.max || "You do not have enough for this purchase"];
+    },
+    date() {
+      return formatDateMilli(this.meme.created);
     }
   },
   methods: {

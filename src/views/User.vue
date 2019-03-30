@@ -119,10 +119,7 @@
                           tag="tr"
                         >
                           <td>
-                            {{
-                              Date(props.item.created_at).toLocaleString()
-                                | moment("from", "now")
-                            }}
+                            {{ formatDate(props.item.created_at) }}
                           </td>
                           <td class="text-xs-right">
                             {{ props.item.transaction_type }}
@@ -213,6 +210,7 @@
 </template>
 
 <script>
+import { formatDate } from "@/lib/helpers.js";
 import { GET_USER, GET_TRANSACTIONS } from "@/store/user.module";
 import Sell from "@/components/Meme.Sell";
 
@@ -248,6 +246,9 @@ export default {
   methods: {
     sold() {
       this.sell = false;
+    },
+    formatDate(date) {
+      return formatDate(date);
     }
   },
   data() {

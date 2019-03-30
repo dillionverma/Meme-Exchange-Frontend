@@ -1,3 +1,4 @@
+import { formatDistance } from "date-fns";
 import { ERROR } from "@/store/notification.module";
 
 export const handleError = (commit, err) => {
@@ -24,4 +25,20 @@ export const handleError = (commit, err) => {
       message: err.message
     });
   }
+};
+
+export const formatDateMilli = date => {
+  if (!date) return;
+  return formatDistance(new Date(date * 1000), new Date(), {
+    addSuffix: true,
+    includeSeconds: true
+  });
+};
+
+export const formatDate = date => {
+  if (!date) return;
+  return formatDistance(new Date(date), new Date(), {
+    addSuffix: true,
+    includeSeconds: true
+  });
 };
