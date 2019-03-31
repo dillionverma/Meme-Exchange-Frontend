@@ -45,7 +45,7 @@
         <v-icon>favorite</v-icon>
       </v-btn> -->
       <v-dialog v-model="share" width="700">
-        <v-btn icon slot="activator">
+        <v-btn icon slot="activator" @click="androidShare">
           <v-icon>share</v-icon>
         </v-btn>
         <Share :meme="meme" :onClose="onClose" />
@@ -94,6 +94,17 @@ export default {
     }
   },
   methods: {
+    androidShare() {
+      if (navigator.share) {
+        navigator.share({
+            title: `${this.meme.title} | Meme Exchange`,
+            text: this.meme.title,
+            url:  window.location.origin + "/r/" + this.meme.subreddit + "/" + this.meme.id,
+        })
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing', error));
+      }
+    },
     bought() {
       this.buy = false;
     },
