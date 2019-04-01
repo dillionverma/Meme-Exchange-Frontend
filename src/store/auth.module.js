@@ -9,6 +9,7 @@ import { USERNAME_DIALOG } from "./app.module";
 // import { SET_TOKEN, REMOVE_TOKEN } from "./mutations";
 
 // Actions
+export const THIRD_PARTY_LOGIN = "auth/third_party_login";
 export const LOGIN = "auth/login";
 export const LOGOUT = "auth/logout";
 export const SIGNUP = "auth/signup";
@@ -76,6 +77,25 @@ const actions = {
     }
   },
   async [LOGIN]({ commit }, request) {
+    commit(SET_LOADING, true);
+    try {
+      const res = await api.post("/v1/user/login", request);
+      console.log(res);
+      commit(SET_CURRENT_USER, res.data.user);
+      if (res.data.token) {
+        JwtService.saveToken(res.data.token);
+      }
+      commit(SUCCESS, {
+        message: "Successfully signed in"
+      });
+      commit(SET_LOADING, false);
+    } catch (err) {
+      handleError(commit, err);
+      commit(PURGE_AUTH, err.message);
+      commit(SET_LOADING, false);
+    }
+  },
+  async [THIRD_PARTY_LOGIN]({ commit }, request) {
     commit(SET_LOADING, true);
     try {
       const res = await api.post("/v1/user/third-party-login", request);

@@ -163,7 +163,7 @@
 
 <script>
 /* global gapi FB */
-import { LOGIN, SIGNUP } from "@/store/auth.module";
+import { LOGIN, THIRD_PARTY_LOGIN, SIGNUP } from "@/store/auth.module";
 
 export default {
   data: () => ({
@@ -210,6 +210,7 @@ export default {
       if (this.$refs.form.validate()) {
         console.log("valid");
         console.log(this.valid);
+        this.login()
       }
     },
     submitSignUp() {
@@ -231,9 +232,17 @@ export default {
         });
       }
     },
-    signInMemesx(request) {
+    thirdPartyLogin(request) {
       if (!this.$store.getters.isLoggedIn) {
-        this.$store.dispatch(LOGIN, request);
+        this.$store.dispatch(THIRD_PARTY_LOGIN, request);
+      }
+    },
+    login() {
+      if (!this.$store.getters.isLoggedIn) {
+        this.$store.dispatch(LOGIN, {
+          email: this.email, 
+          password: this.password
+        });
       }
     },
     onFBLogin(response) {
@@ -246,7 +255,7 @@ export default {
           auth_expires_at: response.authResponse.data_access_expiration_time
         };
         console.log("facebook", request);
-        this.signInMemesx(request);
+        this.thirdPartyLogin(request);
       } else {
         console.log("Please log in");
       }
@@ -265,7 +274,7 @@ export default {
         auth_expires_at: authResponse.expires_at
       };
       console.log("google", request);
-      this.signInMemesx(request);
+      this.thirdPartyLogin(request);
     }
   },
   metaInfo: {
