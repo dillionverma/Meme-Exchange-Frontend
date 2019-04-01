@@ -68,6 +68,12 @@
                           <td class="text-xs-right">
                             {{ props.item.quantity.toLocaleString() }}
                           </td>
+                          <td class="text-xs-left" :class="`${pColor(props.item.profit)}--text`">
+                            <v-icon small :color="pColor(props.item.profit)">
+                              {{props.item.profit >= 0 ? "arrow_drop_up" : "arrow_drop_down" }}
+                            </v-icon>
+                            {{ props.item.profit.toLocaleString() }}
+                          </td>
                           <td class="justify-center layout px-0">
                             <v-dialog v-model="props.item.sell" width="700">
                               <v-btn slot="activator" color="success" small
@@ -244,6 +250,13 @@ export default {
     }
   },
   methods: {
+    pColor(value) {
+      if (value >= 0) {
+        return "green"
+      } else {
+        return "red"
+      }
+    },
     sold() {
       this.sell = false;
     },
@@ -279,6 +292,11 @@ export default {
           text: "Quantity",
           align: "right",
           value: "quantity"
+        },
+        {
+          text: "Profit",
+          align: "right",
+          value: "profit"
         },
         {
           text: "Actions",
