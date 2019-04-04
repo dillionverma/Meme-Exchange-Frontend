@@ -177,9 +177,9 @@ export default {
     }
   },
   methods: {
-    async buy() {
+    buy() {
       if (this.isLoggedIn) {
-        await this.$store.dispatch(BUY_MEME, {
+        this.$store.dispatch(BUY_MEME, {
           id: this.meme.id,
           quantity: this.quantity,
           username: this.user.username,

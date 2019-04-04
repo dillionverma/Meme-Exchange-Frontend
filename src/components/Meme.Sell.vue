@@ -176,18 +176,18 @@ export default {
     }
   },
   methods: {
-    async getSellPrice() {
-      await this.$store.dispatch(SELL_MEME_PRICE, {
+    getSellPrice() {
+      this.$store.dispatch(SELL_MEME_PRICE, {
         id: this.meme.reddit_id
       });
     },
-    async sell() {
-      await this.$store.dispatch(SELL_MEME, {
+    sell() {
+      this.$store.dispatch(SELL_MEME, {
         id: this.meme.reddit_id,
         quantity: this.quantity,
-        username: this.user.username
+        username: this.user.username,
+        onSuccess: this.onSuccess
       });
-      this.onSuccess();
       this.quantity = 0;
     }
   },

@@ -158,6 +158,7 @@ const actions = {
       });
       dispatch(GET_USER, { username: payload.username });
       dispatch(GET_TRANSACTIONS, { username: payload.username });
+      payload.onSuccess();
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
