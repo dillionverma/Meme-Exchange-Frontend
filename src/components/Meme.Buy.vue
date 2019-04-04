@@ -8,7 +8,7 @@
             {{ (meme.score - user.coins) * quantity }} more coins
           </v-alert>
         </v-flex>
-        <v-flex xs12 md6>
+        <v-flex xs10 sm6>
           <v-img
             :src="meme.url"
             :lazy-src="meme.thumbnail"
@@ -18,7 +18,7 @@
           >
           </v-img>
         </v-flex>
-        <v-flex xs12 md6>
+        <v-flex xs12 sm6>
           <v-container>
             <v-layout row wrap>
               <v-flex xs12>
