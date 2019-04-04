@@ -11,23 +11,22 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-
 // https://developers.google.com/web/tools/workbox/
 
 // Possibly migrate to this in future
 // https://stackoverflow.com/questions/51668779/how-to-cache-api-and-assets-in-service-worker-in-vue-cli3
 // https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#full_generatesw_config
 workbox.routing.registerRoute(
-  new RegExp('https://oauth.reddit.com/(.*)'),
+  new RegExp("https://oauth.reddit.com/(.*)"),
   new workbox.strategies.NetworkFirst({
-    cacheName: 'reddit-api',
+    cacheName: "reddit-api",
     plugins: [
       new workbox.expiration.Plugin({
         maxEntries: 200,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-      }),
-    ],
-  }),
+        maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+      })
+    ]
+  })
 );
 
 // workbox.routing.registerRoute(
@@ -44,15 +43,15 @@ workbox.routing.registerRoute(
 // );
 
 workbox.routing.registerRoute(
-  new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
+  new RegExp("https://fonts.(?:googleapis|gstatic).com/(.*)"),
   new workbox.strategies.CacheFirst({
-    cacheName: 'google-api',
+    cacheName: "google-api",
     plugins: [
       new workbox.expiration.Plugin({
-        maxEntries: 30,
-      }),
-    ],
-  }),
+        maxEntries: 30
+      })
+    ]
+  })
 );
 
 self.addEventListener("message", e => {

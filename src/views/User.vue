@@ -68,9 +68,16 @@
                           <td class="text-xs-right">
                             {{ props.item.quantity.toLocaleString() }}
                           </td>
-                          <td class="text-xs-left" :class="`${pColor(props.item.profit)}--text`">
+                          <td
+                            class="text-xs-left"
+                            :class="`${pColor(props.item.profit)}--text`"
+                          >
                             <v-icon small :color="pColor(props.item.profit)">
-                              {{props.item.profit >= 0 ? "arrow_drop_up" : "arrow_drop_down" }}
+                              {{
+                                props.item.profit >= 0
+                                  ? "arrow_drop_up"
+                                  : "arrow_drop_down"
+                              }}
                             </v-icon>
                             {{ props.item.profit.toLocaleString() }}
                           </td>
@@ -138,6 +145,13 @@
                           </td>
                           <td class="text-xs-right">
                             {{ props.item.quantity.toLocaleString() }}
+                          </td>
+                          <td class="text-xs-right">
+                            {{
+                              (
+                                props.item.quantity * props.item.price
+                              ).toLocaleString()
+                            }}
                           </td>
                         </router-link>
                       </template>
@@ -252,9 +266,9 @@ export default {
   methods: {
     pColor(value) {
       if (value >= 0) {
-        return "green"
+        return "green";
       } else {
-        return "red"
+        return "red";
       }
     },
     sold() {
@@ -294,8 +308,8 @@ export default {
           value: "quantity"
         },
         {
-          text: "Profit",
-          align: "right",
+          text: "Total Profit",
+          align: "left",
           value: "profit"
         },
         {
@@ -329,8 +343,12 @@ export default {
         },
         {
           text: "Quantity",
-          align: "center",
+          align: "right",
           value: "quantity"
+        },
+        {
+          text: "Total Price",
+          align: "right"
         }
       ],
       historyHeaders: [

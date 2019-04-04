@@ -210,7 +210,7 @@ export default {
       if (this.$refs.form.validate()) {
         console.log("valid");
         console.log(this.valid);
-        this.login()
+        this.login();
       }
     },
     submitSignUp() {
@@ -240,7 +240,7 @@ export default {
     login() {
       if (!this.$store.getters.isLoggedIn) {
         this.$store.dispatch(LOGIN, {
-          email: this.email, 
+          email: this.email,
           password: this.password
         });
       }

@@ -96,13 +96,19 @@ export default {
   methods: {
     androidShare() {
       if (navigator.share) {
-        navigator.share({
+        navigator
+          .share({
             title: `${this.meme.title} | Meme Exchange`,
             text: this.meme.title,
-            url:  window.location.origin + "/r/" + this.meme.subreddit + "/" + this.meme.id,
-        })
-          .then(() => console.log('Successful share'))
-          .catch((error) => console.log('Error sharing', error));
+            url:
+              window.location.origin +
+              "/r/" +
+              this.meme.subreddit +
+              "/" +
+              this.meme.id
+          })
+          .then(() => console.log("Successful share"))
+          .catch(error => console.log("Error sharing", error));
       }
     },
     bought() {
