@@ -81,7 +81,10 @@
                             </v-icon>
                             {{ props.item.profit.toLocaleString() }}
                           </td>
-                          <td class="justify-center layout px-0">
+                          <td
+                            v-if="isCurrentUser"
+                            class="justify-center layout px-0"
+                          >
                             <v-dialog v-model="props.item.sell" width="700">
                               <v-btn slot="activator" color="success" small
                                 >Sell</v-btn
@@ -253,6 +256,49 @@ export default {
     },
     transactions() {
       return this.$store.getters.transactions;
+    },
+    isCurrentUser() {
+      return this.user.username == this.$store.getters.currentUser.username;
+    },
+    headers() {
+      let headers = [
+        {
+          text: "Title",
+          align: "left",
+          // sortable: false,
+          value: "title"
+          // width: "10"
+        },
+        {
+          text: "Subreddit",
+          value: "subreddit",
+          align: "right"
+        },
+        {
+          text: "Author",
+          align: "right",
+          value: "author"
+        },
+        {
+          text: "Quantity",
+          align: "right",
+          value: "quantity"
+        },
+        {
+          text: "Total Profit",
+          align: "left",
+          value: "profit"
+        }
+      ];
+      // Don't show actions unless it is current user
+      if (this.isCurrentUser) {
+        headers.push({
+          text: "Actions",
+          align: "center",
+          value: ""
+        });
+      }
+      return headers;
     }
   },
   watch: {
@@ -284,40 +330,6 @@ export default {
       sell: false,
       items: ["profile", "transactions", "portfolio history"],
       tabs: "profile",
-      headers: [
-        {
-          text: "Title",
-          align: "left",
-          // sortable: false,
-          value: "title"
-          // width: "10"
-        },
-        {
-          text: "Subreddit",
-          value: "subreddit",
-          align: "right"
-        },
-        {
-          text: "Author",
-          align: "right",
-          value: "author"
-        },
-        {
-          text: "Quantity",
-          align: "right",
-          value: "quantity"
-        },
-        {
-          text: "Total Profit",
-          align: "left",
-          value: "profit"
-        },
-        {
-          text: "Actions",
-          align: "center",
-          value: ""
-        }
-      ],
       transactionHeaders: [
         {
           text: "Date",

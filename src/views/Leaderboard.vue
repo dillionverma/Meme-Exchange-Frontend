@@ -21,7 +21,7 @@
         >
           <template slot="items" slot-scope="props">
             <router-link :to="`/user/${props.item.username}`" tag="tr">
-              <td>{{ props.item.rank }}</td>
+              <td>{{ props.item.rank.toLocaleString() }}</td>
               <td>
                 <v-avatar size="32px" color="grey lighten-4">
                   <img
@@ -36,7 +36,9 @@
 
                 {{ props.item.username }}
               </td>
-              <td class="text-xs-right">{{ props.item.coins }}</td>
+              <td class="text-xs-right">
+                {{ props.item.coins.toLocaleString() }}
+              </td>
             </router-link>
           </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
