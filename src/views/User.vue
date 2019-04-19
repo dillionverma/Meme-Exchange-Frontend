@@ -33,7 +33,7 @@
         <v-container fluid grid-list-xl>
           <v-layout row wrap>
             <v-flex>
-              <v-tabs-items v-model="tabs">
+              <v-tabs-items touchless v-model="tabs">
                 <v-tab-item key="profile" value="profile">
                   <v-card id="portfolio-card" flat>
                     <v-card-title>
