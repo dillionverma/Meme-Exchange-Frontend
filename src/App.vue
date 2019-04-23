@@ -136,7 +136,7 @@ export default {
   transform: translateY(10px);
   opacity: 0;
 }
-// * {
-// overscroll-behavior: none;
-// }
+* {
+overscroll-behavior: none;
+}
 </style>
