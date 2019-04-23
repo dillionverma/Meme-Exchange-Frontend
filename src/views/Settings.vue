@@ -133,19 +133,39 @@
           </v-list-tile>
         </v-list>
       </v-card>
+
+      <div style="padding-top: 20px">
+        <v-dialog v-model="resetModal" width="700">
+          <v-btn
+            style="margin: 0"
+            dark
+            color="error"
+            @click.stop="resetModal = true"
+            slot="activator"
+          >
+            Reset Account
+          </v-btn>
+          <ResetDialog :close="closeResetModal"/>
+        </v-dialog>
+      </div>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import { DARK, USERNAME_DIALOG } from "@/store/app.module";
+import ResetDialog from "@/components/Reset";
 
 export default {
+  components: {
+    ResetDialog
+  },
   data() {
     return {
       notifications: true,
       status: true,
-      checking: false
+      checking: false,
+      resetModal: false
     };
   },
   created() {
@@ -154,6 +174,9 @@ export default {
     });
   },
   methods: {
+    closeResetModal() {
+      this.resetModal = false;
+    },
     saveRegistration(e) {
       this.registration = e.detail;
     },

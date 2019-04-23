@@ -14,6 +14,7 @@ export const LOGIN = "auth/login";
 export const LOGOUT = "auth/logout";
 export const SIGNUP = "auth/signup";
 export const UPDATE_USERNAME = "auth/UPDATE_USERNAME";
+export const RESET_ACCOUNT = "auth/RESET_ACCOUNT";
 
 export const AUTHENTICATE = "auth/AUTHENTICATE";
 
@@ -135,6 +136,25 @@ const actions = {
         linkText: "View Profile"
       });
       commit(USERNAME_DIALOG, false);
+      commit(SET_LOADING, false);
+    } catch (err) {
+      handleError(commit, err);
+      console.log(err.message);
+      commit(SET_LOADING, false);
+    }
+  },
+  async [RESET_ACCOUNT]({ commit }, payload) {
+    commit(SET_LOADING, true);
+    try {
+      const res = await api.post(`/v1/user/reset`, payload);
+      console.log(res);
+      commit(SET_CURRENT_USER, res.data.user);
+      commit(SUCCESS, {
+        message: "Successfully reset account",
+        link: "/user/" + res.data.user.username,
+        linkText: "View Profile"
+      });
+      payload.onSuccess();
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
