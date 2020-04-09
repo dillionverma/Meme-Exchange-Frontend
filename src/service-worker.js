@@ -1,5 +1,6 @@
 /* global workbox */
 
+// workbox.setConfig({ debug: true });
 workbox.core.setCacheNameDetails({ prefix: "Meme_Exchange" });
 
 /**

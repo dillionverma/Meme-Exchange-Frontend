@@ -45,5 +45,5 @@ export default {
   props: {
     close: Function
   }
-}
+};
 </script>

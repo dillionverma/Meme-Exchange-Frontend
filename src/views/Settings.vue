@@ -145,7 +145,7 @@
           >
             Reset Account
           </v-btn>
-          <ResetDialog :close="closeResetModal"/>
+          <ResetDialog :close="closeResetModal" />
         </v-dialog>
       </div>
     </v-flex>
