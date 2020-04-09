@@ -191,9 +191,9 @@ const url = meme => {
     meme.preview &&
     meme.preview.images.length &&
     meme.preview.images[0].resolutions.length &&
-    meme.preview.images[0].resolutions.length >= 2
+    meme.preview.images[0].resolutions.length >= 3
   ) {
-    return meme.preview.images[0].resolutions[1].url;
+    return meme.preview.images[0].resolutions[2].url;
   } else {
     return meme.url;
   }
