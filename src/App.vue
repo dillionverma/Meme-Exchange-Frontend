@@ -25,7 +25,6 @@
 </template>
 
 <script>
-/* global gapi */
 import { mapGetters } from "vuex";
 import JwtService from "@/lib/jwt.service";
 import Login from "@/components/Login";
@@ -35,8 +34,14 @@ import BottomNav from "@/components/BottomNav";
 import TopNav from "@/components/TopNav";
 import Notification from "@/components/Notification";
 import UpdateNotification from "@/components/UpdateNotification";
-import { AUTOMATIC_LOGIN, AUTHENTICATE, LOGOUT, LOGOUT_GOOGLE, LOGOUT_FACEBOOK } from "@/store/auth.module";
-import { LOGIN_DIALOG, MENU, USERNAME_DIALOG } from "@/store/app.module";
+import {
+  AUTOMATIC_LOGIN,
+  AUTHENTICATE,
+  LOGOUT,
+  LOGOUT_GOOGLE,
+  LOGOUT_FACEBOOK
+} from "@/store/auth.module";
+import { LOGIN_DIALOG, USERNAME_DIALOG } from "@/store/app.module";
 
 export default {
   mounted() {

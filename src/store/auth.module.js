@@ -1,3 +1,5 @@
+/* global gapi FB FederatedCredential PasswordCredential */
+
 // import ApiService from "@/common/api.service";
 import api from "@/lib/api.service";
 import JwtService from "@/lib/jwt.service";
@@ -6,9 +8,9 @@ import { SUCCESS } from "./notification.module";
 import { USERNAME_DIALOG, LOGIN_DIALOG, MENU } from "./app.module";
 
 // Consts
-const GOOGLE_PROVIDER = 'https://accounts.google.com';
-const FACEBOOK_PROVIDER = 'https://www.facebook.com';
-const DEFAULT_IMG = ''; // TODO: add default image later
+const GOOGLE_PROVIDER = "https://accounts.google.com";
+const FACEBOOK_PROVIDER = "https://www.facebook.com";
+const DEFAULT_IMG = ""; // TODO: add default image later
 
 // import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actions";
 // import { SET_TOKEN, REMOVE_TOKEN } from "./mutations";
@@ -78,16 +80,20 @@ const actions = {
     // https://developers.google.com/web/fundamentals/security/credential-management
     if (window.PasswordCredential || window.FederatedCredential) {
       if (!state.isLoggedIn) {
-        navigator.credentials.get({
-          password: true, // Obtain password credentials or not
-          federated: {    // Obtain federation credentials or not
-            providers: [  // Specify an array of IdP strings
-              GOOGLE_PROVIDER,
-              FACEBOOK_PROVIDER
-            ]
-          },
-          mediation: 'optional',
-        }).then((cred) => {
+        navigator.credentials
+          .get({
+            password: true, // Obtain password credentials or not
+            federated: {
+              // Obtain federation credentials or not
+              providers: [
+                // Specify an array of IdP strings
+                GOOGLE_PROVIDER,
+                FACEBOOK_PROVIDER
+              ]
+            },
+            mediation: "optional"
+          })
+          .then(cred => {
             if (cred) {
               if (cred.type == "password") {
                 // https://developer.mozilla.org/en-US/docs/Web/API/PasswordCredential
@@ -95,13 +101,13 @@ const actions = {
                   email: cred.id,
                   password: cred.password
                 });
-              } else if (cred.type == 'federated') {
+              } else if (cred.type == "federated") {
                 // `provider` contains the identity provider string
                 switch (cred.provider) {
                   case GOOGLE_PROVIDER:
                     var GoogleAuth = gapi.auth2.getAuthInstance();
                     // https://developers.google.com/identity/sign-in/web/reference#googleauthsignin
-                    GoogleAuth.signIn().then((GoogleUser) => {
+                    GoogleAuth.signIn().then(GoogleUser => {
                       dispatch(LOGIN_GOOGLE, GoogleUser);
                     });
                     break;
@@ -115,13 +121,13 @@ const actions = {
                     break;
                 }
               }
-            // if the credential is `undefined`
+              // if the credential is `undefined`
             } else {
               // Show login dialog
               commit(LOGIN_DIALOG, true);
               commit(MENU, false);
             }
-        });
+          });
       }
     } else {
       // Show login dialog
@@ -176,7 +182,7 @@ const actions = {
       provider: GOOGLE_PROVIDER
     });
     navigator.credentials.store(credentials);
-    
+
     dispatch(THIRD_PARTY_LOGIN, {
       provider_name: "google",
       provider_side_id: profile.getId(),
@@ -187,11 +193,9 @@ const actions = {
   [LOGIN_FACEBOOK]({ dispatch }) {
     // https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
     FB.getLoginStatus(response => {
-
       // Already logged in to Facebook
       if (response.status === "connected") {
-        FB.api('/me?fields=id,name,email,picture', function(response) {
-
+        FB.api("/me?fields=id,name,email,picture", function(response) {
           // Ask to store password
           const credentials = new FederatedCredential({
             id: response.email,
@@ -210,10 +214,10 @@ const actions = {
           auth_expires_at: response.authResponse.data_access_expiration_time
         });
 
-      // Not logged into facebook
+        // Not logged into facebook
       } else {
         // Attempt to log into Facebook
-        FB.login((response) => {
+        FB.login(response => {
           if (response.authResponse) {
             // Login to backend-server
             dispatch(THIRD_PARTY_LOGIN, {
@@ -223,7 +227,7 @@ const actions = {
               auth_expires_at: response.authResponse.data_access_expiration_time
             });
           } else {
-            console.log('User cancelled login or did not fully authorize.');
+            console.log("User cancelled login or did not fully authorize.");
           }
         });
       }
@@ -269,7 +273,7 @@ const actions = {
       const GoogleAuth = await gapi.auth2.getAuthInstance();
       await GoogleAuth.signOut();
       console.log("Google user signed out.");
-    } catch(err) {
+    } catch (err) {
       handleError(commit, err);
       console.log(err.message);
     }
@@ -280,10 +284,10 @@ const actions = {
       navigator.credentials.preventSilentAccess();
     }
   },
-  [LOGOUT_FACEBOOK]({ commit }) {
+  [LOGOUT_FACEBOOK]() {
     // https://developers.facebook.com/docs/reference/javascript/FB.logout
     FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
+      if (response.status === "connected") {
         FB.logout();
       }
     });
@@ -348,12 +352,12 @@ const actions = {
       // TODO: Implement actual rememberMe on backend too
       if (window.PasswordCredential && credentials.rememberMe) {
         var cred = new PasswordCredential({
-            id: credentials.email,
-            password: credentials.password,
-            name: credentials.username,
-            iconURL: res.data.user.avatar || DEFAULT_IMG,
+          id: credentials.email,
+          password: credentials.password,
+          name: credentials.username,
+          iconURL: res.data.user.avatar || DEFAULT_IMG
         });
-        navigator.credentials.store(cred)
+        navigator.credentials.store(cred);
       }
 
       commit(SUCCESS, {

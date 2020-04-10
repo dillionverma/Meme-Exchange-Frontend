@@ -128,9 +128,7 @@
                       <template slot="items" slot-scope="props">
                         <router-link
                           :to="
-                            `/r/${props.item.meme.subreddit}/${
-                              props.item.meme.reddit_id
-                            }`
+                            `/r/${props.item.meme.subreddit}/${props.item.meme.reddit_id}`
                           "
                           tag="tr"
                         >

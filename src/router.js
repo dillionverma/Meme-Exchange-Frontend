@@ -25,61 +25,81 @@ export default new Router({
       path: "/",
       name: "explore",
       component: () =>
-        import(/* webpackChunkName: "home", webpackPreload: true */ "./views/Explore.vue")
+        import(
+          /* webpackChunkName: "home", webpackPreload: true */ "./views/Explore.vue"
+        )
     },
     {
       path: "/dashboard",
       name: "dashboard",
       component: () =>
-        import(/* webpackChunkName: "dashboard", webpackPreload: true */ "./views/Dashboard.vue")
+        import(
+          /* webpackChunkName: "dashboard", webpackPreload: true */ "./views/Dashboard.vue"
+        )
     },
     {
       path: "/leaderboard",
       name: "Leaderboard",
       component: () =>
-        import(/* webpackChunkName: "leaderboard", webpackPreload: true */ "./views/Leaderboard.vue")
+        import(
+          /* webpackChunkName: "leaderboard", webpackPreload: true */ "./views/Leaderboard.vue"
+        )
     },
     {
       path: "/user/:username",
       name: "User",
       component: () =>
-        import(/* webpackChunkName: "user", webpackPreload: true */ "./views/User.vue")
+        import(
+          /* webpackChunkName: "user", webpackPreload: true */ "./views/User.vue"
+        )
     },
     {
       path: "/r/:subreddit?",
       name: "explore",
       component: () =>
-        import(/* webpackChunkName: "explore", webpackPreload: true */ "./views/Explore.vue")
+        import(
+          /* webpackChunkName: "explore", webpackPreload: true */ "./views/Explore.vue"
+        )
     },
     {
       path: "/r/:subreddit/:reddit_id",
       name: "Meme",
       component: () =>
-        import(/* webpackChunkName: "meme", webpackPreload: true */ "./views/Meme.vue")
+        import(
+          /* webpackChunkName: "meme", webpackPreload: true */ "./views/Meme.vue"
+        )
     },
     {
       path: "/settings",
       name: "Settings",
       component: () =>
-        import(/* webpackChunkName: "settings", webpackPreload: true */ "./views/Settings.vue")
+        import(
+          /* webpackChunkName: "settings", webpackPreload: true */ "./views/Settings.vue"
+        )
     },
     {
       path: "/about",
       name: "about",
       component: () =>
-        import(/* webpackChunkName: "about", webpackPreload: true */ "./views/About.vue")
+        import(
+          /* webpackChunkName: "about", webpackPreload: true */ "./views/About.vue"
+        )
     },
     {
       path: "/feedback",
       name: "feedback",
       component: () =>
-        import(/* webpackChunkName: "feedback", webpackPreload: true */ "./views/Feedback.vue")
+        import(
+          /* webpackChunkName: "feedback", webpackPreload: true */ "./views/Feedback.vue"
+        )
     },
     {
       path: "/help",
       name: "help",
       component: () =>
-        import(/* webpackChunkName: "about", webpackPreload: true */ "./views/Help.vue")
+        import(
+          /* webpackChunkName: "about", webpackPreload: true */ "./views/Help.vue"
+        )
     }
   ]
 });

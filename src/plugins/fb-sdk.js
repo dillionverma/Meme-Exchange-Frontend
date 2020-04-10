@@ -5,7 +5,10 @@ import Vue from "vue";
 var FBPlugin = {};
 
 const options = {
-  appId: process.env.NODE_ENV == "production" ? "1702650673364269" : "1852298738119636",
+  appId:
+    process.env.NODE_ENV == "production"
+      ? "1702650673364269"
+      : "1852298738119636",
   autoLogAppEvents: true,
   xfbml: true,
   version: "v3.2"

@@ -163,7 +163,12 @@
 
 <script>
 /* global gapi */
-import { LOGIN, LOGIN_FACEBOOK, LOGIN_GOOGLE, THIRD_PARTY_LOGIN, SIGNUP } from "@/store/auth.module";
+import {
+  LOGIN,
+  LOGIN_FACEBOOK,
+  LOGIN_GOOGLE,
+  SIGNUP
+} from "@/store/auth.module";
 
 export default {
   data: () => ({
@@ -184,10 +189,11 @@ export default {
     }
   }),
   mounted() {
-  // https://gist.github.com/sleepingpig/afe590dad79433fbce7c62c2a72d64c9
-   gapi.load('auth2', () => {
+    // https://gist.github.com/sleepingpig/afe590dad79433fbce7c62c2a72d64c9
+    gapi.load("auth2", () => {
       gapi.auth2.init({
-        client_id: '569258220493-eml45aftpqegtpas801oq5k87pqgad8u.apps.googleusercontent.com',
+        client_id:
+          "569258220493-eml45aftpqegtpas801oq5k87pqgad8u.apps.googleusercontent.com"
       });
       gapi.signin2.render("google-signin-btn", {
         width: 236,
