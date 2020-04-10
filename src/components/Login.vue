@@ -188,12 +188,8 @@ export default {
    gapi.load('auth2', () => {
       gapi.auth2.init({
         client_id: '569258220493-eml45aftpqegtpas801oq5k87pqgad8u.apps.googleusercontent.com',
-        fetch_basic_profile: false,
-        scope: 'profile'
       });
       gapi.signin2.render("google-signin-btn", {
-        // this is the button "id"
-        scope: "email",
         width: 236,
         height: 50,
         longtitle: true,

@@ -161,6 +161,15 @@ const actions = {
     var profile = GoogleUser.getBasicProfile();
     // The ID token you need to pass to your backend:
     var authResponse = GoogleUser.getAuthResponse();
+
+    // Ask to store password
+    const credentials = new FederatedCredential({
+      id: profile.getEmail(),
+      name: profile.getName(),
+      iconURL: profile.getImageUrl(),
+      provider: 'https://accounts.google.com'
+    });
+    navigator.credentials.store(credentials);
     
     dispatch(THIRD_PARTY_LOGIN, {
       provider_name: "google",
@@ -169,7 +178,7 @@ const actions = {
       auth_expires_at: authResponse.expires_at
     });
   },
-  async [LOGIN_FACEBOOK]({ dispatch }) {
+  [LOGIN_FACEBOOK]({ dispatch }) {
     // https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
     FB.getLoginStatus(response => {
 
@@ -252,7 +261,7 @@ const actions = {
     // https://developers.google.com/identity/sign-in/web/reference#googleauthsignout
     try {
       const GoogleAuth = await gapi.auth2.getAuthInstance();
-      GoogleAuth.signOut();
+      await GoogleAuth.signOut();
       console.log("Google user signed out.");
     } catch(err) {
       handleError(commit, err);
@@ -265,14 +274,13 @@ const actions = {
       navigator.credentials.preventSilentAccess();
     }
   },
-  async [LOGOUT_FACEBOOK]() {
+  [LOGOUT_FACEBOOK]({ commit }) {
     // https://developers.facebook.com/docs/reference/javascript/FB.logout
-    try {
-      await FB.logout();
-    } catch(err) {
-      handleError(commit, err);
-      console.log(err.message);
-    }
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        FB.logout();
+      }
+    });
     // Prevent autosign-in
     // https://developers.google.com/web/fundamentals/security/credential-management/retrieve-credentials#sign-out
     if (navigator.credentials && navigator.credentials.preventSilentAccess) {

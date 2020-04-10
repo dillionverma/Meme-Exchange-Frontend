@@ -1,7 +1,7 @@
 {
   "name": "Meme Exchange",
-  "short_name": "Exchange",
-  "description": "The #1 Meme Trading Market in the World",
+  "short_name": "Meme",
+  "description": "The #1 Meme Trading App in the World",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
