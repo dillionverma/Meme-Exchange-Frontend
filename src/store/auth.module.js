@@ -3,24 +3,30 @@ import api from "@/lib/api.service";
 import JwtService from "@/lib/jwt.service";
 import { handleError } from "@/lib/helpers";
 import { SUCCESS } from "./notification.module";
-import { USERNAME_DIALOG } from "./app.module";
+import { USERNAME_DIALOG, LOGIN_DIALOG, MENU } from "./app.module";
 
 // import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actions";
 // import { SET_TOKEN, REMOVE_TOKEN } from "./mutations";
 
 // Actions
-export const THIRD_PARTY_LOGIN = "auth/third_party_login";
+export const AUTOMATIC_LOGIN = "auth/automatic_login";
 export const LOGIN = "auth/login";
+export const LOGIN_GOOGLE = "auth/login_google";
+export const LOGIN_FACEBOOK = "auth/login_facebook";
+
 export const LOGOUT = "auth/logout";
+export const LOGOUT_GOOGLE = "auth/logout_google";
+export const LOGOUT_FACEBOOK = "auth/logout_facebook";
+
+export const AUTHENTICATE = "auth/AUTHENTICATE";
+export const THIRD_PARTY_LOGIN = "auth/third_party_login";
 export const SIGNUP = "auth/signup";
 export const UPDATE_USERNAME = "auth/UPDATE_USERNAME";
 export const RESET_ACCOUNT = "auth/RESET_ACCOUNT";
 
-export const AUTHENTICATE = "auth/AUTHENTICATE";
-
 // Mutations
-export const SET_CURRENT_USER = "auth/SET_CURRENT_USER";
 export const SET_LOADING = "auth/loading";
+export const SET_CURRENT_USER = "auth/SET_CURRENT_USER";
 export const PURGE_AUTH = "auth/PURGE_AUTH";
 
 // State
@@ -54,7 +60,6 @@ const mutations = {
     localStorage.setItem("userId", user.id);
   },
   [PURGE_AUTH](state) {
-    console.log("purge");
     state.isLoggedIn = false;
     state.user = {};
     JwtService.destroyToken();
@@ -64,6 +69,62 @@ const mutations = {
 
 // Actions
 const actions = {
+  async [AUTOMATIC_LOGIN]({ commit, dispatch }) {
+    // https://developers.google.com/web/updates/2016/04/credential-management-api
+    if (window.PasswordCredential || window.FederatedCredential) {
+      if (!state.isLoggedIn) {
+        navigator.credentials.get({
+          password: true, // Obtain password credentials or not
+          federated: {    // Obtain federation credentials or not
+            providers: [  // Specify an array of IdP strings
+              'https://accounts.google.com',
+              'https://www.facebook.com'
+            ]
+          },
+          unmediated: true, // `unmediated: true` lets the user automatically sign in
+          mediation: 'optional',
+        }).then((cred) => {
+            if (cred) {
+              if (cred.type == "password") {
+                // https://developer.mozilla.org/en-US/docs/Web/API/PasswordCredential
+                dispatch(LOGIN, {
+                  email: cred.id,
+                  password: cred.password
+                });
+              } else if (cred.type == 'federated') {
+                // `provider` contains the identity provider string
+                switch (cred.provider) {
+                  case 'https://accounts.google.com':
+                    var GoogleAuth = gapi.auth2.getAuthInstance();
+                    // https://developers.google.com/identity/sign-in/web/reference#googleauthsignin
+                    GoogleAuth.signIn().then((GoogleUser) => {
+                      dispatch(LOGIN_GOOGLE, GoogleUser);
+                    });
+                    break;
+                  case 'https://www.facebook.com':
+                    dispatch(LOGIN_FACEBOOK);
+                    break;
+                  default:
+                    // Show login dialog
+                    commit(LOGIN_DIALOG, true);
+                    commit(MENU, false);
+                    break;
+                }
+              }
+            // if the credential is `undefined`
+            } else {
+              // Show login dialog
+              commit(LOGIN_DIALOG, true);
+              commit(MENU, false);
+            }
+        });
+      }
+    } else {
+      // Show login dialog
+      commit(LOGIN_DIALOG, true);
+      commit(MENU, false);
+    }
+  },
   async [AUTHENTICATE]({ commit }) {
     commit(SET_LOADING, true);
     try {
@@ -96,6 +157,64 @@ const actions = {
       commit(SET_LOADING, false);
     }
   },
+  async [LOGIN_GOOGLE]({ dispatch }, GoogleUser) {
+    // // https://developers.google.com/identity/sign-in/web/reference#googleauthsignin
+    var profile = GoogleUser.getBasicProfile();
+    // The ID token you need to pass to your backend:
+    var authResponse = GoogleUser.getAuthResponse();
+    
+    dispatch(THIRD_PARTY_LOGIN, {
+      provider_name: "google",
+      provider_side_id: profile.getId(),
+      auth_token: authResponse.id_token,
+      auth_expires_at: authResponse.expires_at
+    });
+  },
+  async [LOGIN_FACEBOOK]({ dispatch }) {
+    // https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
+    FB.getLoginStatus(response => {
+
+      // Already logged in to Facebook
+      if (response.status === "connected") {
+        FB.api('/me?fields=id,name,email,picture', function(response) {
+
+          // Ask to store password
+          const credentials = new FederatedCredential({
+            id: response.email,
+            name: response.name,
+            iconURL: response.picture.data.url,
+            provider: 'https://www.facebook.com'
+          });
+          navigator.credentials.store(credentials);
+        });
+
+        // Login to backend-server
+        dispatch(THIRD_PARTY_LOGIN, {
+          provider_name: "facebook",
+          provider_side_id: response.authResponse.userID,
+          auth_token: response.authResponse.accessToken,
+          auth_expires_at: response.authResponse.data_access_expiration_time
+        });
+
+      // Not logged into facebook
+      } else {
+        // Attempt to log into Facebook
+        FB.login((response) => {
+          if (response.authResponse) {
+            // Login to backend-server
+            dispatch(THIRD_PARTY_LOGIN, {
+              provider_name: "facebook",
+              provider_side_id: response.authResponse.userID,
+              auth_token: response.authResponse.accessToken,
+              auth_expires_at: response.authResponse.data_access_expiration_time
+            });
+          } else {
+            console.log('User cancelled login or did not fully authorize.');
+          }
+        });
+      }
+    });
+  },
   async [THIRD_PARTY_LOGIN]({ commit }, request) {
     commit(SET_LOADING, true);
     try {
@@ -123,6 +242,43 @@ const actions = {
     commit(SUCCESS, {
       message: "Successfully signed out"
     });
+
+    // Prevent autosign-in
+    // https://developers.google.com/web/fundamentals/security/credential-management/retrieve-credentials#sign-out
+    if (navigator.credentials && navigator.credentials.preventSilentAccess) {
+      navigator.credentials.preventSilentAccess();
+    }
+  },
+  async [LOGOUT_GOOGLE]({ commit }) {
+    // https://developers.google.com/identity/sign-in/web/reference#googleauthsignout
+    try {
+      const GoogleAuth = await gapi.auth2.getAuthInstance();
+      GoogleAuth.signOut();
+      console.log("Google user signed out.");
+    } catch(err) {
+      handleError(commit, err);
+      console.log(err.message);
+    }
+
+    // Prevent autosign-in
+    // https://developers.google.com/web/fundamentals/security/credential-management/retrieve-credentials#sign-out
+    if (navigator.credentials && navigator.credentials.preventSilentAccess) {
+      navigator.credentials.preventSilentAccess();
+    }
+  },
+  async [LOGOUT_FACEBOOK]() {
+    // https://developers.facebook.com/docs/reference/javascript/FB.logout
+    try {
+      await FB.logout();
+    } catch(err) {
+      handleError(commit, err);
+      console.log(err.message);
+    }
+    // Prevent autosign-in
+    // https://developers.google.com/web/fundamentals/security/credential-management/retrieve-credentials#sign-out
+    if (navigator.credentials && navigator.credentials.preventSilentAccess) {
+      navigator.credentials.preventSilentAccess();
+    }
   },
   async [UPDATE_USERNAME]({ commit }, params) {
     commit(SET_LOADING, true);
@@ -171,6 +327,22 @@ const actions = {
       if (res.data.token) {
         JwtService.saveToken(res.data.token);
       }
+
+      // Ask user to store username and password for future logins
+      // https://developers.google.com/web/updates/2016/04/credential-management-api
+      // https://developer.mozilla.org/en-US/docs/Web/API/PasswordCredential
+
+      // TODO: Implement actual rememberMe on backend too
+      if (window.PasswordCredential && credentials.rememberMe) {
+        var cred = new PasswordCredential({
+            id: credentials.email,
+            password: credentials.password,
+            name: credentials.username,
+            iconURL: res.data.user.avatar || '',
+        });
+        navigator.credentials.store(cred)
+      }
+
       commit(SUCCESS, {
         message: "Successfully signed up",
         link: "/user/" + res.data.user.username,

@@ -1,6 +1,7 @@
 /* global FB */
 import Vue from "vue";
 
+// https://developers.facebook.com/docs/facebook-login/web
 var FBPlugin = {};
 
 const options = {
@@ -27,7 +28,6 @@ FBPlugin.install = function(Vue, options) {
     FB.init(options);
     Vue.FB = FB;
     console.log("fb-sdk-ready");
-    window.dispatchEvent(new Event("fb-sdk-ready"));
   };
   Vue.FB = undefined;
 };

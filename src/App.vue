@@ -35,7 +35,7 @@ import BottomNav from "@/components/BottomNav";
 import TopNav from "@/components/TopNav";
 import Notification from "@/components/Notification";
 import UpdateNotification from "@/components/UpdateNotification";
-import { AUTHENTICATE, LOGOUT } from "@/store/auth.module";
+import { AUTOMATIC_LOGIN, AUTHENTICATE, LOGOUT, LOGOUT_GOOGLE, LOGOUT_FACEBOOK } from "@/store/auth.module";
 import { LOGIN_DIALOG, MENU, USERNAME_DIALOG } from "@/store/app.module";
 
 export default {
@@ -57,19 +57,13 @@ export default {
     },
     logout() {
       this.$store.dispatch(LOGOUT);
+      this.$store.dispatch(LOGOUT_GOOGLE);
+      this.$store.dispatch(LOGOUT_FACEBOOK);
       this.$store.commit(LOGIN_DIALOG, false);
       this.authText = "Sign In";
-      this.signOutGoogle();
-    },
-    signOutGoogle() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function() {
-        console.log("Google user signed out.");
-      });
     },
     login() {
-      this.$store.commit(LOGIN_DIALOG, true);
-      this.$store.commit(MENU, false);
+      this.$store.dispatch(AUTOMATIC_LOGIN);
     }
   },
   computed: {
