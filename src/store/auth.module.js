@@ -70,7 +70,7 @@ const mutations = {
 // Actions
 const actions = {
   async [AUTOMATIC_LOGIN]({ commit, dispatch }) {
-    // https://developers.google.com/web/updates/2016/04/credential-management-api
+    // https://developers.google.com/web/fundamentals/security/credential-management
     if (window.PasswordCredential || window.FederatedCredential) {
       if (!state.isLoggedIn) {
         navigator.credentials.get({
@@ -81,7 +81,6 @@ const actions = {
               'https://www.facebook.com'
             ]
           },
-          unmediated: true, // `unmediated: true` lets the user automatically sign in
           mediation: 'optional',
         }).then((cred) => {
             if (cred) {
