@@ -5,6 +5,11 @@ import { handleError } from "@/lib/helpers";
 import { SUCCESS } from "./notification.module";
 import { USERNAME_DIALOG, LOGIN_DIALOG, MENU } from "./app.module";
 
+// Consts
+const GOOGLE_PROVIDER = 'https://accounts.google.com';
+const FACEBOOK_PROVIDER = 'https://www.facebook.com';
+const DEFAULT_IMG = ''; // TODO: add default image later
+
 // import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actions";
 // import { SET_TOKEN, REMOVE_TOKEN } from "./mutations";
 
@@ -77,8 +82,8 @@ const actions = {
           password: true, // Obtain password credentials or not
           federated: {    // Obtain federation credentials or not
             providers: [  // Specify an array of IdP strings
-              'https://accounts.google.com',
-              'https://www.facebook.com'
+              GOOGLE_PROVIDER,
+              FACEBOOK_PROVIDER
             ]
           },
           mediation: 'optional',
@@ -93,14 +98,14 @@ const actions = {
               } else if (cred.type == 'federated') {
                 // `provider` contains the identity provider string
                 switch (cred.provider) {
-                  case 'https://accounts.google.com':
+                  case GOOGLE_PROVIDER:
                     var GoogleAuth = gapi.auth2.getAuthInstance();
                     // https://developers.google.com/identity/sign-in/web/reference#googleauthsignin
                     GoogleAuth.signIn().then((GoogleUser) => {
                       dispatch(LOGIN_GOOGLE, GoogleUser);
                     });
                     break;
-                  case 'https://www.facebook.com':
+                  case FACEBOOK_PROVIDER:
                     dispatch(LOGIN_FACEBOOK);
                     break;
                   default:
@@ -157,7 +162,8 @@ const actions = {
     }
   },
   async [LOGIN_GOOGLE]({ dispatch }, GoogleUser) {
-    // // https://developers.google.com/identity/sign-in/web/reference#googleauthsignin
+    // https://developers.google.com/identity/sign-in/web/reference#googleauthsignin
+    // https://developers.google.com/identity/sign-in/web/sign-in
     var profile = GoogleUser.getBasicProfile();
     // The ID token you need to pass to your backend:
     var authResponse = GoogleUser.getAuthResponse();
@@ -166,8 +172,8 @@ const actions = {
     const credentials = new FederatedCredential({
       id: profile.getEmail(),
       name: profile.getName(),
-      iconURL: profile.getImageUrl(),
-      provider: 'https://accounts.google.com'
+      iconURL: profile.getImageUrl() || DEFAULT_IMG,
+      provider: GOOGLE_PROVIDER
     });
     navigator.credentials.store(credentials);
     
@@ -190,8 +196,8 @@ const actions = {
           const credentials = new FederatedCredential({
             id: response.email,
             name: response.name,
-            iconURL: response.picture.data.url,
-            provider: 'https://www.facebook.com'
+            iconURL: response.picture.data.url || DEFAULT_IMG,
+            provider: FACEBOOK_PROVIDER
           });
           navigator.credentials.store(credentials);
         });
@@ -345,7 +351,7 @@ const actions = {
             id: credentials.email,
             password: credentials.password,
             name: credentials.username,
-            iconURL: res.data.user.avatar || '',
+            iconURL: res.data.user.avatar || DEFAULT_IMG,
         });
         navigator.credentials.store(cred)
       }
