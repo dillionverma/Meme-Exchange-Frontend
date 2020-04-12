@@ -1,3 +1,4 @@
+import Vuetify from "@/plugins/vuetify";
 // import api from "@/lib/api.service";
 
 // Actions
@@ -201,6 +202,8 @@ const mutations = {
   },
   [DARK](state) {
     state.dark = !state.dark;
+    Vuetify.framework.theme.dark = !Vuetify.framework.theme.dark;
+
     localStorage.setItem("dark", state.dark);
     if (state.dark) {
       state.appbarColor = "grey darken-4";

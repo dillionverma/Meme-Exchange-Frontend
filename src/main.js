@@ -1,5 +1,5 @@
 import Vue from "vue";
-import "./plugins/vuetify";
+import vuetify from "./plugins/vuetify";
 import "./plugins/axios";
 import "./plugins/fb-sdk";
 import "./plugins/reddit";
@@ -28,6 +28,7 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  vuetify,
   store,
   render: h => h(App)
 }).$mount("#app");

@@ -128,11 +128,15 @@ export default {
 /* durations and timing functions.              */
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
-.slide-enter,
+
+.slide-enter {
+  transform: translateX(-10px);
+  opacity: 0;
+}
 .slide-leave-to {
-  transform: translateY(10px);
+  transform: translateX(10px);
   opacity: 0;
 }
 * {

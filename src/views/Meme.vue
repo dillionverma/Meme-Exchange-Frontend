@@ -1,12 +1,12 @@
 <template>
-  <v-layout column pb-5>
-    <v-flex d-flex align-self-start shrink>
-      <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
-    </v-flex>
-    <v-flex d-flex align-self-center>
-      <MemeCard :meme="meme" />
-    </v-flex>
-  </v-layout>
+  <v-row pb-5 class="align-self-start">
+    <v-col cols="12">
+      <v-breadcrumbs :items="items" large></v-breadcrumbs>
+    </v-col>
+    <v-col cols="12">
+      <MemeCard :loading="loading" :meme="meme" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -45,6 +45,7 @@ export default {
     }
   },
   methods: {
+    // TODO: Move this all to vuex
     async getMeme() {
       this.loading = true;
       try {

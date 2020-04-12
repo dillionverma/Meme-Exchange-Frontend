@@ -1,21 +1,23 @@
-<style lang="scss" scoped>
-.meme-card {
-  display: flex;
-  flex-direction: column;
-  width: 600px;
-}
-</style>
-
 <template>
-  <v-card class="meme-card">
-    <v-img :src="srcImage" aspect-ratio="1" contain @click="goToMeme">
-      <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-        <v-progress-circular
-          indeterminate
-          size="60"
-          color="primary"
-        ></v-progress-circular>
-      </v-layout>
+  <!-- <v-skeleton-loader :loading="loading" type="card, actions"> -->
+  <v-card style="max-width: 500px; margin: 0 auto">
+    <v-img
+      :src="this.meme.url"
+      v-on:load="imageLoaded"
+      aspect-ratio="1"
+      contain
+      @click="goToMeme"
+    >
+      <template v-slot:placeholder>
+        <v-row class="fill-height" align="center" justify="center">
+          <v-skeleton-loader
+            type="image"
+            loading
+            height="100%"
+            width="100%"
+          ></v-skeleton-loader>
+        </v-row>
+      </template>
     </v-img>
     <v-spacer></v-spacer>
     <v-card-title @click="goToMeme">
@@ -29,9 +31,9 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-dialog v-model="buy" width="700">
-        <v-btn slot="activator" @click="vibrate" color="success" small
-          >Buy</v-btn
-        >
+        <template v-slot:activator="{ on: { click } }">
+          <v-btn @click="click" color="success" small>Buy</v-btn>
+        </template>
         <Buy :meme="meme" :onSuccess="bought" />
       </v-dialog>
       <!-- <v-dialog v-model="sell" width="600">
@@ -45,13 +47,16 @@
         <v-icon>favorite</v-icon>
       </v-btn> -->
       <v-dialog v-model="share" width="700">
-        <v-btn icon slot="activator" @click="androidShare">
-          <v-icon>share</v-icon>
-        </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>share</v-icon>
+          </v-btn>
+        </template>
         <Share :meme="meme" :onClose="onClose" />
       </v-dialog>
     </v-card-actions>
   </v-card>
+  <!-- </v-skeleton-loader> -->
 </template>
 
 <script>
@@ -64,36 +69,20 @@ export default {
     Share
   },
   props: {
-    meme: Object
+    meme: Object,
+    loading: Boolean
   },
   data: () => ({
     share: false,
     buy: false,
     observer: null,
-    intersected: false
+    intersected: false,
+    imageLoading: true
   }),
-  mounted() {
-    // Set up observer API for image
-    this.observer = new IntersectionObserver(entries => {
-      const image = entries[0];
-      if (image.isIntersecting) {
-        this.intersected = true;
-        this.observer.disconnect();
-      }
-    });
-    this.observer.observe(this.$el);
-  },
-
-  // Destroy observer API for image
-  destroyed() {
-    this.observer.disconnect();
-  },
-  computed: {
-    srcImage() {
-      return this.intersected ? this.meme.url : "";
-    }
-  },
   methods: {
+    imageLoaded() {
+      this.imageLoading = false;
+    },
     androidShare() {
       if (navigator.share) {
         navigator
@@ -130,3 +119,15 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-card__text,
+.v-card__title {
+  word-break: normal; /* Stop wordbreaking from occuring */
+}
+
+.v-skeleton-loader__image {
+  height: 100%;
+  border-radius: 0;
+}
+</style>

@@ -8,33 +8,33 @@
       </v-btn>
     </v-card-title>
     <v-list>
-      <v-list-tile @click="shareFb">
-        <v-list-tile-action>
+      <v-list-item @click="shareFb">
+        <v-list-item-action>
           <v-icon color="indigo">fab fa-facebook</v-icon>
-        </v-list-tile-action>
+        </v-list-item-action>
         <v-card-title>Facebook</v-card-title>
-      </v-list-tile>
-      <v-list-tile
+      </v-list-item>
+      <v-list-item
         :href="
           `https://twitter.com/intent/tweet?url=${shareUrl}&text=Invest+in+this+meme+on+the+Meme+Exchange!&via=memeexchange&hashtags=memes,memeexchange`
         "
         target="blank"
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon color="cyan">fab fa-twitter</v-icon>
-        </v-list-tile-action>
+        </v-list-item-action>
         <v-card-title>Twitter</v-card-title>
-      </v-list-tile>
-      <v-list-tile
+      </v-list-item>
+      <v-list-item
         :href="
           `mailto:?subject=Invest in this Meme&body=Invest in this meme on the Meme Exchange ${shareUrl}`
         "
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon>fa fa-envelope</v-icon>
-        </v-list-tile-action>
+        </v-list-item-action>
         <v-card-title>Email</v-card-title>
-      </v-list-tile>
+      </v-list-item>
     </v-list>
     <v-text-field
       ref="link"

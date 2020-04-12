@@ -1,25 +1,33 @@
 <template>
-  <v-layout column>
-    <v-flex d-flex xs12 grow>
-      <v-container grid-list-xl fluid fill-height>
-        <v-layout ref="memes" row wrap pb-5>
-          <v-flex v-for="meme in memes" :key="meme.id" d-flex xs12 md4>
-            <MemeCard :meme="meme" />
-          </v-flex>
-          <v-flex slot="placeholder" d-flex xs12 align-center justify-center>
-            <div style="flex: none !important">
-              <v-progress-circular
-                :size="70"
-                :width="7"
-                indeterminate
-                color="primary"
-              ></v-progress-circular>
-            </div>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-flex>
-  </v-layout>
+  <v-row>
+    <v-col v-for="meme in memes" :key="meme.id" cols="12" lg="4" md="6" sm="12">
+      <MemeCard :meme="meme" />
+    </v-col>
+    <v-col cols="12" slot="placeholder">
+      <!-- <v-col
+      v-for="skeleton in 25"
+      :key="skeleton"
+      cols="12"
+      lg="4"
+      md="6"
+      sm="12"
+      slot="placeholder"
+    >
+      <v-skeleton-loader
+        type="card, actions"
+        class="elevation-2 fill-height"
+        height="500px"
+      ></v-skeleton-loader> -->
+      <v-row align="center" justify="center" style="height: 100%">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
