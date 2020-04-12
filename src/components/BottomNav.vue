@@ -1,9 +1,9 @@
 <template>
   <v-bottom-navigation
     :value="bottomNav"
+    v-show="!$vuetify.breakpoint.lgAndUp"
     :input-value="!$vuetify.breakpoint.lgAndUp"
     color="primary"
-    show
     fixed
     grow
   >

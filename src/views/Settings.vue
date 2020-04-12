@@ -128,15 +128,17 @@
 
       <div style="padding-top: 20px">
         <v-dialog v-model="resetModal" width="700">
-          <v-btn
-            style="margin: 0"
-            dark
-            color="error"
-            @click.stop="resetModal = true"
-            slot="activator"
-          >
-            Reset Account
-          </v-btn>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              style="margin: 0"
+              dark
+              color="error"
+              @click.stop="resetModal = true"
+              v-on="on"
+            >
+              Reset Account
+            </v-btn>
+          </template>
           <ResetDialog :close="closeResetModal" />
         </v-dialog>
       </div>

@@ -5,7 +5,7 @@
     >
 
     <v-card-text>
-      <v-alert value="true" type="error" icon="warning">
+      <v-alert :value="true" type="error" icon="warning">
         <b>This action will delete all holdings</b> and reset account back to
         1000 coins. <br />
         <b>There is no going back!</b>

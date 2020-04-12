@@ -20,7 +20,7 @@
           :footer-props="footerProps"
           :items-per-page="20"
         >
-          <template slot="items" slot-scope="props">
+          <template slot="item" slot-scope="props">
             <router-link :to="`/user/${props.item.username}`" tag="tr">
               <td>{{ props.item.rank.toLocaleString() }}</td>
               <td>
@@ -72,10 +72,10 @@ export default {
       headers: [
         {
           text: "Rank",
-          align: "left",
+          align: "start",
           // sortable: false,
           value: "rank",
-          width: "10"
+          width: 80
         },
         {
           text: "Username",
@@ -84,7 +84,7 @@ export default {
         },
         {
           text: "Coins",
-          align: "right",
+          align: "start",
           value: "coins"
         }
       ]
