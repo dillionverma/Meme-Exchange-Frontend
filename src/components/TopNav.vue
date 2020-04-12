@@ -33,6 +33,7 @@
       prepend-inner-icon="search"
       :loading="memeLoading"
       label="Search for subreddits"
+      style="margin-left: 5px"
     ></v-text-field>
     <v-spacer></v-spacer>
     <v-toolbar-items>
