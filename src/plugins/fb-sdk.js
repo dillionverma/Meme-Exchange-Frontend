@@ -11,7 +11,7 @@ const options = {
       : "1852298738119636",
   autoLogAppEvents: true,
   xfbml: true,
-  version: "v3.2"
+  version: "v6.0"
 };
 
 FBPlugin.install = function(Vue, options) {

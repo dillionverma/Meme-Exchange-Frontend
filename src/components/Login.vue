@@ -9,11 +9,11 @@
       </v-tab>
     </v-tabs>
     <v-container grid-list-md text-xs-center>
-      <v-layout wrap>
-        <v-flex xs12>
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-center my-1">
           <div id="google-signin-btn"></div>
-        </v-flex>
-        <v-flex xs12>
+        </div>
+        <div class="d-flex justify-center my-1">
           <div
             class="fb-login-button"
             data-size="large"
@@ -23,8 +23,8 @@
             scope="public_profile,email"
             onlogin="loginFacebook()"
           ></div>
-        </v-flex>
-      </v-layout>
+        </div>
+      </div>
     </v-container>
     <v-flex id="or">or</v-flex>
     <v-tabs-items v-model="tabs">
@@ -162,7 +162,7 @@
 </template>
 
 <script>
-/* global gapi */
+/* global FB gapi */
 import {
   LOGIN,
   LOGIN_FACEBOOK,
@@ -205,6 +205,8 @@ export default {
       });
     });
 
+    // https://developers.facebook.com/docs/reference/javascript/FB.XFBML.parse/
+    FB.XFBML.parse(); // Manually trigger fetching and rendering of button
     window.loginFacebook = this.loginFacebook;
   },
   computed: {
