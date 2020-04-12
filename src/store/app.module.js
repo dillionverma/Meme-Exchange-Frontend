@@ -9,6 +9,8 @@ import Vuetify from "@/plugins/vuetify";
 export const HOME = "app/HOME";
 export const LOGIN_DIALOG = "app/LOGIN_DIALOG";
 export const USERNAME_DIALOG = "app/USERNAME_DIALOG";
+export const SHARE_DIALOG = "app/SHARE_DIALOG";
+export const SHARE_MEME = "app/SHARE_MEME"; // Used to populate data for share dialog to use
 
 export const MENU = "app/MENU";
 export const DRAWER = "app/DRAWER";
@@ -21,6 +23,8 @@ const state = {
   title: "Meme Exchange",
   loginDialog: false,
   usernameDialog: false,
+  shareDialog: false,
+  shareMeme: {},
   drawer: null,
   menu: false,
   dark: dark,
@@ -151,6 +155,12 @@ const getters = {
   usernameDialog(state) {
     return state.usernameDialog;
   },
+  shareDialog(state) {
+    return state.shareDialog;
+  },
+  shareMeme(state) {
+    return state.shareMeme;
+  },
   drawer(state) {
     return state.drawer;
   },
@@ -189,6 +199,12 @@ const mutations = {
   },
   [USERNAME_DIALOG](state, usernameDialog) {
     state.usernameDialog = usernameDialog;
+  },
+  [SHARE_DIALOG](state, shareDialog) {
+    state.shareDialog = shareDialog;
+  },
+  [SHARE_MEME](state, meme) {
+    state.shareMeme = meme;
   },
   [MENU](state, menu) {
     state.menu = menu;

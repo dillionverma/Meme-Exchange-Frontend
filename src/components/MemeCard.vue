@@ -46,14 +46,14 @@
       <!-- <v-btn icon @click="() => {}">
         <v-icon>favorite</v-icon>
       </v-btn> -->
-      <v-dialog v-model="share" width="700">
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>share</v-icon>
-          </v-btn>
-        </template>
+      <!-- <v-dialog v-model="share" width="700">
+        <template v-slot:activator="{ on }"> -->
+      <v-btn icon @click="shareDialog()">
+        <v-icon>share</v-icon>
+      </v-btn>
+      <!-- </template>
         <Share :meme="meme" :onClose="onClose" />
-      </v-dialog>
+      </v-dialog> -->
     </v-card-actions>
   </v-card>
   <!-- </v-skeleton-loader> -->
@@ -61,12 +61,11 @@
 
 <script>
 import Buy from "@/components/Meme.Buy";
-import Share from "@/components/Meme.Share";
+import { SHARE_MEME, SHARE_DIALOG } from "@/store/app.module";
 
 export default {
   components: {
-    Buy,
-    Share
+    Buy
   },
   props: {
     meme: Object,
@@ -82,6 +81,10 @@ export default {
   methods: {
     imageLoaded() {
       this.imageLoading = false;
+    },
+    shareDialog() {
+      this.$store.commit(SHARE_MEME, this.meme);
+      this.$store.commit(SHARE_DIALOG, true);
     },
     androidShare() {
       if (navigator.share) {

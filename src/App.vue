@@ -21,6 +21,9 @@
     <v-dialog v-model="usernameDialog" width="400px">
       <Username />
     </v-dialog>
+    <v-dialog v-model="shareDialog" width="400px">
+      <Share />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -28,6 +31,7 @@
 import { mapGetters } from "vuex";
 import JwtService from "@/lib/jwt.service";
 import Login from "@/components/Login";
+import Share from "@/components/Meme.Share";
 import Username from "@/components/Username";
 import Drawer from "@/components/Drawer";
 import BottomNav from "@/components/BottomNav";
@@ -41,7 +45,11 @@ import {
   LOGOUT_GOOGLE,
   LOGOUT_FACEBOOK
 } from "@/store/auth.module";
-import { LOGIN_DIALOG, USERNAME_DIALOG } from "@/store/app.module";
+import {
+  LOGIN_DIALOG,
+  USERNAME_DIALOG,
+  SHARE_DIALOG
+} from "@/store/app.module";
 
 export default {
   mounted() {
@@ -88,6 +96,14 @@ export default {
       set(dialog) {
         this.$store.commit(USERNAME_DIALOG, dialog);
       }
+    },
+    shareDialog: {
+      get() {
+        return this.$store.getters.shareDialog;
+      },
+      set(dialog) {
+        this.$store.commit(SHARE_DIALOG, dialog);
+      }
     }
   },
   watch: {
@@ -113,6 +129,7 @@ export default {
   }),
   components: {
     Login,
+    Share,
     Notification,
     UpdateNotification,
     Username,

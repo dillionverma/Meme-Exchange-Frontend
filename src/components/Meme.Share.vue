@@ -54,10 +54,12 @@
 /* global FB */
 export default {
   props: {
-    meme: Object,
     onClose: Function
   },
   computed: {
+    meme() {
+      return this.$store.getters.shareMeme;
+    },
     shareUrl() {
       return (
         window.location.origin +

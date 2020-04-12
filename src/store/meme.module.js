@@ -121,6 +121,10 @@ const actions = {
         statusText: res.statusText,
         data: res.data
       });
+
+      // TODO: Change this so that it initiates the share dialog instead `Meme.Share`
+      //       best way to achieve would be to update Notification.vue so that it can
+      //       take a callback function
       commit(SUCCESS, {
         message: `${res.data.transaction.quantity} meme${
           res.data.transaction.quantity == 1 ? "" : "s"
