@@ -16,7 +16,7 @@
               <v-list-item-subtitle>Change your username</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-          <v-divider></v-divider>
+          <!-- <v-divider></v-divider>
           <v-list-item disabled ripple>
             <v-list-item-content>
               <v-list-item-title>Profile photo</v-list-item-title>
@@ -24,11 +24,11 @@
                 >Change your profile photo</v-list-item-subtitle
               >
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item> -->
         </v-list>
       </v-card>
 
-      <v-subheader>Options</v-subheader>
+      <!-- <v-subheader>Options</v-subheader>
 
       <v-card>
         <v-list three-line subheader>
@@ -79,7 +79,7 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <!-- <v-list-item
+          <v-list-item
             @click="
               theme = !theme;
               vibrate();
@@ -95,9 +95,9 @@
                 >Switch between dark and light themes</v-list-item-subtitle
               >
             </v-list-item-content>
-          </v-list-item> -->
+          </v-list-item>
         </v-list>
-      </v-card>
+      </v-card> -->
 
       <v-subheader>Other</v-subheader>
 
@@ -135,6 +135,7 @@
               color="error"
               @click.stop="resetModal = true"
               v-on="on"
+              v-show="isLoggedIn"
             >
               Reset Account
             </v-btn>

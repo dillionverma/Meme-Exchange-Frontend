@@ -38,8 +38,8 @@ const state = {
   // ],
   extraItems: [
     { icon: "settings", text: "Settings", path: "/settings" },
-    { icon: "chat_bubble", text: "Send feedback", path: "/feedback" },
-    { icon: "help", text: "Help", path: "/help" }
+    { icon: "chat_bubble", text: "Send feedback", path: "/feedback" }
+    // { icon: "help", text: "Help", path: "/help" }
   ],
   subreddits: {
     memes: {

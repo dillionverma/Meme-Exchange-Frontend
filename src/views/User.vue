@@ -330,7 +330,8 @@ export default {
     return {
       search: "",
       sell: false,
-      items: ["profile", "transactions", "portfolio history"],
+      // items: ["profile", "transactions", "portfolio history"],
+      items: ["profile"],
       tabs: "profile",
       transactionHeaders: [
         {

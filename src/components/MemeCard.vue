@@ -83,10 +83,6 @@ export default {
       this.imageLoading = false;
     },
     shareDialog() {
-      this.$store.commit(SHARE_MEME, this.meme);
-      this.$store.commit(SHARE_DIALOG, true);
-    },
-    androidShare() {
       if (navigator.share) {
         navigator
           .share({
@@ -102,6 +98,8 @@ export default {
           .then(() => console.log("Successful share"))
           .catch(error => console.log("Error sharing", error));
       }
+      this.$store.commit(SHARE_MEME, this.meme);
+      this.$store.commit(SHARE_DIALOG, true);
     },
     bought() {
       this.buy = false;
