@@ -19,6 +19,7 @@
           :items="leaderboard"
           :footer-props="footerProps"
           :items-per-page="20"
+          mobile-breakpoint="0"
         >
           <template slot="item" slot-scope="props">
             <router-link :to="`/user/${props.item.username}`" tag="tr">

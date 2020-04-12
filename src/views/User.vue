@@ -65,6 +65,7 @@
                 :headers="headers"
                 :items="user.portfolio"
                 :search="search"
+                mobile-breakpoint="0"
               >
                 <template slot="item" slot-scope="props">
                   <router-link
@@ -131,6 +132,7 @@
                 :headers="transactionHeaders"
                 :items="transactions"
                 :search="search"
+                mobile-breakpoint="0"
               >
                 <template slot="item" slot-scope="props">
                   <router-link
@@ -192,6 +194,7 @@
                 :headers="historyHeaders"
                 :items="user.portfolio_history"
                 :search="search"
+                mobile-breakpoint="0"
               >
                 <template slot="item" slot-scope="props">
                   <router-link
@@ -263,7 +266,7 @@ export default {
       let headers = [
         {
           text: "Title",
-          align: "left",
+          align: "start",
           // sortable: false,
           value: "title"
           // width: "10"
@@ -271,21 +274,21 @@ export default {
         {
           text: "Subreddit",
           value: "subreddit",
-          align: "right"
+          align: "start"
         },
         {
           text: "Author",
-          align: "right",
+          align: "start",
           value: "author"
         },
         {
           text: "Quantity",
-          align: "right",
+          align: "start",
           value: "quantity"
         },
         {
           text: "Total Profit",
-          align: "left",
+          align: "start",
           value: "profit"
         }
       ];
@@ -334,8 +337,8 @@ export default {
           text: "Date",
           align: "left",
           // sortable: false,
-          value: "created_at"
-          // width: "10"
+          value: "created_at",
+          width: 150
         },
         {
           text: "Transaction Type",
