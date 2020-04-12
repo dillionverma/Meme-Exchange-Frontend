@@ -1,24 +1,25 @@
 <template>
-  <v-toolbar
+  <v-app-bar
     :clipped-left="$vuetify.breakpoint.lgAndUp"
-    :color="appbarColor || 'primary'"
+    :color="appbarColor"
     :dark="!dark"
     app
     fixed
     :scroll-off-screen="!$vuetify.breakpoint.lgAndUp"
   >
-    <v-toolbar-side-icon
+    <v-app-bar-nav-icon
+      v-show="!$vuetify.breakpoint.lgAndUp"
       @click="
         toggleDrawer();
         vibrate();
       "
-    ></v-toolbar-side-icon>
+    ></v-app-bar-nav-icon>
     <v-btn to="/" icon @click="vibrate" v-if="!$vuetify.breakpoint.lgAndUp">
       <v-avatar size="40px">
         <img src="/logo.png" alt="logo" />
       </v-avatar>
     </v-btn>
-    <v-toolbar-title id="title">
+    <v-toolbar-title id="title" class="font-weight-medium">
       <span v-if="$vuetify.breakpoint.lgAndUp"
         >{{ title }}<small color="grey lighten-2" id="beta">BETA</small></span
       >
@@ -45,85 +46,83 @@
         <!-- <v-btn slot="activator" icon>
             <v-icon>more_vert</v-icon>
           </v-btn> -->
-        <v-btn
-          slot="activator"
-          :flat="$vuetify.breakpoint.smAndUp"
-          :icon="!$vuetify.breakpoint.smAndUp"
-        >
-          <v-avatar color="grey lighten-4" left size="32px">
-            <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
-            <v-icon v-else>
-              person
-            </v-icon>
-          </v-avatar>
-          <span v-if="$vuetify.breakpoint.smAndUp" class="body-2 ml-2">{{
-            user.username
-          }}</span>
-        </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            v-on="on"
+            :text="$vuetify.breakpoint.smAndUp"
+            :icon="!$vuetify.breakpoint.smAndUp"
+          >
+            <v-avatar color="grey lighten-4" left size="32px">
+              <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
+              <v-icon v-else>
+                person
+              </v-icon>
+            </v-avatar>
+            <span v-if="$vuetify.breakpoint.smAndUp" class="body-2 ml-2">{{
+              user.username
+            }}</span>
+          </v-btn>
+        </template>
 
         <v-card>
           <v-list>
-            <v-list-tile
-              avatar
-              :to="`/user/${user.username}`"
-              @click="closeMenu"
-            >
-              <v-list-tile-avatar>
+            <v-list-item :to="`/user/${user.username}`" @click="closeMenu">
+              <v-list-item-avatar>
                 <img v-if="user.avatar" :src="user.avatar" alt="avatar" />
                 <v-icon v-else>
                   person
                 </v-icon>
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ user.username }}</v-list-tile-title>
-                <v-list-tile-sub-title
-                  >+ {{ user.coins.toLocaleString() }}</v-list-tile-sub-title
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>{{ user.username }}</v-list-item-title>
+                <v-list-item-subtitle
+                  >+ {{ user.coins.toLocaleString() }}</v-list-item-subtitle
                 >
-              </v-list-tile-content>
+              </v-list-item-content>
 
-              <!-- <v-list-tile-action>
+              <!-- <v-list-item-action>
                   <v-btn :class="fav ? 'red--text' : ''" icon @click="fav = !fav">
                     <v-icon>favorite</v-icon>
                   </v-btn>
-                </v-list-tile-action> -->
-            </v-list-tile>
+                </v-list-item-action> -->
+            </v-list-item>
           </v-list>
 
           <v-divider></v-divider>
 
           <v-list>
-            <v-list-tile
+            <v-list-item
               v-for="(item, i) in extraItems"
               :key="i"
               :to="item.path"
               @click="closeMenu"
             >
-              <v-list-tile-action>
+              <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile
+              </v-list-item-action>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+            </v-list-item>
+            <v-list-item
               @click="
                 handleAuthClick();
                 vibrate();
               "
             >
-              <v-list-tile-action>
+              <v-list-item-action>
                 <v-icon>exit_to_app</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ authText }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-card>
       </v-menu>
       <v-btn
         v-else
-        flat
+        text
         @click="
           handleAuthClick();
           vibrate();
@@ -132,7 +131,7 @@
         {{ authText }}
       </v-btn>
     </v-toolbar-items>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>
@@ -196,10 +195,11 @@ export default {
   }
   width: 400px;
   overflow: visible !important;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
   #beta {
     position: relative;
-    top: 15px;
+    top: 20px;
     right: 25px;
     font-size: 50%;
   }

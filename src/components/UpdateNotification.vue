@@ -7,7 +7,7 @@
   >
     {{ snackWithBtnText }}
     <v-spacer />
-    <v-btn dark flat color="primary" @click.native="refreshApp">
+    <v-btn dark text color="primary" @click.native="refreshApp">
       {{ snackBtnText }}
     </v-btn>
     <v-btn icon @click="snackWithButtons = false">

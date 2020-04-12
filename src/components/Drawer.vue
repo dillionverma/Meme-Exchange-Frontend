@@ -5,200 +5,153 @@
     fixed
     app
   >
-    <v-layout column>
-      <v-list>
-        <v-list-tile to="/" @click="vibrate">
-          <v-list-tile-action>
-            <v-icon>search</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              Explore
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile to="/dashboard" @click="vibrate">
-          <v-list-tile-action>
+    <v-divider></v-divider>
+    <v-list flat>
+      <v-list-item to="/" @click="vibrate">
+        <v-list-item-action>
+          <v-icon>search</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>
+            Explore
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <!-- <v-list-item to="/dashboard" @click="vibrate">
+          <v-list-item-action>
             <v-icon>dashboard</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
               Dashboard
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile
-          v-if="isLoggedIn"
-          :to="`/user/${user.username}`"
-          @click="vibrate"
-        >
-          <v-list-tile-action>
-            <v-icon>person</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              Profile
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item> -->
 
-        <v-list-tile to="/leaderboard" @click="vibrate">
-          <v-list-tile-action>
-            <v-icon>list</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              Leaderboard
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider></v-divider>
-        <v-subheader class="">SUBREDDITS</v-subheader>
-        <v-list-tile
-          v-for="(item, subreddit, i) in subreddits"
-          :key="i"
-          :to="item.path"
-          @click="vibrate"
-        >
-          <v-list-tile-action>
-            <v-avatar color="grey lighten-4" size="36px">
-              <img :src="item.icon" />
-            </v-avatar>
-          </v-list-tile-action>
-          <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-      <v-divider></v-divider>
-      <v-subheader class="">MORE</v-subheader>
-      <v-list>
-        <v-list-tile
-          v-for="(item, i) in extraItems"
-          :key="i"
-          :to="item.path"
-          @click="vibrate"
-        >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-      <v-divider></v-divider>
+      <v-list-item to="/leaderboard" @click="vibrate">
+        <v-list-item-action>
+          <v-icon>list</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>
+            Leaderboard
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item
+        v-if="isLoggedIn"
+        :to="`/user/${user.username}`"
+        @click="vibrate"
+      >
+        <v-list-item-action>
+          <v-icon>person</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>
+            Profile
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
 
-      <v-spacer></v-spacer>
-      <v-list>
-        <v-list-tile
-          @click="
-            handleAuthClick();
-            vibrate();
-          "
+    <v-divider></v-divider>
+    <v-subheader class="">CATEGORIES</v-subheader>
+    <v-list flat>
+      <v-list-item
+        v-for="(item, subreddit, i) in subreddits"
+        :key="i"
+        :to="item.path"
+        @click="vibrate"
+      >
+        <v-list-item-action>
+          <v-avatar color="grey lighten-4" size="36px">
+            <img :src="item.icon" />
+          </v-avatar>
+        </v-list-item-action>
+        <v-list-item-title>{{ item.text }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+    <v-divider></v-divider>
+    <v-subheader>MORE</v-subheader>
+    <v-list flat>
+      <v-list-item
+        v-for="(item, i) in extraItems"
+        :key="i"
+        :to="item.path"
+        @click="vibrate"
+      >
+        <v-list-item-action>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-action>
+        <v-list-item-title>{{ item.text }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+    <v-divider></v-divider>
+
+    <v-spacer></v-spacer>
+    <v-list>
+      <v-list-item
+        @click="
+          handleAuthClick();
+          vibrate();
+        "
+      >
+        <v-list-item-action>
+          <v-icon>exit_to_app</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>
+            {{ authText }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <v-divider></v-divider>
+    <!-- <v-footer color="primary lighten-1" padless>
+      <v-row justify="center" no-gutters>
+        <v-btn
+          v-for="link in links"
+          :key="link"
+          color="white"
+          text
+          rounded
+          small
+          class="my-2"
         >
-          <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              {{ authText }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-      <v-divider></v-divider>
-      <v-footer id="footer" height="auto">
-        <v-layout justify-center row wrap>
-          <v-list-tile-content>
-            <v-container text-xs-center py-3>
-              <v-layout align-center justify-space-between row wrap>
-                <v-flex>
-                  <router-link class="caption" to="/about">
-                    About
-                  </router-link>
-                </v-flex>
-                <v-flex>
-                  <router-link class="caption" to="/press">
-                    Press
-                  </router-link>
-                </v-flex>
-                <v-flex>
-                  <router-link class="caption" to="/copyright">
-                    Copyright
-                  </router-link>
-                </v-flex>
-                <v-flex>
-                  <router-link class="caption" to="/contact-us">
-                    Contact Us
-                  </router-link>
-                </v-flex>
-                <v-flex>
-                  <router-link class="caption" to="/terms">
-                    Terms
-                  </router-link>
-                </v-flex>
-                <v-flex>
-                  <router-link class="caption" to="/privacy-policy">
-                    Privacy Policy
-                  </router-link>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-list-tile-content>
-          <v-layout justify-center row wrap>
-            <v-flex xs12 text-xs-center py-3>
-              <router-link to="/about">
-                &copy;2019 — <strong>Meme Exchange</strong>
-              </router-link>
-            </v-flex>
-          </v-layout>
+          {{ link }}
+        </v-btn>
+        <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
+          {{ new Date().getFullYear() }} — <strong>Meme Exchange</strong>
+        </v-col>
+      </v-row>
+    </v-footer> -->
+    <v-footer id="footer" height="auto" padless>
+      <v-container text-xs-center py-5>
+        <v-layout d-flex justify-space-around flex-wrap>
+          <router-link class="caption" to="/about">
+            About
+          </router-link>
+          <router-link class="caption" to="/press">
+            Press
+          </router-link>
+          <router-link class="caption" to="/copyright">
+            Copyright
+          </router-link>
+          <router-link class="caption" to="/contact-us">
+            Contact Us
+          </router-link>
+          <router-link class="caption" to="/terms">
+            Terms
+          </router-link>
+          <router-link class="caption" to="/privacy-policy">
+            Privacy Policy
+          </router-link>
         </v-layout>
-      </v-footer>
-      <!-- <template v-for="item in items">
-          <v-layout v-if="item.heading" :key="item.heading" row align-center>
-            <v-flex xs6>
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-flex>
-            <v-flex xs6 class="text-xs-center">
-              <a href="#!" class="body-2 black--text">EDIT</a>
-            </v-flex>
-          </v-layout>
-          <v-list-group
-            v-else-if="item.children"
-            v-model="item.model"
-            :key="item.text"
-            :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon=""
-          >
-            <v-list-tile slot="activator">
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ item.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile v-for="(child, i) in item.children" :key="i">
-              <v-list-tile-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ child.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list-group>
-          <v-list-tile v-else :key="item.text" :to="item.path">
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ item.text }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </template> -->
-    </v-layout>
+      </v-container>
+      <v-col class="primary lighten-2 py-4 text-center white--text">
+        &copy; {{ new Date().getFullYear() }} — <strong>Meme Exchange</strong>
+      </v-col>
+    </v-footer>
   </v-navigation-drawer>
 </template>
 
@@ -214,6 +167,10 @@ export default {
     authText: String,
     handleAuthClick: Function
   },
+
+  data: () => ({
+    links: ["Home", "About Us", "Team", "Services", "Blog", "Contact Us"]
+  }),
 
   methods: {
     async fetchThumbnails() {

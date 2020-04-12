@@ -54,29 +54,29 @@
     </v-container>
     <v-divider></v-divider>
     <v-list two-line class="pa-0">
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-sub-title>Subtotal</v-list-tile-sub-title>
-        </v-list-tile-content>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-subtitle>Subtotal</v-list-item-subtitle>
+        </v-list-item-content>
 
-        <v-list-tile-action>
-          <v-list-tile-sub-title>{{
+        <v-list-item-action>
+          <v-list-item-subtitle>{{
             subtotal.toLocaleString()
-          }}</v-list-tile-sub-title>
-        </v-list-tile-action>
-      </v-list-tile>
+          }}</v-list-item-subtitle>
+        </v-list-item-action>
+      </v-list-item>
 
       <v-divider></v-divider>
 
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-title>Total</v-list-tile-title>
-        </v-list-tile-content>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>Total</v-list-item-title>
+        </v-list-item-content>
 
-        <v-list-tile-action>
-          <v-list-tile-title>{{ total.toLocaleString() }}</v-list-tile-title>
-        </v-list-tile-action>
-      </v-list-tile>
+        <v-list-item-action>
+          <v-list-item-title>{{ total.toLocaleString() }}</v-list-item-title>
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <v-divider></v-divider>
     <v-card-actions class="pa-3">
@@ -128,7 +128,7 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" flat @click="dialog = false">
+      <v-btn color="primary" text @click="dialog = false">
         I accept
       </v-btn>
     </v-card-actions>

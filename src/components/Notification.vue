@@ -1,7 +1,7 @@
 <template>
   <v-snackbar :color="status" v-model="notification" :style="snackStyle">
     {{ message }}
-    <v-btn dark flat :to="link" @click="close">{{ linkText }}</v-btn>
+    <v-btn dark text :to="link" @click="close">{{ linkText }}</v-btn>
     <v-btn icon @click="notification = false">
       <v-icon>close</v-icon>
     </v-btn>
@@ -26,8 +26,8 @@ export default {
   computed: {
     snackStyle() {
       return {
-        "--snack-bottom": !this.$vuetify.breakpoint.lgAndUp ? "65px" : "10px",
-        "z-index": !this.$vuetify.breakpoint.lgAndUp ? 4 : 5
+        "--snack-bottom": !this.$vuetify.breakpoint.lgAndUp ? "65px" : "10px"
+        // "z-index": !this.$vuetify.breakpoint.lgAndUp ? 4 : 5
       };
     },
     message() {

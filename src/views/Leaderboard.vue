@@ -3,7 +3,7 @@
     <v-flex xs12>
       <v-card id="leaderboard-card">
         <v-card-title>
-          Nutrition
+          Leaderboard
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -15,9 +15,10 @@
         </v-card-title>
         <v-data-table
           :headers="headers"
-          :items="leaderboard"
           :search="search"
-          :rows-per-page-items="rowsPerPageItems"
+          :items="leaderboard"
+          :footer-props="footerProps"
+          :items-per-page="20"
         >
           <template slot="items" slot-scope="props">
             <router-link :to="`/user/${props.item.username}`" tag="tr">
@@ -65,10 +66,9 @@ export default {
   data() {
     return {
       search: "",
-      rowsPerPageItems: [
-        25,
-        { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }
-      ],
+      footerProps: {
+        "items-per-page-options": [10, 20, 30, 40, -1]
+      },
       headers: [
         {
           text: "Rank",

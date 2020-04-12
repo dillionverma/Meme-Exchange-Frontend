@@ -1,32 +1,30 @@
 <template>
-  <v-layout row fill-height>
+  <v-layout>
     <v-flex xs12>
       <v-subheader v-if="isLoggedIn">General</v-subheader>
       <v-card v-if="isLoggedIn">
         <v-list three-line subheader>
-          <v-list-tile
+          <v-list-item
             @click="
               usernameDialog = !usernameDialog;
               vibrate();
             "
             ripple
           >
-            <v-list-tile-content>
-              <v-list-tile-title>Username</v-list-tile-title>
-              <v-list-tile-sub-title
-                >Change your username</v-list-tile-sub-title
-              >
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item-content>
+              <v-list-item-title>Username</v-list-item-title>
+              <v-list-item-subtitle>Change your username</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
           <v-divider></v-divider>
-          <v-list-tile disabled ripple>
-            <v-list-tile-content>
-              <v-list-tile-title>Profile photo</v-list-tile-title>
-              <v-list-tile-sub-title
-                >Change your profile photo</v-list-tile-sub-title
+          <v-list-item disabled ripple>
+            <v-list-item-content>
+              <v-list-item-title>Profile photo</v-list-item-title>
+              <v-list-item-subtitle
+                >Change your profile photo</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-card>
 
@@ -34,7 +32,7 @@
 
       <v-card>
         <v-list three-line subheader>
-          <v-list-tile
+          <v-list-item
             v-if="isLoggedIn"
             @click="
               status = !status;
@@ -42,7 +40,7 @@
             "
             ripple
           >
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-switch
                 @click="
                   status = !status;
@@ -50,23 +48,23 @@
                 "
                 v-model="status"
               ></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Show your status</v-list-tile-title>
-              <v-list-tile-sub-title
-                >Your status is visible to everyone</v-list-tile-sub-title
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Show your status</v-list-item-title>
+              <v-list-item-subtitle
+                >Your status is visible to everyone</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-content>
+          </v-list-item>
           <v-divider></v-divider>
-          <v-list-tile
+          <v-list-item
             @click="
               notifications = !notifications;
               vibrate();
             "
             ripple
           >
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-switch
                 @click="
                   notifications = !notifications;
@@ -74,36 +72,30 @@
                 "
                 v-model="notifications"
               ></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Notifications</v-list-tile-title>
-              <v-list-tile-sub-title>Allow notifications</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Notifications</v-list-item-title>
+              <v-list-item-subtitle>Allow notifications</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
           <v-divider></v-divider>
-          <v-list-tile
+          <!-- <v-list-item
             @click="
               theme = !theme;
               vibrate();
             "
             ripple
           >
-            <v-list-tile-action>
-              <v-switch
-                @click="
-                  theme = !theme;
-                  vibrate();
-                "
-                v-model="theme"
-              ></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Night Theme</v-list-tile-title>
-              <v-list-tile-sub-title
-                >Switch between dark and light themes</v-list-tile-sub-title
+            <v-list-item-action>
+              <v-switch @click="vibrate()" v-model="theme"></v-switch>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Night Theme</v-list-item-title>
+              <v-list-item-subtitle
+                >Switch between dark and light themes</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-content>
+          </v-list-item> -->
         </v-list>
       </v-card>
 
@@ -111,26 +103,26 @@
 
       <v-card>
         <v-list three-line subheader>
-          <v-list-tile
+          <v-list-item
             @click="
               checkForUpdates();
               vibrate();
             "
             ripple
           >
-            <v-list-tile-action style="padding-left: 8px">
+            <v-list-item-action style="padding-left: 8px">
               <v-btn :loading="checking" icon :disabled="checking">
                 <v-icon>refresh</v-icon>
               </v-btn>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Check For Updates</v-list-tile-title>
-              <v-list-tile-sub-title
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Check For Updates</v-list-item-title>
+              <v-list-item-subtitle
                 >Forcefully refresh application and check for latest
-                updates</v-list-tile-sub-title
+                updates</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-card>
 

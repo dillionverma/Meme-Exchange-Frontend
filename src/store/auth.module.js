@@ -269,6 +269,7 @@ const actions = {
   },
   async [LOGOUT_GOOGLE]({ commit }) {
     // https://developers.google.com/identity/sign-in/web/reference#googleauthsignout
+    if (gapi.auth2 === undefined) return;
     try {
       const GoogleAuth = await gapi.auth2.getAuthInstance();
       await GoogleAuth.signOut();

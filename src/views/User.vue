@@ -1,8 +1,25 @@
 <template>
-  <v-layout justify-center fill-height>
-    <v-flex xs12>
-      <v-toolbar id="toolbar" height="128" dark tabs extended prominent>
-        <v-avatar class="grey lighten-4" size="100">
+  <v-layout>
+    <v-flex>
+      <v-toolbar id="toolbar" dark tabs extended prominent>
+        <v-row>
+          <v-col>
+            <v-avatar class="grey lighten-4" size="100">
+              <img v-if="user.avatar" :src="user.avatar" alt="Avatar" />
+              <v-icon v-else>
+                person
+              </v-icon>
+            </v-avatar>
+          </v-col>
+          <v-spacer v-show="$vuetify.breakpoint.lgAndUp" />
+          <v-col>
+            <v-toolbar-title>{{ user.username }}</v-toolbar-title>
+            <h2 class="display-1">
+              + {{ user.coins ? user.coins.toLocaleString() : null }}
+            </h2>
+          </v-col>
+        </v-row>
+        <!-- <v-avatar class="grey lighten-4" size="100">
           <img v-if="user.avatar" :src="user.avatar" alt="Avatar" />
           <v-icon v-else>
             person
@@ -10,197 +27,184 @@
         </v-avatar>
         <v-toolbar-title>{{ user.username }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <h2 class="display-1">
+        <h2
+          class="display-1"
+          style="align-self: flex-end; padding-bottom: 6px; padding-top: 0;"
+        >
           + {{ user.coins ? user.coins.toLocaleString() : null }}
-        </h2>
+        </h2> -->
         <!-- <v-btn icon>
           <v-icon>more_vert</v-icon>
-        </v-btn> -->
-        <v-tabs
-          slot="extension"
-          v-model="tabs"
-          color="transparent"
-          align-with-title
-        >
-          <v-tabs-slider color="yellow"></v-tabs-slider>
-          <v-tab v-for="item in items" :href="`#${item}`" :key="item">
-            {{ item }}
-          </v-tab>
-        </v-tabs>
+        </!-->
+        <template v-slot:extension>
+          <v-tabs v-model="tabs" align-with-title show-arrows>
+            <v-tabs-slider color="secondary"></v-tabs-slider>
+            <v-tab v-for="item in items" :href="`#${item}`" :key="item">
+              {{ item }}
+            </v-tab>
+          </v-tabs>
+        </template>
       </v-toolbar>
 
       <v-card>
-        <v-container fluid grid-list-xl>
-          <v-layout row wrap>
-            <v-flex>
-              <v-tabs-items touchless v-model="tabs">
-                <v-tab-item key="profile" value="profile">
-                  <v-card id="portfolio-card" flat>
-                    <v-card-title>
-                      Portfolio
-                      <v-spacer></v-spacer>
-                      <v-text-field
-                        v-model="search"
-                        append-icon="search"
-                        label="Search"
-                        single-line
-                        hide-details
-                      ></v-text-field>
-                    </v-card-title>
-                    <v-data-table
-                      :headers="headers"
-                      :items="user.portfolio"
-                      :search="search"
-                      disable-initial-sort
+        <v-tabs-items touchless v-model="tabs">
+          <v-tab-item key="profile" value="profile">
+            <v-card id="portfolio-card" flat>
+              <v-card-title>
+                Portfolio
+                <v-spacer></v-spacer>
+                <v-text-field
+                  v-model="search"
+                  append-icon="search"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field>
+              </v-card-title>
+              <v-data-table
+                :headers="headers"
+                :items="user.portfolio"
+                :search="search"
+              >
+                <template slot="item" slot-scope="props">
+                  <router-link
+                    :to="`/r/${props.item.subreddit}/${props.item.reddit_id}`"
+                    tag="tr"
+                  >
+                    <td>{{ props.item.title }}</td>
+                    <td class="text-xs-right">
+                      {{ props.item.subreddit }}
+                    </td>
+                    <td class="text-xs-right">{{ props.item.author }}</td>
+                    <td class="text-xs-right">
+                      {{ props.item.quantity.toLocaleString() }}
+                    </td>
+                    <td :class="`${pColor(props.item.profit)}--text`">
+                      <v-icon small :color="pColor(props.item.profit)">
+                        {{
+                          props.item.profit >= 0
+                            ? "arrow_drop_up"
+                            : "arrow_drop_down"
+                        }}
+                      </v-icon>
+                      {{ props.item.profit.toLocaleString() }}
+                    </td>
+                    <td
+                      v-if="isCurrentUser"
+                      class="justify-center align-center"
                     >
-                      <template slot="items" slot-scope="props">
-                        <router-link
-                          :to="
-                            `/r/${props.item.subreddit}/${props.item.reddit_id}`
-                          "
-                          tag="tr"
-                        >
-                          <td>{{ props.item.title }}</td>
-                          <td class="text-xs-right">
-                            {{ props.item.subreddit }}
-                          </td>
-                          <td class="text-xs-right">{{ props.item.author }}</td>
-                          <td class="text-xs-right">
-                            {{ props.item.quantity.toLocaleString() }}
-                          </td>
-                          <td
-                            class="text-xs-left"
-                            :class="`${pColor(props.item.profit)}--text`"
-                          >
-                            <v-icon small :color="pColor(props.item.profit)">
-                              {{
-                                props.item.profit >= 0
-                                  ? "arrow_drop_up"
-                                  : "arrow_drop_down"
-                              }}
-                            </v-icon>
-                            {{ props.item.profit.toLocaleString() }}
-                          </td>
-                          <td
-                            v-if="isCurrentUser"
-                            class="justify-center layout px-0"
-                          >
-                            <v-dialog v-model="props.item.sell" width="700">
-                              <v-btn slot="activator" color="success" small
-                                >Sell</v-btn
-                              >
-                              <Sell :meme="props.item" :onSuccess="sold" />
-                            </v-dialog>
-                          </td>
-                        </router-link>
-                      </template>
-                      <v-alert
-                        slot="no-results"
-                        :value="true"
-                        color="error"
-                        icon="warning"
-                      >
-                        Your search for "{{ search }}" found no results.
-                      </v-alert>
-                    </v-data-table>
-                  </v-card>
-                </v-tab-item>
+                      <v-dialog v-model="props.item.sell" width="700">
+                        <template v-slot:activator="{ on }">
+                          <v-btn v-on="on" color="success" small>Sell</v-btn>
+                        </template>
+                        <Sell :meme="props.item" :onSuccess="sold" />
+                      </v-dialog>
+                    </td>
+                  </router-link>
+                </template>
+                <v-alert
+                  slot="no-results"
+                  :value="true"
+                  color="error"
+                  icon="warning"
+                >
+                  Your search for "{{ search }}" found no results.
+                </v-alert>
+              </v-data-table>
+            </v-card>
+          </v-tab-item>
 
-                <v-tab-item key="transactions" value="transactions">
-                  <v-card id="transactions-card" flat>
-                    <v-card-title>
-                      Transactions
-                      <v-spacer></v-spacer>
-                      <v-text-field
-                        v-model="search"
-                        append-icon="search"
-                        label="Search"
-                        single-line
-                        hide-details
-                      ></v-text-field>
-                    </v-card-title>
-                    <v-data-table
-                      :headers="transactionHeaders"
-                      :items="transactions"
-                      :search="search"
-                      disable-initial-sort
-                    >
-                      <template slot="items" slot-scope="props">
-                        <router-link
-                          :to="
-                            `/r/${props.item.meme.subreddit}/${props.item.meme.reddit_id}`
-                          "
-                          tag="tr"
-                        >
-                          <td>
-                            {{ formatDate(props.item.created_at) }}
-                          </td>
-                          <td class="text-xs-right">
-                            {{ props.item.transaction_type }}
-                          </td>
-                          <td class="text-xs-right">
-                            {{ props.item.meme.title }}
-                          </td>
-                          <td class="text-xs-right">
-                            {{ props.item.price.toLocaleString() }}
-                          </td>
-                          <td class="text-xs-right">
-                            {{ props.item.quantity.toLocaleString() }}
-                          </td>
-                          <td class="text-xs-right">
-                            {{
-                              (
-                                props.item.quantity * props.item.price
-                              ).toLocaleString()
-                            }}
-                          </td>
-                        </router-link>
-                      </template>
-                      <v-alert
-                        slot="no-results"
-                        :value="true"
-                        color="error"
-                        icon="warning"
-                      >
-                        Your search for "{{ search }}" found no results.
-                      </v-alert>
-                    </v-data-table>
-                  </v-card>
-                </v-tab-item>
+          <v-tab-item key="transactions" value="transactions">
+            <v-card id="transactions-card" flat>
+              <v-card-title>
+                Transactions
+                <v-spacer></v-spacer>
+                <v-text-field
+                  v-model="search"
+                  append-icon="search"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field>
+              </v-card-title>
+              <v-data-table
+                :headers="transactionHeaders"
+                :items="transactions"
+                :search="search"
+              >
+                <template slot="item" slot-scope="props">
+                  <router-link
+                    :to="
+                      `/r/${props.item.meme.subreddit}/${props.item.meme.reddit_id}`
+                    "
+                    tag="tr"
+                  >
+                    <td>
+                      {{ formatDate(props.item.created_at) }}
+                    </td>
+                    <td class="text-xs-right">
+                      {{ props.item.transaction_type }}
+                    </td>
+                    <td class="text-xs-right">
+                      {{ props.item.meme.title }}
+                    </td>
+                    <td class="text-xs-right">
+                      {{ props.item.price.toLocaleString() }}
+                    </td>
+                    <td class="text-xs-right">
+                      {{ props.item.quantity.toLocaleString() }}
+                    </td>
+                    <td class="text-xs-right">
+                      {{
+                        (
+                          props.item.quantity * props.item.price
+                        ).toLocaleString()
+                      }}
+                    </td>
+                  </router-link>
+                </template>
+                <v-alert
+                  slot="no-results"
+                  :value="true"
+                  color="error"
+                  icon="warning"
+                >
+                  Your search for "{{ search }}" found no results.
+                </v-alert>
+              </v-data-table>
+            </v-card>
+          </v-tab-item>
 
-                <v-tab-item key="porfolio history" value="portfolio history">
-                  <v-card id="portfolio-history-card" flat>
-                    <v-card-title>
-                      Portfolio History
-                      <v-spacer></v-spacer>
-                      <v-text-field
-                        v-model="search"
-                        append-icon="search"
-                        label="Search"
-                        single-line
-                        hide-details
-                      ></v-text-field>
-                    </v-card-title>
-                    <v-data-table
-                      :headers="historyHeaders"
-                      :items="user.portfolio_history"
-                      :search="search"
-                      disable-initial-sort
-                    >
-                      <template slot="items" slot-scope="props">
-                        <router-link
-                          :to="
-                            `/r/${props.item.subreddit}/${props.item.reddit_id}`
-                          "
-                          tag="tr"
-                        >
-                          <td>{{ props.item.title }}</td>
-                          <td class="text-xs-right">
-                            {{ props.item.subreddit }}
-                          </td>
-                          <td class="text-xs-right">{{ props.item.author }}</td>
-                          <!-- <td class="text-xs-right">{{ props.item.quantity }}</td> -->
-                          <!-- <td class="justify-center layout px-0">
+          <v-tab-item key="porfolio history" value="portfolio history">
+            <v-card id="portfolio-history-card" flat>
+              <v-card-title>
+                Portfolio History
+                <v-spacer></v-spacer>
+                <v-text-field
+                  v-model="search"
+                  append-icon="search"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field>
+              </v-card-title>
+              <v-data-table
+                :headers="historyHeaders"
+                :items="user.portfolio_history"
+                :search="search"
+              >
+                <template slot="item" slot-scope="props">
+                  <router-link
+                    :to="`/r/${props.item.subreddit}/${props.item.reddit_id}`"
+                    tag="tr"
+                  >
+                    <td>{{ props.item.title }}</td>
+                    <td class="text-xs-right">
+                      {{ props.item.subreddit }}
+                    </td>
+                    <td class="text-xs-right">{{ props.item.author }}</td>
+                    <!-- <td class="text-xs-right">{{ props.item.quantity }}</td> -->
+                    <!-- <td class="justify-center layout px-0">
                             <v-dialog v-model="props.item.sell" width="700">
                               <v-btn slot="activator" color="success" small
                                 >Sell</v-btn
@@ -208,23 +212,20 @@
                               <Sell :meme="props.item" />
                             </v-dialog>
                           </td> -->
-                        </router-link>
-                      </template>
-                      <v-alert
-                        slot="no-results"
-                        :value="true"
-                        color="error"
-                        icon="warning"
-                      >
-                        Your search for "{{ search }}" found no results.
-                      </v-alert>
-                    </v-data-table>
-                  </v-card>
-                </v-tab-item>
-              </v-tabs-items>
-            </v-flex>
-          </v-layout>
-        </v-container>
+                  </router-link>
+                </template>
+                <v-alert
+                  slot="no-results"
+                  :value="true"
+                  color="error"
+                  icon="warning"
+                >
+                  Your search for "{{ search }}" found no results.
+                </v-alert>
+              </v-data-table>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
       </v-card>
     </v-flex>
   </v-layout>
@@ -339,26 +340,26 @@ export default {
         {
           text: "Transaction Type",
           value: "transaction_type",
-          align: "right"
+          align: "left"
         },
         {
           text: "Title",
-          align: "right",
+          align: "left",
           value: "meme.title"
         },
         {
           text: "Price",
-          align: "right",
+          align: "left",
           value: "price"
         },
         {
           text: "Quantity",
-          align: "right",
+          align: "left",
           value: "quantity"
         },
         {
           text: "Total Price",
-          align: "right"
+          align: "left"
         }
       ],
       historyHeaders: [
@@ -372,11 +373,11 @@ export default {
         {
           text: "Subreddit",
           value: "subreddit",
-          align: "right"
+          align: "left"
         },
         {
           text: "Author",
-          align: "right",
+          align: "left",
           value: "author"
         }
         // {
@@ -396,8 +397,11 @@ export default {
 
 <style lang="scss" scoped>
 #toolbar {
-  background-image: url(https://picsum.photos/510/300?random);
+  background-image: url("https://picsum.photos/600/300?random");
   background-size: cover;
   background-blend-mode: soft-light;
+}
+.v-toolbar__title {
+  margin-left: 10px;
 }
 </style>
