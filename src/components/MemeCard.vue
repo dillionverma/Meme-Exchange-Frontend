@@ -127,7 +127,7 @@ export default {
 }
 
 .v-skeleton-loader__image {
-  height: 100%;
+  height: 100% !important;
   border-radius: 0;
 }
 </style>
