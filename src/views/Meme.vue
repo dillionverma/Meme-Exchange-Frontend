@@ -93,6 +93,7 @@ export default {
       titleTemplate: "%s | Meme Exchange",
       meta: [
         {
+          vmid: "description",
           name: "description",
           content:
             "Invest in the future of this meme today on the Meme Exchange!"
@@ -132,25 +133,13 @@ export default {
           content: `${this.meme.title} | Meme Exchange`
         },
         {
-          name: "og:type",
-          content: "website"
-        },
-        {
-          name: "og:url",
-          content: window.location.href
-        },
-        {
           name: "og:image",
           content: this.meme.url
         },
         {
+          vmid: "og:description",
           name: "og:description",
           content: "Invest in this meme today on the Meme Exchange!"
-        },
-        {
-          vmid: "og:site_name",
-          name: "og:site_name",
-          content: "Meme Exchange"
         }
       ]
     };

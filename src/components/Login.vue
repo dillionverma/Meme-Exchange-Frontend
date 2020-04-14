@@ -245,17 +245,6 @@ export default {
     loginGoogle(GoogleUser) {
       this.$store.dispatch(LOGIN_GOOGLE, GoogleUser);
     }
-  },
-  metaInfo: {
-    // title: "Meme Exchange",
-    // titleTemplate: '%s | My Awesome Webapp'
-    meta: [
-      {
-        name: "google-signin-client_id",
-        content:
-          "569258220493-eml45aftpqegtpas801oq5k87pqgad8u.apps.googleusercontent.com"
-      }
-    ]
   }
 };
 </script>

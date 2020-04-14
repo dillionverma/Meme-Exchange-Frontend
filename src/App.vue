@@ -135,6 +135,92 @@ export default {
     Drawer,
     BottomNav,
     TopNav
+  },
+  metaInfo: {
+    title: "Meme Exchange",
+    titleTemplate: "%s | The Meme Economy Begins Here",
+    meta: [
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width,initial-scale=1.0" },
+      {
+        name: "keywords",
+        content:
+          "memes,memeexchange,memeeconomy,gifs,funny,pictures,pics,gif,fun,humor,videos,vids,dank,fail,best"
+      },
+      {
+        vmid: "description",
+        name: "description",
+        content:
+          "The Meme Exchange is the hottest way to browse and share memes. Invest your coins in trending memes and watch your profits grow!"
+      },
+      { name: "subject", content: "Browsing and investing in memes" },
+      { name: "copyright", content: "Meme Exchange" },
+      {
+        vmid: "og:title",
+        name: "og:title",
+        content: "Meme Exchange | The Meme Economy Begins Here"
+      },
+      { name: "og:type", content: "website" },
+      { name: "og:url", content: window.location.href },
+      {
+        name: "og:image",
+        content: `${process.env.BASE_URL}logo.png`
+      },
+      {
+        vmid: "og:description",
+        name: "og:description",
+        content:
+          "The Meme Exchange is the hottest way to browse and share memes. Invest your coins in trending memes and watch your profits grow!"
+      },
+      {
+        name: "og:site_name",
+        content: "Meme Exchange"
+      },
+      {
+        name: "google-signin-client_id",
+        content:
+          "569258220493-eml45aftpqegtpas801oq5k87pqgad8u.apps.googleusercontent.com"
+      }
+    ],
+    link: [
+      { rel: "icon", href: `${process.env.BASE_URL}favicon.ico` },
+      {
+        rel: "stylesheet",
+        href:
+          "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+      }
+    ],
+    script: [
+      {
+        type: "application/ld+json",
+        json: {
+          "@context": "http://schema.org",
+          "@type": "SoftwareApplication",
+          name: "Meme Exchange",
+          url: "https://meme.exchange",
+          description:
+            "The Meme Exchange is the hottest way to browse and share memes. Invest your coins in trending memes and watch your profits grow!",
+          applicationCategory: "Game",
+          browserRequirements: "Requires JavaScript. Requires HTML5.",
+          softwareVersion: "1.0.0",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD"
+          },
+          softwareHelp: {
+            "@type": "CreativeWork",
+            url: "https://meme.exchange/help"
+          },
+          operatingSystem: "All"
+        }
+      },
+      {
+        src: "https://apis.google.com/js/platform.js",
+        async: true,
+        defer: true
+      }
+    ]
   }
 };
 </script>

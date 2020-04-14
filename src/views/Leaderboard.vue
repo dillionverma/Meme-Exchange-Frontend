@@ -56,6 +56,7 @@
 import { LEADERBOARD } from "@/store/leaderboard.module";
 
 export default {
+  name: "Leaderboard",
   mounted() {
     this.$store.dispatch(LEADERBOARD);
   },
@@ -90,6 +91,27 @@ export default {
         }
       ]
     };
+  },
+  metaInfo: {
+    title: "Leaderboard",
+    titleTemplate: "%s | Meme Exchange",
+    meta: [
+      {
+        vmid: "og:title",
+        name: "og:title",
+        content: "Leaderboard | Meme Exchange"
+      },
+      {
+        vmid: "description",
+        name: "description",
+        content: "See how you rank up against the top meme investors"
+      },
+      {
+        vmid: "og:description",
+        name: "og:description",
+        content: "See how you rank up against the top meme investors"
+      }
+    ]
   }
 };
 </script>

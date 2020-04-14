@@ -13,5 +13,30 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Feedback",
+  metaInfo: {
+    title: "Feedback",
+    titleTemplate: "%s | Meme Exchange",
+    meta: [
+      {
+        vmid: "og:title",
+        name: "og:title",
+        content: "Feedback | Meme Exchange"
+      },
+      {
+        vmid: "description",
+        name: "description",
+        content:
+          "Please share your valuable feedback so we can make our app better for everyone"
+      },
+      {
+        vmid: "og:description",
+        name: "og:description",
+        content:
+          "Please share your valuable feedback so we can make our app better for everyone"
+      }
+    ]
+  }
+};
 </script>

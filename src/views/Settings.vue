@@ -184,6 +184,7 @@ import DeleteDialog from "@/components/Delete";
 import DeactivateDialog from "@/components/Deactivate";
 
 export default {
+  name: "Settings",
   components: {
     ResetDialog,
     DeleteDialog,
@@ -246,6 +247,27 @@ export default {
         this.$store.commit(USERNAME_DIALOG, dialog);
       }
     }
+  },
+  metaInfo: {
+    title: "Settings",
+    titleTemplate: "%s | Meme Exchange",
+    meta: [
+      {
+        vmid: "og:title",
+        name: "og:title",
+        content: "Settings | Meme Exchange"
+      },
+      {
+        vmid: "description",
+        name: "description",
+        content: "Change user or game settings"
+      },
+      {
+        vmid: "og:description",
+        name: "og:description",
+        content: "Change user or game settings"
+      }
+    ]
   }
 };
 </script>
