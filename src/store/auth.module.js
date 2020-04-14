@@ -30,6 +30,8 @@ export const THIRD_PARTY_LOGIN = "auth/third_party_login";
 export const SIGNUP = "auth/signup";
 export const UPDATE_USERNAME = "auth/UPDATE_USERNAME";
 export const RESET_ACCOUNT = "auth/RESET_ACCOUNT";
+export const DELETE_ACCOUNT = "auth/DELETE_ACCOUNT";
+export const DEACTIVATE_ACCOUNT = "auth/DEACTIVATE_ACCOUNT";
 
 // Mutations
 export const SET_LOADING = "auth/loading";
@@ -77,6 +79,10 @@ const mutations = {
 // Actions
 const actions = {
   async [AUTOMATIC_LOGIN]({ commit, dispatch }) {
+    // Show login dialog
+    commit(LOGIN_DIALOG, true);
+    commit(MENU, false);
+
     // https://developers.google.com/web/fundamentals/security/credential-management
     if (window.PasswordCredential || window.FederatedCredential) {
       if (!state.isLoggedIn) {
@@ -115,24 +121,14 @@ const actions = {
                     dispatch(LOGIN_FACEBOOK);
                     break;
                   default:
-                    // Show login dialog
-                    commit(LOGIN_DIALOG, true);
-                    commit(MENU, false);
+                    // No valid provider
                     break;
                 }
               }
               // if the credential is `undefined`
-            } else {
-              // Show login dialog
-              commit(LOGIN_DIALOG, true);
-              commit(MENU, false);
             }
           });
       }
-    } else {
-      // Show login dialog
-      commit(LOGIN_DIALOG, true);
-      commit(MENU, false);
     }
   },
   async [AUTHENTICATE]({ commit }) {
@@ -141,6 +137,7 @@ const actions = {
       const res = await api.get("/v1/user/", {});
       console.log(res);
       commit(SET_CURRENT_USER, res.data.user);
+      commit(LOGIN_DIALOG, false);
       commit(SET_LOADING, false);
     } catch (err) {
       handleError(commit, err);
@@ -154,6 +151,7 @@ const actions = {
       const res = await api.post("/v1/user/login", request);
       console.log(res);
       commit(SET_CURRENT_USER, res.data.user);
+      commit(LOGIN_DIALOG, false);
       if (res.data.token) {
         JwtService.saveToken(res.data.token);
       }
@@ -239,6 +237,7 @@ const actions = {
       const res = await api.post("/v1/user/third-party-login", request);
       console.log(res);
       commit(SET_CURRENT_USER, res.data.user);
+      commit(LOGIN_DIALOG, false);
       if (res.data.token) {
         JwtService.saveToken(res.data.token);
       }
@@ -336,12 +335,47 @@ const actions = {
       commit(SET_LOADING, false);
     }
   },
+  async [DELETE_ACCOUNT]({ commit }, payload) {
+    commit(SET_LOADING, true);
+    try {
+      const res = await api.delete(`/v1/user`);
+      console.log(res);
+      commit(SUCCESS, {
+        message: "Successfully deleted account, thanks for playing!"
+      });
+      commit(PURGE_AUTH); // remove all tokens
+      payload.onSuccess(); // close dialog
+      commit(SET_LOADING, false);
+    } catch (err) {
+      handleError(commit, err);
+      console.log(err.message);
+      commit(SET_LOADING, false);
+    }
+  },
+  async [DEACTIVATE_ACCOUNT]({ commit }, payload) {
+    commit(SET_LOADING, true);
+    try {
+      const res = await api.put(`/v1/user/deactivate`);
+      console.log(res);
+      commit(SUCCESS, {
+        message: "Successfully deactivated account, hope you come back soon!"
+      });
+      commit(PURGE_AUTH); // remove all tokens
+      payload.onSuccess(); // close dialog
+      commit(SET_LOADING, false);
+    } catch (err) {
+      handleError(commit, err);
+      console.log(err.message);
+      commit(SET_LOADING, false);
+    }
+  },
   async [SIGNUP]({ commit }, credentials) {
     commit(SET_LOADING, true);
     try {
       const res = await api.post("/v1/user/signup", credentials);
       console.log(res);
       commit(SET_CURRENT_USER, res.data.user);
+      commit(LOGIN_DIALOG, false);
       if (res.data.token) {
         JwtService.saveToken(res.data.token);
       }
