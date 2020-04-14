@@ -40,7 +40,12 @@
         <v-btn slot="activator" color="error" small>Sell</v-btn>
       </v-dialog> -->
       <v-spacer></v-spacer>
-      <v-btn icon :href="`https://reddit.com${meme.permalink}`" target="blank">
+      <v-btn
+        icon
+        :href="`https://reddit.com${meme.permalink}`"
+        aria-label="Open in Reddit"
+        target="blank"
+      >
         <v-icon>fab fa-reddit</v-icon>
       </v-btn>
       <!-- <v-btn icon @click="() => {}">
@@ -48,7 +53,7 @@
       </v-btn> -->
       <!-- <v-dialog v-model="share" width="700">
         <template v-slot:activator="{ on }"> -->
-      <v-btn icon @click="shareDialog()">
+      <v-btn icon @click="shareDialog()" aria-label="Share">
         <v-icon>share</v-icon>
       </v-btn>
       <!-- </template>
