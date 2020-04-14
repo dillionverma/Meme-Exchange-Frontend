@@ -36,6 +36,7 @@
                 <v-flex xs12>
                   <v-text-field
                     ref="username"
+                    type="text"
                     v-model="username"
                     label="Username"
                     hint="Choose wisely"
@@ -49,6 +50,7 @@
                 <v-flex xs12>
                   <v-text-field
                     ref="email"
+                    type="email"
                     v-model="email"
                     label="Email"
                     hint="We won't spam you, we promise"

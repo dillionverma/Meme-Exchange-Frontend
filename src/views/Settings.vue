@@ -130,7 +130,7 @@
         <v-dialog v-model="resetModal" width="700">
           <template v-slot:activator="{ on }">
             <v-btn
-              style="margin: 0"
+              style="margin: 5px"
               dark
               color="error"
               @click.stop="resetModal = true"
@@ -142,6 +142,36 @@
           </template>
           <ResetDialog :close="closeResetModal" />
         </v-dialog>
+        <v-dialog v-model="deactivateModal" width="700">
+          <template v-slot:activator="{ on }">
+            <v-btn
+              style="margin: 5px"
+              dark
+              color="error"
+              @click.stop="deactivateModal = true"
+              v-on="on"
+              v-show="isLoggedIn"
+            >
+              Deactivate Account
+            </v-btn>
+          </template>
+          <DeactivateDialog :close="closeDeactivateModal" />
+        </v-dialog>
+        <v-dialog v-model="deleteModal" width="700">
+          <template v-slot:activator="{ on }">
+            <v-btn
+              style="margin: 5px"
+              dark
+              color="error"
+              @click.stop="deleteModal = true"
+              v-on="on"
+              v-show="isLoggedIn"
+            >
+              Delete Account
+            </v-btn>
+          </template>
+          <DeleteDialog :close="closeDeleteModal" />
+        </v-dialog>
       </div>
     </v-flex>
   </v-layout>
@@ -150,17 +180,23 @@
 <script>
 import { DARK, USERNAME_DIALOG } from "@/store/app.module";
 import ResetDialog from "@/components/Reset";
+import DeleteDialog from "@/components/Delete";
+import DeactivateDialog from "@/components/Deactivate";
 
 export default {
   components: {
-    ResetDialog
+    ResetDialog,
+    DeleteDialog,
+    DeactivateDialog
   },
   data() {
     return {
       notifications: true,
       status: true,
       checking: false,
-      resetModal: false
+      resetModal: false,
+      deleteModal: false,
+      deactivateModal: false
     };
   },
   created() {
@@ -171,6 +207,12 @@ export default {
   methods: {
     closeResetModal() {
       this.resetModal = false;
+    },
+    closeDeleteModal() {
+      this.deleteModal = false;
+    },
+    closeDeactivateModal() {
+      this.deactivateModal = false;
     },
     saveRegistration(e) {
       this.registration = e.detail;

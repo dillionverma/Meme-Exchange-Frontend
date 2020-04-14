@@ -112,7 +112,6 @@ export default {
     },
     isLoggedIn: function() {
       if (this.isLoggedIn) {
-        this.$store.commit(LOGIN_DIALOG, false);
         this.authText = "Sign Out";
       } else {
         this.authText = "Sign In";
