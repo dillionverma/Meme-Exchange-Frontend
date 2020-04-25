@@ -52,10 +52,9 @@
 
 <script>
 /* global FB */
+import { SHARE_DIALOG } from "@/store/app.module";
+
 export default {
-  props: {
-    onClose: Function
-  },
   computed: {
     meme() {
       return this.$store.getters.shareMeme;
@@ -71,6 +70,9 @@ export default {
     }
   },
   methods: {
+    onClose() {
+      this.$store.commit(SHARE_DIALOG, false);
+    },
     copy() {
       const markup = this.$refs.link;
       markup.focus();
