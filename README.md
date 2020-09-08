@@ -1,4 +1,7 @@
-# Meme Exchange
+
+![Meme Exchange](https://github.com/dillionverma/Meme-Exchange-Frontend/blob/master/public/img/home.png)
+
+# [Meme Exchange](https://meme.exchange)
 
 ## About
 The Meme Exchange is an online web :computer: and mobile :iphone: platform which allows users to buy and sell memes for a profit :moneybag:.
