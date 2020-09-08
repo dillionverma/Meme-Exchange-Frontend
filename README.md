@@ -16,4 +16,4 @@ I am super passionate about cutting edge technologies and I really loved reading
 ## History
 I have been working on this project on and off for around 3 years. The first iteration was made using Ruby on Rails and pure HTML/CSS/JS back in 2017. We launched on facebook and had almost 1,000+ users on the first day. Over time, the backend and frontend were separated and Vue.js was adopted for the frontend wheras the backend was made into an API. 
 
-Just recently, I open sourced this project since I am no longer working on it. If you are interested in picking this up where I left off, let me know!
+Just recently, I open sourced this project since I am no longer working on it. **If you are interested in picking this up where I left off, reach out to me!**
