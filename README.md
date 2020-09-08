@@ -1,29 +1,7 @@
 # Meme Exchange
 
-## Project setup
-```
-yarn install
-```
+## About
+The Meme Exchange is an online web :computer: and mobile :iphone: platform which allows users to buy and sell memes for a profit :moneybag:.
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Inspiration
+The Meme Exchange is inspired by the people over at https://reddit.com/r/memeeconomy which is a community of people who pretend to invest in memes with virtual currencies, and the best memes provide the highest return on investment (ROI).
